@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/broadsheet-8310ee95-1d29-4861-8f00-9b7d07f3888f/styles.css">
+<script src="_ds/broadsheet-8310ee95-1d29-4861-8f00-9b7d07f3888f/_ds_bundle.js"></script>
+<script src="image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #ffffff; color: #111111; font-family: "Noto Sans KR", "Oswald", sans-serif; }
+  a { color: #111111; text-decoration: none; }
+  a:hover { color: #2c9f5c; }
+  ::selection { background: #2c9f5c; color: #ffffff; }
+  @keyframes dinoFade { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #ffffff; color: #111111; font-family: 'Noto Sans KR', sans-serif;">
+
+  
+
+  <header style="background: #2c9f5c; height: 79px; flex: none; display: flex; align-items: center; justify-content: center;">
+    <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
+      <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 31px; letter-spacing: 0.01em; line-height: 1;">DINOBIRD</span><span style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 15px; line-height: 1;">@ERA</span>
+      
+    </a>
+  </header><div style="flex: 1; min-height: 0; font-family: Oswald, sans-serif;">
+
+    <nav style="position: sticky; top: 0; z-index: 30; background: #ffffff; border-bottom: 1px solid #dcdcdc; display: flex; align-items: center; flex-wrap: wrap; gap: 4px clamp(18px, 2.6vw, 34px); padding: 0 clamp(18px, 3vw, 40px);">
+      <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 8px; height: 46px; text-decoration: none; color: #111111; margin-right: clamp(6px, 1.6vw, 18px);">
+        <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 26px; height: auto; display: block;">
+        <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.1em;">DINOBIRD AGENCY</span>
+      </a>
+      <a href="#" onClick="{{ goAbout }}" style="height: 46px; display: flex; align-items: center; font-size: 14px; font-weight: 300; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">About</a>
+      <div onMouseEnter="{{ openMenu }}" onMouseLeave="{{ closeMenu }}" style="position: relative;">
+        <a href="#" onClick="{{ toggleMenu }}" style="height: 46px; display: flex; align-items: center; font-size: 14px; font-weight: 300; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Dino Artist</a>
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position: absolute; left: -14px; top: 46px; min-width: 132px; background: #ffffff; border: 1px solid #dcdcdc; padding: 12px 0; display: flex; flex-direction: column; animation: dinoFade 160ms ease both; z-index: 40;">
+            <sc-for list="{{ menuCats }}" as="c" hint-placeholder-count="5">
+              <a href="#" onClick="{{ c.go }}" style="display: block; font-family: Oswald, sans-serif; font-weight: 300; font-size: 12.5px; letter-spacing: 0.06em; color: #4a4a4a; padding: 7px 16px; text-decoration: none;" style-hover="color: #111111; background: #f4f4f4;">{{ c.label }}</a>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <a href="#" onClick="{{ goLetter }}" style="height: 46px; display: flex; align-items: center; font-size: 14px; font-weight: 300; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Bird letter</a>
+      <a href="#" onClick="{{ goContact }}" style="height: 46px; display: flex; align-items: center; font-size: 14px; font-weight: 300; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">contact</a>
+      <span style="margin-left: auto; font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 0.14em; color: #6b6b6b;">SEOUL · SINCE 2026</span>
+    </nav>
+
+    <main style="min-width: 0; overflow-x: hidden; background: #ffffff;">
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+       <div>
+        <div style="position: relative; height: clamp(420px, 82vh, 860px); background: #111111;">
+          <video ref="{{ videoRef }}" data-dino-hero="1" src="media/dinobird-film.mp4" preload="auto" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; display: block; image-rendering: auto; backface-visibility: hidden; transform: translateZ(0);"></video>
+          <button type="button" onClick="{{ toggleSound }}" aria-label="{{ soundLabel }}" style="position: absolute; left: 16px; bottom: 16px; height: 34px; padding: 0 14px; display: inline-flex; align-items: center; gap: 8px; font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.62); border: 1px solid rgba(255, 255, 255, 0.5); cursor: pointer;" style-hover="background: #2c9f5c; border-color: #2c9f5c;">{{ soundLabel }}</button>
+          <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ false }}">
+            <span style="position: absolute; right: 18px; bottom: 14px; font-size: 13px; font-weight: 700; color: #ff2b2b;">(스트릿 비디오)</span>
+          </sc-if>
+        </div>
+
+        <section style="padding: 56px clamp(18px, 3vw, 40px) 0;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
+            <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">THIS YEAR ARTIST</h2>
+            <a href="#" onClick="{{ goAllArtists }}" style="font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">VIEW ALL ›</a>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 178px), 1fr)); gap: 34px clamp(12px, 1.6vw, 22px); padding-top: 26px;">
+            <sc-for list="{{ homeNew }}" as="a" hint-placeholder-count="4">
+              <article>
+                <a href="#" onClick="{{ a.open }}" style="text-decoration: none; color: #111111;">
+                  <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;">
+                    <image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot>
+                    <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
+                  </div>
+                  <h3 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h3>
+                </a>
+                <p style="font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #444444;">{{ a.tags }}</p>
+                <p style="font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.06em; margin: 3px 0 0; color: #6b6b6b;">{{ a.cat }}</p>
+              </article>
+            </sc-for>
+          </div>
+        </section>
+
+        <section style="padding: 60px clamp(18px, 3vw, 40px) 0;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
+            <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">SECTION</h2>
+            <span style="font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b;">5 CATEGORIES</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px;">
+            <sc-for list="{{ sectionTiles }}" as="t" hint-placeholder-count="5">
+              <a href="#" onClick="{{ t.go }}" style="flex: 1 1 176px; display: flex; flex-direction: column; justify-content: space-between; gap: 34px; min-height: 148px; padding: 18px; background: #ffffff; border: 1px solid #dcdcdc; text-decoration: none; color: #111111;" style-hover="background: #2c9f5c; border-color: #2c9f5c;">
+                <span style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.06em;">{{ t.label }}</span>
+                <span style="font-size: 11px; line-height: 1.7; color: #111111;">{{ t.note }}</span>
+                <span style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 10.5px; letter-spacing: 0.1em; color: #111111;">{{ t.count }} ARTISTS ›</span>
+              </a>
+            </sc-for>
+          </div>
+        </section>
+
+        <section style="padding: 60px clamp(18px, 3vw, 40px) 0;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
+            <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">BIRD LETTER</h2>
+            <a href="#" onClick="{{ goLetter }}" style="font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">SUBSCRIBE ›</a>
+          </div>
+          <sc-for list="{{ homeLetters }}" as="l" hint-placeholder-count="3">
+            <a href="#" onClick="{{ goLetter }}" style="display: grid; grid-template-columns: 52px minmax(0, 1fr) 96px; gap: 16px; align-items: baseline; padding: 16px 4px; border-bottom: 1px solid #dcdcdc; text-decoration: none; color: #111111;" style-hover="background: #f6f6f6;">
+              <span style="font-family: Oswald, sans-serif; font-size: 11.5px; color: #6b6b6b;">{{ l.no }}</span>
+              <span style="font-size: 13px; line-height: 1.6;">{{ l.title }}</span>
+              <span style="font-family: Oswald, sans-serif; font-size: 11px; color: #6b6b6b; text-align: right;">{{ l.date }}</span>
+            </a>
+          </sc-for>
+        </section>
+
+        <section style="padding: 60px clamp(18px, 3vw, 40px) 0;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(20px, 3vw, 44px); align-items: center; padding: 34px 0; border-top: 1px solid #111111; border-bottom: 1px solid #111111;">
+            <div>
+              <p style="font-family: Oswald, sans-serif; font-weight: 600; font-size: clamp(20px, 2.4vw, 27px); line-height: 1.2; margin: 0;">WE CREATE THE ERA</p>
+              <p style="font-size: 13px; line-height: 1.9; margin: 10px 0 0; color: #4a4a4a;">캐스팅·브랜드 협업·공연 섭외 — 브리프 한 줄로 시작해도 48시간 안에 회신드립니다.</p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <a href="#" onClick="{{ goContact }}" style="height: 42px; display: inline-flex; align-items: center; padding: 0 24px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; text-decoration: none;" style-hover="background: #23834b;">CASTING 문의</a>
+              <a href="#" onClick="{{ goAbout }}" style="height: 42px; display: inline-flex; align-items: center; padding: 0 24px; font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">ABOUT DINOBIRD</a>
+            </div>
+          </div>
+        </section>
+
+        <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
+          <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
+            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
+            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+          </a>
+          <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
+          </div>
+        </footer>
+       </div>
+      </sc-if>
+
+      <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <section style="position: relative; height: clamp(360px, 56vh, 560px); overflow: hidden;">
+            <img src="assets/about-hero.png" alt="DINOBIRD campaign" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; display: block; filter: blur(7px) brightness(1.12) saturate(0.9); transform: scale(1.06);">
+            <div style="position: absolute; inset: 0; background: rgba(255, 255, 255, 0.42);"></div>
+            <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px;">
+              <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(38px, 5.4vw, 58px); line-height: 1; margin: 0;">DINOBIRD</h1>
+              <p style="font-family: Oswald, sans-serif; font-weight: 600; font-size: clamp(24px, 3.6vw, 38px); line-height: 1.1; margin: 6px 0 0;">WE CREATE THE ERA</p>
+              <p style="font-weight: 700; font-size: clamp(18px, 2.7vw, 31px); line-height: 1.3; margin: 58px 0 0;">아티스트의 가치를 새로운 시대로</p>
+            </div>
+            <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ false }}">
+              <span style="position: absolute; right: 18px; bottom: 12px; font-size: 13px; font-weight: 700; color: #ff2b2b;">(핫컬러 B컷)</span>
+            </sc-if>
+          </section>
+
+          <section style="background: #e4ecf5; padding: 0 0 26px; display: flex; justify-content: center;">
+            <img src="assets/about-band.png" alt="DINOBIRD artist" style="width: min(76%, 780px); height: auto; display: block;">
+          </section>
+
+          <section style="padding: clamp(60px, 9vw, 116px) 20px 0 clamp(28px, 11vw, 130px);">
+            <p style="font-size: 13.5px; line-height: 2; margin: 0;">공룡에서 새로 이어진 진화처럼<br>예술 역시 시대에 따라 변화하고 확장됩니다.<br>DINOBIRD는 변화와 진화, 새로운 가능성을 의미합니다.</p>
+            <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">DINOBIRD는 아티스트를 상징합니다.<br>서로 다른 개성과 전문성을 가진 아티스트들이 각자의 방식으로 진화하고,<br>그들의 예술이 모여 새로운 시대를 만듭니다.</p>
+            <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">아티스트들이 모여 하나의 새로운 문화를 만들어가는 브랜드.</p>
+            <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">DINOBIRD는 아티스트와 함께 새로운 예술의 ERA를 만들어갑니다.</p>
+            <p style="font-family: Oswald, sans-serif; font-weight: 500; font-size: 15px; line-height: 1.6; margin: 26px 0 0;">WE CREATE THE ERA.<br>DINOBIRD ERA.</p>
+          </section>
+
+          <section style="padding: clamp(80px, 12vw, 150px) 20px clamp(90px, 13vw, 160px); text-align: center;">
+            <p style="font-size: 15px; line-height: 2.1; margin: 0;">DINOBIRD는 댄서를 중심으로 새로운 예술의 ERA를 만들어가는 아티스트 에이전시입니다.<br>아티스트는 각자의 전문성과 개성을 가지고 있습니다.<br>DINOBIRD는 그 가치를 정확하게 이해하고, 아티스트에게 가장 적합한 기회와 프로젝트를 연결합니다.</p>
+            <p style="font-size: 15px; line-height: 2.1; margin: 34px 0 0;">댄스와 퍼포먼스를 기반으로 안무, 공연, 콘텐츠, 음악, 패션, 브랜드 협업 등<br>아티스트가 가진 역량을 다양한 영역으로 확장합니다.</p>
+            <p style="font-size: 15px; line-height: 2.1; margin: 34px 0 0;">아티스트의 가치를 잘 아는 것.<br>그리고 그 가치로 새로운 예술을 만들어가는 것.<br>DINOBIRD의 매니지먼트는 여기에서 시작합니다.</p>
+            <p style="font-size: 15px; line-height: 2.1; margin: 34px 0 0;">각자의 전문성과 개성이 하나의 결과를 만들고,<br>그 결과들이 모여 새로운 문화와 예술의 흐름을 만듭니다.<br>DINOBIRD는 그 흐름을 통해 새로운 예술의 시대, ERA를 만들어갑니다.</p>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isArtists }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 34px clamp(18px, 3vw, 40px) 0;">
+          <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">{{ catTitle }}</h1>
+          <p style="font-size: 12px; line-height: 1.8; margin: 10px 0 0; color: #666666;">{{ catNote }}</p>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 30px 0 0; padding-bottom: 14px; border-bottom: 1px solid #111111;">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+              <span>
+                <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
+                  <a href="#" onClick="{{ t.go }}" style="font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #2c9f5c; font-weight: 600; text-decoration: none;">{{ t.text }}</a>
+                </sc-if>
+                <sc-if value="{{ t.inactive }}" hint-placeholder-val="{{ true }}">
+                  <a href="#" onClick="{{ t.go }}" style="font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; font-weight: 400; text-decoration: none;" style-hover="color: #2c9f5c;">{{ t.text }}</a>
+                </sc-if>
+              </span>
+            </sc-for>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px 20px; padding: 14px 0 22px;">
+            <span style="font-size: 11.5px; color: #666666;">{{ countLabel }}</span>
+            <div style="display: flex; gap: 14px;">
+              <sc-for list="{{ sorts }}" as="s" hint-placeholder-count="3">
+                <span>
+                  <sc-if value="{{ s.active }}" hint-placeholder-val="{{ false }}">
+                    <a href="#" onClick="{{ s.go }}" style="font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #111111; font-weight: 600; border-bottom: 1px solid #111111; text-decoration: none;">{{ s.label }}</a>
+                  </sc-if>
+                  <sc-if value="{{ s.inactive }}" hint-placeholder-val="{{ true }}">
+                    <a href="#" onClick="{{ s.go }}" style="font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #767676; text-decoration: none;" style-hover="color: #111111;">{{ s.label }}</a>
+                  </sc-if>
+                </span>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 178px), 1fr)); gap: 40px clamp(12px, 1.6vw, 22px);">
+            <sc-for list="{{ listed }}" as="a" hint-placeholder-count="8">
+              <article style="display: flex; flex-direction: column; animation: dinoFade 220ms ease both;">
+                <a href="#" onClick="{{ a.open }}" style="display: block; text-decoration: none; color: #111111;">
+                  <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;" style-hover="outline: 1px solid #111111; outline-offset: 0;">
+                    <image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot>
+                    <sc-if value="{{ a.hasBadge }}" hint-placeholder-val="{{ false }}">
+                      <span style="position: absolute; left: 8px; top: 8px; font-family: Oswald, sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; padding: 3px 7px; background: #111111; color: #ffffff;">{{ a.badge }}</span>
+                    </sc-if>
+                    <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
+                  </div>
+                  <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h2>
+                </a>
+                <p style="font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #444444;">{{ a.tags }}</p>
+                <p style="font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.06em; margin: 3px 0 0; color: #6b6b6b;">{{ a.stat }} · {{ a.cat }}</p>
+              </article>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ listEmpty }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size: 13px; line-height: 2; margin: 0;">이 섹션의 아티스트 프로필은 준비 중입니다.<br>캐스팅 문의는 dinobird@gmail.com 으로 보내주세요.</p>
+          </sc-if>
+
+          <div style="display: flex; justify-content: center; align-items: baseline; gap: 14px; padding: 60px 0 0;">
+            <a href="#" onClick="{{ goPrevPage }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">‹ PREV</a>
+            <sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
+              <span>
+                <sc-if value="{{ p.active }}" hint-placeholder-val="{{ true }}">
+                  <a href="#" onClick="{{ p.go }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #111111; font-weight: 600; border-bottom: 1px solid #111111; text-decoration: none;">{{ p.label }}</a>
+                </sc-if>
+                <sc-if value="{{ p.inactive }}" hint-placeholder-val="{{ false }}">
+                  <a href="#" onClick="{{ p.go }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">{{ p.label }}</a>
+                </sc-if>
+              </span>
+            </sc-for>
+            <a href="#" onClick="{{ goNextPage }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">NEXT ›</a>
+          </div>
+
+          <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
+          <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
+            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
+            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+          </a>
+          <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
+          </div>
+        </footer>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isArtist }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 34px clamp(18px, 3vw, 40px) 0;">
+          <div style="display: flex; gap: 8px; align-items: baseline; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.06em; color: #6b6b6b;">
+            <a href="#" onClick="{{ backToList }}" style="color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">DINO ARTIST</a>
+            <span>/</span>
+            <a href="#" onClick="{{ backToList }}" style="color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">{{ detail.cat }}</a>
+            <span>/</span>
+            <span style="color: #111111;">{{ detail.name }}</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(24px, 4vw, 56px); margin-top: 26px;">
+            <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; background: #f2f2f2;">
+              <image-slot id="{{ detail.slotBig }}" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot>
+            </div>
+            <div>
+              <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; margin: 0;">{{ detail.name }}</h1>
+              <p style="font-size: 12.5px; line-height: 1.8; margin: 8px 0 0; color: #444444;">{{ detail.tags }}</p>
+              <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">{{ detail.bio }}</p>
+
+              <dl style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 0; margin: 34px 0 0; font-size: 12px;">
+                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">SECTION</dt>
+                <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.cat }}</dd>
+                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">SIZE</dt>
+                <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.stat }}</dd>
+                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">BASE</dt>
+                <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.base }}</dd>
+                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">CREDITS</dt>
+                <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">{{ detail.credits }}</dd>
+              </dl>
+
+              <div style="display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap;">
+                <a href="#" onClick="{{ goContact }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; text-decoration: none;" style-hover="background: #23834b;">캐스팅 문의</a>
+                <a href="#" onClick="{{ backToList }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">목록으로</a>
+              </div>
+            </div>
+          </div>
+
+          <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.08em; margin: 70px 0 18px; color: #6b6b6b;">SAME SECTION</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 178px), 1fr)); gap: 30px clamp(12px, 1.6vw, 22px);">
+            <sc-for list="{{ related }}" as="a" hint-placeholder-count="4">
+              <article>
+                <a href="#" onClick="{{ a.open }}" style="text-decoration: none; color: #111111;">
+                  <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;">
+                    <image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot>
+                  </div>
+                  <h3 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; margin: 10px 0 0;">{{ a.name }}</h3>
+                </a>
+                <p style="font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #444444;">{{ a.tags }}</p>
+              </article>
+            </sc-for>
+          </div>
+
+          <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
+          <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
+            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
+            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+          </a>
+          <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
+          </div>
+        </footer>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isLetter }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 34px clamp(18px, 3vw, 40px) 0; max-width: 900px;">
+          <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">Bird letter</h1>
+          <p style="font-size: 13.5px; line-height: 2; margin: 14px 0 0;">DINOBIRD가 한 달에 한 번, 아티스트의 새로운 작업과 오디션·프로젝트 소식을 보냅니다.<br>광고는 없습니다. 편지 한 통 분량입니다.</p>
+
+          <div style="display: flex; gap: 10px; margin-top: 30px; max-width: 430px;">
+            <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="dinobird@gmail.com" aria-label="이메일" style="flex: 1; min-width: 0; height: 40px; padding: 0 12px; font-size: 13px; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; border-radius: 0;">
+            <button type="button" onClick="{{ subscribe }}" style="height: 40px; padding: 0 22px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; border: 0; cursor: pointer;" style-hover="background: #23834b;">구독</button>
+          </div>
+          <p style="font-size: 12px; line-height: 2; margin: 12px 0 0; color: #2c9f5c;">{{ letterMsg }}</p>
+
+          <div style="margin-top: 56px; border-top: 1px solid #111111;">
+            <sc-for list="{{ letters }}" as="l" hint-placeholder-count="5">
+              <a href="#" onClick="{{ l.noop }}" style="display: grid; grid-template-columns: 58px minmax(0, 1fr) 96px; gap: 16px; align-items: baseline; padding: 18px 4px; border-bottom: 1px solid #dcdcdc; text-decoration: none; color: #111111;" style-hover="background: #f6f6f6;">
+                <span style="font-family: Oswald, sans-serif; font-size: 12px; color: #6b6b6b;">{{ l.no }}</span>
+                <span style="font-size: 13.5px; line-height: 1.6;">{{ l.title }}</span>
+                <span style="font-family: Oswald, sans-serif; font-size: 11.5px; color: #6b6b6b; text-align: right;">{{ l.date }}</span>
+              </a>
+            </sc-for>
+          </div>
+
+          <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
+          <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
+            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
+            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+          </a>
+          <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
+          </div>
+        </footer>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 34px clamp(18px, 3vw, 40px) 0; max-width: 940px;">
+          <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">contact</h1>
+          <p style="font-size: 13.5px; line-height: 2; margin: 14px 0 0;">캐스팅, 브랜드 협업, 공연 섭외, 아티스트 지원 모두 같은 주소로 받습니다.<br>브리프 한 줄로 시작해도 괜찮습니다. 48시간 안에 회신드립니다.</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(28px, 4vw, 60px); margin-top: 44px;">
+            <div>
+              <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 26px; background: #f2f7f3; border: 1px solid #2c9f5c;">
+                  <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.06em; margin: 0 0 8px; color: #23834b;">RECEIVED</h2>
+                  <p style="font-size: 13px; line-height: 1.9; margin: 0;">{{ sentName }} 님, 문의가 접수되었습니다. 48시간 안에 회신드립니다.</p>
+                </div>
+              </sc-if>
+              <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
+                    NAME / BRAND
+                    <input type="text" value="{{ form.name }}" onChange="{{ onName }}" placeholder="스튜디오 하루" style="height: 40px; padding: 0 12px; font-size: 13px; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc;">
+                  </label>
+                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
+                    EMAIL
+                    <input type="email" value="{{ form.email }}" onChange="{{ onFormEmail }}" placeholder="you@studio.kr" style="height: 40px; padding: 0 12px; font-size: 13px; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc;">
+                  </label>
+                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
+                    BRIEF
+                    <textarea rows="5" value="{{ form.brief }}" onChange="{{ onBrief }}" placeholder="촬영 형태, 일정, 필요한 인원 수" style="padding: 10px 12px; font-size: 13px; line-height: 1.8; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; resize: vertical;"></textarea>
+                  </label>
+                  <button type="button" onClick="{{ submit }}" style="align-self: flex-start; height: 42px; padding: 0 26px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; border: 0; cursor: pointer;" style-hover="background: #23834b;">문의 보내기</button>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 26px;">
+              <div>
+                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">EMAIL</h2>
+                <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">dinobird@gmail.com</p>
+              </div>
+              <div>
+                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">PHONE</h2>
+                <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">+82 10-5064-4961</p>
+              </div>
+              <div>
+                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">CEO</h2>
+                <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">Yoon Jiwon, Jang saeyan</p>
+              </div>
+              <div>
+                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">ARTIST 지원</h2>
+                <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">프로필과 영상 링크를 메일로 보내주세요. 상시 접수합니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
+          <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
+            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
+            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+          </a>
+          <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
+          </div>
+        </footer>
+        </div>
+      </sc-if>
+
+    </main>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAnnotations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;시안 옵션&quot;}}">
+const CATS = ["DIRECTOR", "HOT COLOR", "PURE", "STREET", "ERA"];
+const CAT_NOTE = {
+  ALL: "DINOBIRD 전속 아티스트 전체 로스터입니다. 섹션을 눌러 성향별로 볼 수 있습니다.",
+  DIRECTOR: "무브먼트 디렉션과 안무 총괄. 브리프 단계부터 카메라 블로킹까지 함께 설계합니다.",
+  "HOT COLOR": "컬러가 강한 캠페인·에디토리얼용. 카메라 앞에서 강도가 올라가는 아티스트.",
+  PURE: "라인과 호흡이 중심. 컨템포러리·발레 기반의 긴 컷에 강합니다.",
+  STREET: "스트릿 기반. 프레임 단위 컨트롤과 크루 단위 퍼포먼스.",
+  ERA: "장르를 넘나드는 신인 라인업. 새로운 시대의 첫 줄.",
+};
+const A = (name, cat, tags, stat, base, credits, bio) => ({ name, cat, tags, stat, base, credits, bio });
+const ARTISTS = [
+  A("Seoyun Lee", "HOT COLOR", "Waaking, Jazz, Contemporary, Model", "53/168", "Seoul", "뷰티 캠페인, 매거진 에디토리얼, 브랜드 필름", "왁킹을 기반으로 재즈와 컨템포러리를 오가며, 컬러가 강한 화면에서 표정과 손끝까지 설계하는 아티스트입니다."),
+  A("Miru Han", "HOT COLOR", "Waacking, Voguing, Performance", "50/165", "Seoul", "라이브 이벤트, 팝업 퍼포먼스, 뮤직비디오", "무대 장악형 퍼포머. 라이브와 팝업처럼 한 번에 끝나는 현장에서 가장 강합니다."),
+  A("Nabi Seo", "HOT COLOR", "Jazz, Heels, Commercial", "51/167", "Seoul", "패션 필름, 커머셜, 아이돌 안무 피처링", "힐과 재즈를 중심으로 광고 길이에 맞춰 동작을 접는 감각이 좋습니다."),
+  A("Jiwon Yoon", "DIRECTOR", "Movement Director, Choreographer", "—", "Seoul / Paris", "컬렉션 런웨이, 브랜드 캠페인 디렉션", "브리프를 읽고 레퍼런스의 리듬을 세어, 그 리듬을 견딜 수 있는 캐스팅과 동작을 함께 설계합니다."),
+  A("Saeyan Jang", "DIRECTOR", "Creative Director, Casting", "—", "Seoul", "캠페인 캐스팅, 퍼포먼스 프로덕션", "아티스트의 강점과 프로젝트의 목적을 맞추는 캐스팅 디렉션을 담당합니다."),
+  A("Doyun Park", "DIRECTOR", "Choreographer, Stage Direction", "—", "Seoul", "극장 프로덕션, 페스티벌 무대", "극장과 페스티벌 규모의 무대를 안무·동선·조명 큐까지 묶어 정리합니다."),
+  A("Soeun Han", "PURE", "Ballet, Neo-classical, Contemporary", "48/170", "Seoul", "브랜드 필름, 극장 프로덕션", "클래식 훈련 15년. 의상 무게가 있는 촬영과 원테이크 긴 컷에 배치합니다."),
+  A("Sea Kim", "PURE", "Contemporary, Improvisation", "50/169", "Seoul", "무용단 협업, 아트 필름", "즉흥을 기반으로 한 호흡이 길고, 카메라 무빙과 함께 설계하는 작업에 적합합니다."),
+  A("Rumi Oh", "PURE", "Contemporary, Floor Work", "49/166", "Busan", "아트 필름, 전시 퍼포먼스", "바닥을 쓰는 동작이 정확하고, 좁은 공간의 촬영에서도 라인이 유지됩니다."),
+  A("Taeo", "STREET", "Popping, Animation", "62/176", "Seoul", "제품 인서트, 스포츠 캠페인", "프레임 단위로 멈추는 컨트롤. 제품 인서트 컷과 고속 촬영에 강합니다."),
+  A("Woojin Jung", "STREET", "Hip-hop, House, Crew Work", "64/178", "Seoul", "광고 캠페인, 뮤직비디오", "스트릿 기반 안무가. 8카운트를 15초 광고에 맞게 접는 편집 감각이 있습니다."),
+  A("Hoon", "STREET", "Breaking, Power Move", "60/172", "Incheon", "스포츠 브랜드, 페스티벌", "브레이킹 파워무브. 야외 로케이션과 넓은 앵글에서 가장 잘 보입니다."),
+  A("Seoa", "ERA", "Jazz, K-pop, Model", "47/169", "Seoul", "아이돌 퍼포먼스, 커머셜", "신인 라인업. 안무 습득이 빠르고 카메라 적응이 좋습니다."),
+  A("Yuna Ko", "ERA", "Heels, Commercial", "48/171", "Seoul", "패션 캠페인, 라이브", "런웨이 워킹과 힐 안무를 함께 소화하는 신인 아티스트."),
+];
+const LETTERS = [
+  { no: "05", title: "2026 로스터 오픈 — 다섯 섹션으로 다시 정리했습니다", date: "2026.09.01" },
+  { no: "04", title: "성수 스튜디오 오픈 리허설과 오디션 일정", date: "2026.08.01" },
+  { no: "03", title: "캠페인 촬영 현장에서 무브먼트 디렉터가 하는 일", date: "2026.07.01" },
+  { no: "02", title: "아티스트 계약과 2차 사용 범위, 쉽게 정리하기", date: "2026.06.01" },
+  { no: "01", title: "DINOBIRD ERA — 첫 번째 편지", date: "2026.05.01" },
+];
+const PER_PAGE = 8;
+const slugify = (s) => "dino-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+class Component extends DCLogic {
+  video = React.createRef();
+  state = { muted: true, page: "home", cat: "ALL", sort: "NEW", listPage: 0, artist: null, menuOpen: false, email: "", letterMsg: "", form: { name: "", email: "", brief: "" }, sent: false, sentName: "" };
+
+  nav(page, extra) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState(Object.assign({ page: page, menuOpen: false }, extra || {}));
+    };
+  }
+
+  card(a) {
+    const idx = ARTISTS.indexOf(a);
+    const badge = a.cat === "ERA" ? "NEW" : idx % 5 === 0 ? "BEST" : "";
+    return {
+      name: a.name,
+      tags: a.tags,
+      stat: a.stat,
+      cat: a.cat,
+      badge: badge,
+      hasBadge: badge !== "",
+      slot: slugify(a.name),
+      open: this.nav("artist", { artist: a.name }),
+    };
+  }
+
+  componentDidUpdate() {
+    const el = (this.video && this.video.current) || document.querySelector('video[data-dino-hero]');
+    if (el && el.muted !== this.state.muted) { el.muted = this.state.muted; el.volume = 1; }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const inCat = s.cat === "ALL" ? ARTISTS.slice() : ARTISTS.filter((a) => a.cat === s.cat);
+    const sorted = s.sort === "NAME" ? inCat.slice().sort((x, y) => x.name.localeCompare(y.name)) : s.sort === "SECTION" ? inCat.slice().sort((x, y) => CATS.indexOf(x.cat) - CATS.indexOf(y.cat)) : inCat;
+    const pageCount = Math.max(1, Math.ceil(sorted.length / PER_PAGE));
+    const cur = Math.min(s.listPage, pageCount - 1);
+    const listed = sorted.slice(cur * PER_PAGE, cur * PER_PAGE + PER_PAGE);
+    const detailArtist = ARTISTS.find((a) => a.name === s.artist) || ARTISTS[0];
+    const related = ARTISTS.filter((a) => a.cat === detailArtist.cat && a.name !== detailArtist.name).slice(0, 4);
+
+    return {
+      isHome: s.page === "home",
+      isAbout: s.page === "about",
+      isArtists: s.page === "artists",
+      isArtist: s.page === "artist",
+      isLetter: s.page === "letter",
+      isContact: s.page === "contact",
+      showAnnotations: this.props.showAnnotations ?? false,
+      videoRef: this.video,
+      videoMuted: s.muted,
+      soundLabel: s.muted ? "SOUND ON" : "SOUND OFF",
+      toggleSound: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const el = (this.video && this.video.current) || document.querySelector('video[data-dino-hero]') || document.querySelector('video');
+        if (!el) return;
+        const next = !el.muted;
+        el.muted = next;
+        el.defaultMuted = next;
+        el.volume = 1;
+        const p = el.play();
+        if (p && p.catch) p.catch(() => {});
+        this.setState({ muted: next });
+      },
+      menuOpen: s.menuOpen,
+
+      menuCats: CATS.map((c) => ({ label: c, go: this.nav("artists", { cat: c, listPage: 0 }) })),
+      catTitle: s.cat === "ALL" ? "Dino Artist" : s.cat === "HOT COLOR" ? "Hot Color" : s.cat.charAt(0) + s.cat.slice(1).toLowerCase(),
+      catNote: CAT_NOTE[s.cat],
+      tabs: ["ALL"].concat(CATS).map((c) => {
+        const n = c === "ALL" ? ARTISTS.length : ARTISTS.filter((a) => a.cat === c).length;
+        return { text: c + " (" + n + ")", active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
+      }),
+      sorts: ["NEW", "NAME", "SECTION"].map((k) => ({ label: k, active: s.sort === k, inactive: s.sort !== k, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sort: k, listPage: 0 }); } })),
+      countLabel: sorted.length + " ARTISTS",
+      listed: listed.map((a) => this.card(a)),
+      listEmpty: sorted.length === 0,
+      homeNew: ARTISTS.filter((a) => a.cat === "ERA" || a.cat === "HOT COLOR").slice(0, 4).map((a) => this.card(a)),
+      sectionTiles: CATS.map((c) => ({ label: c, note: CAT_NOTE[c], count: ARTISTS.filter((a) => a.cat === c).length, go: this.nav("artists", { cat: c, listPage: 0 }) })),
+      homeLetters: LETTERS.slice(0, 3),
+      goAllArtists: this.nav("artists", { cat: "ALL", listPage: 0 }),
+      goPrevPage: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ listPage: Math.max(0, cur - 1) }); },
+      goNextPage: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ listPage: Math.min(pageCount - 1, cur + 1) }); },
+      pages: Array.from({ length: pageCount }, (_, i) => ({ label: String(i + 1), active: i === cur, inactive: i !== cur, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ listPage: i }); } })),
+
+      detail: {
+        name: detailArtist.name,
+        cat: detailArtist.cat,
+        tags: detailArtist.tags,
+        stat: detailArtist.stat,
+        base: detailArtist.base,
+        credits: detailArtist.credits,
+        bio: detailArtist.bio,
+        slotBig: slugify(detailArtist.name) + "-main",
+      },
+      related: related.map((a) => this.card(a)),
+      backToList: this.nav("artists", { cat: detailArtist.cat }),
+
+      goHome: this.nav("home"),
+      goAbout: this.nav("about"),
+      goLetter: this.nav("letter"),
+      goContact: this.nav("contact"),
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      toggleMenu: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState((p) => ({ menuOpen: !p.menuOpen })); },
+
+      letters: LETTERS.map((l) => Object.assign({}, l, { noop: (e) => { if (e && e.preventDefault) e.preventDefault(); } })),
+      email: s.email,
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      subscribe: () => this.setState({ letterMsg: s.email ? "구독 신청이 접수되었습니다. 첫 편지는 다음 달 첫 주에 도착합니다." : "이메일 주소를 입력해주세요." }),
+      letterMsg: s.letterMsg,
+
+      form: s.form,
+      onName: (e) => this.setState({ form: Object.assign({}, s.form, { name: e.target.value }) }),
+      onFormEmail: (e) => this.setState({ form: Object.assign({}, s.form, { email: e.target.value }) }),
+      onBrief: (e) => this.setState({ form: Object.assign({}, s.form, { brief: e.target.value }) }),
+      submit: () => this.setState({ sent: true, sentName: s.form.name || "고객" }),
+      sent: s.sent,
+      notSent: !s.sent,
+      sentName: s.sentName,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

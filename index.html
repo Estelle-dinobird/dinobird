@@ -668,12 +668,17 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
-    const cloud = window.DinoCloud;
-    if (cloud && cloud.configured) {
+    let n = 0;
+    const waitCloud = () => {
+      const cloud = window.DinoCloud;
+      if (!cloud) { if (++n < 100) this._waitCloud = setTimeout(waitCloud, 50); return; }
+      if (!cloud.configured) return;
       cloud.loadContent().then((d) => { if (d) this.applyCms(d); }).catch(() => {});
       cloud.subscribeContent((d) => this.applyCms(d)).catch(() => {});
       cloud.track("/");
-    }
+    };
+    waitCloud();
+    const cloud = window.DinoCloud;
     try {
       const raw = (cloud && cloud.configured) ? null : localStorage.getItem("dinobird-cms-v2");
       if (raw) this.applyCms(JSON.parse(raw));
@@ -707,6 +712,7 @@ class Component extends DCLogic {
     clearInterval(this._keepAlive);
     document.removeEventListener('visibilitychange', this._onVis);
     window.removeEventListener("storage", this._onStore);
+    clearTimeout(this._waitCloud);
     if (this._bc) this._bc.close();
   }
 

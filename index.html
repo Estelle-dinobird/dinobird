@@ -16,46 +16,45 @@
 <script src="dino-cloud.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
 <style>
-  body { margin: 0; background: #ffffff; color: #111111; font-family: "Noto Sans KR", "Oswald", sans-serif; }
+  body { margin: 0; background: #ffffff; color: #111111; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
   a { color: #111111; text-decoration: none; }
-  a:hover { color: #2c9f5c; }
-  ::selection { background: #2c9f5c; color: #ffffff; }
+  a:hover { color: #6b6b6b; }
+  ::selection { background: #111111; color: #ffffff; }
   @keyframes dinoFade { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </helmet>
 
-<div style="min-height: 100vh; display: flex; flex-direction: column; background: #ffffff; color: #111111; font-family: 'Noto Sans KR', sans-serif;">
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #ffffff; color: #111111; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; position: relative">
 
   
 
-  <header style="background: #2c9f5c; height: clamp(58px, 14vw, 79px); flex: none; display: flex; align-items: center; justify-content: center; padding: 0 16px;">
-    <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
-      <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(21px, 6.4vw, 31px); letter-spacing: 0.01em; line-height: 1;">DINOBIRD</span><span style="font-family: Oswald, sans-serif; font-weight: 600; font-size: clamp(11px, 3.2vw, 15px); line-height: 1;">@ERA</span>
+  <header style="background: #ffffff; border-bottom: 1px solid #dcdcdc; height: clamp(58px, 14vw, 79px); flex: none; display: flex; align-items: center; justify-content: center; padding: 0 16px;">
+    <a href="#" onClick="{{ goHome }}" aria-label="DINOBIRD" style="position: relative; display: block; font-size: clamp(24px, 7vw, 36px); line-height: 1; padding: 0; text-decoration: none; color: #111111;">
+      
+      <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 1em; letter-spacing: -0.01em; line-height: 1; white-space: nowrap;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.06em; vertical-align: baseline;"></span></span>
       
     </a>
-  </header><div style="flex: 1; min-height: 0; font-family: Oswald, sans-serif;">
+  </header><div style="flex: 1; min-height: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; position: relative">
 
     <nav style="position: sticky; top: 0; z-index: 30; background: #ffffff; border-bottom: 1px solid #dcdcdc; display: flex; align-items: center; flex-wrap: wrap; gap: 0 clamp(14px, 2.6vw, 34px); padding: 0 clamp(14px, 3vw, 40px);">
       <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 8px; height: clamp(40px, 11vw, 46px); text-decoration: none; color: #111111; margin-right: clamp(4px, 1.6vw, 18px); white-space: nowrap;">
-        <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: clamp(20px, 5.6vw, 26px); height: auto; display: block;">
-        <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.1em;">DINOBIRD AGENCY</span>
+        <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.06em;">DINOBIRD AGENCY</span>
       </a>
       <a href="#" onClick="{{ goAbout }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">About</a>
       <div onMouseEnter="{{ openMenu }}" onMouseLeave="{{ closeMenu }}" style="position: relative;">
-        <a href="#" onClick="{{ toggleMenu }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Dino Artist</a>
+        <a href="#" onClick="{{ toggleMenu }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Artist</a>
         <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
           <div style="position: absolute; left: -14px; top: 46px; min-width: 132px; background: #ffffff; border: 1px solid #dcdcdc; padding: 12px 0; display: flex; flex-direction: column; animation: dinoFade 160ms ease both; z-index: 40;">
             <sc-for list="{{ menuCats }}" as="c" hint-placeholder-count="5">
-              <a href="#" onClick="{{ c.go }}" style="display: block; font-family: Oswald, sans-serif; font-weight: 300; font-size: 12.5px; letter-spacing: 0.06em; color: #4a4a4a; padding: 7px 16px; text-decoration: none;" style-hover="color: #111111; background: #f4f4f4;">{{ c.label }}</a>
+              <a href="#" onClick="{{ c.go }}" style="display: block; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 300; font-size: 12.5px; letter-spacing: 0.06em; color: #4a4a4a; padding: 7px 16px; text-decoration: none;" style-hover="color: #111111; background: #f4f4f4;">{{ c.label }}</a>
             </sc-for>
           </div>
         </sc-if>
       </div>
-      <a href="#" onClick="{{ goLetter }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Bird letter</a>
+      <a href="#" onClick="{{ goLetter }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Letter</a>
       <a href="#" onClick="{{ goContact }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Contact</a>
-      <span style="margin-left: auto; font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 0.14em; color: #6b6b6b; white-space: nowrap; overflow: hidden; max-width: 34vw;">SEOUL · SINCE 2026</span>
+      <span style="margin-left: auto; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10px; letter-spacing: 0.14em; color: #6b6b6b; white-space: nowrap; overflow: hidden; max-width: 34vw;">SEOUL · SINCE 2026</span>
     </nav>
 
     <main style="min-width: 0; overflow-x: hidden; background: #ffffff;">
@@ -63,9 +62,9 @@
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
        <div>
         <div style="position: relative; width: 100%; height: calc(100svh - 125px); min-height: 320px; overflow: hidden; background: #111111; container-type: size;">
-          <video ref="{{ videoRef }}" data-dino-hero="1" src="{{ heroSrc }}" poster="assets/hero.png" preload="metadata" playsinline="" webkit-playsinline="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" style="{{ heroVideoStyle }}"></video>
+          <video ref="{{ videoRef }}" data-dino-hero="1" src="{{ heroSrc }}" onError="{{ onHeroError }}" poster="assets/hero.png" preload="metadata" playsinline="" webkit-playsinline="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" style="{{ heroVideoStyle }}"></video>
           <div style="{{ heroOverlayStyle }}"></div>
-          <button type="button" onClick="{{ toggleSound }}" aria-label="{{ soundLabel }}" title="{{ soundLabel }}" style="position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; justify-content: center; color: #ffffff; background: none; border: none; cursor: pointer; padding: 4px; opacity: 0.85;" style-hover="opacity: 1; color: #2c9f5c;">
+          <button type="button" onClick="{{ toggleSound }}" aria-label="{{ soundLabel }}" title="{{ soundLabel }}" style="position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; justify-content: center; color: #ffffff; background: none; border: none; cursor: pointer; padding: 4px; opacity: 0.85;" style-hover="opacity: 1; color: #6b6b6b;">
             <sc-if value="{{ muted }}" hint-placeholder-val="{{ true }}">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><line x1="22" y1="9" x2="16" y2="15"></line><line x1="16" y1="9" x2="22" y2="15"></line></svg>
             </sc-if>
@@ -80,8 +79,8 @@
 
         <section style="padding: 56px clamp(18px, 3vw, 40px) 0;">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
-            <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">THIS YEAR ARTIST</h2>
-            <a href="#" onClick="{{ goAllArtists }}" style="font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">VIEW ALL ›</a>
+            <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">THIS YEAR ARTIST</h2>
+            <a href="#" onClick="{{ goAllArtists }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">VIEW ALL ›</a>
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 34px clamp(12px, 1.6vw, 22px); padding-top: 26px;">
             <sc-for list="{{ homeNew }}" as="a" hint-placeholder-count="4">
@@ -90,12 +89,12 @@
                   <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;">
                     <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
                     <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot></sc-if>
-                    <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
+                    <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
                   </div>
-                  <h3 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h3>
+                  <h3 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h3>
                 </a>
                 <p style="font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #444444;">{{ a.tags }}</p>
-                <p style="font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.06em; margin: 3px 0 0; color: #6b6b6b;">{{ a.cat }}</p>
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.06em; margin: 3px 0 0; color: #6b6b6b;">{{ a.cat }}</p>
               </article>
             </sc-for>
           </div>
@@ -103,15 +102,15 @@
 
         <section style="padding: 60px clamp(18px, 3vw, 40px) 0;">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
-            <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">SECTION</h2>
-            <span style="font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b;">5 CATEGORIES</span>
+            <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">SECTION</h2>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b;">5 CATEGORIES</span>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px;">
             <sc-for list="{{ sectionTiles }}" as="t" hint-placeholder-count="5">
-              <a href="#" onClick="{{ t.go }}" style="flex: 1 1 176px; display: flex; flex-direction: column; justify-content: space-between; gap: 34px; min-height: 148px; padding: 18px; background: #ffffff; border: 1px solid #dcdcdc; text-decoration: none; color: #111111;" style-hover="background: #2c9f5c; border-color: #2c9f5c;">
-                <span style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.06em;">{{ t.label }}</span>
+              <a href="#" onClick="{{ t.go }}" style="flex: 1 1 176px; display: flex; flex-direction: column; justify-content: space-between; gap: 34px; min-height: 148px; padding: 18px; background: #ffffff; border: 1px solid #dcdcdc; text-decoration: none; color: #111111;" style-hover="background: #f2f2f2; border-color: #111111;">
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.06em;">{{ t.label }}</span>
                 <span style="font-size: 11px; line-height: 1.7; color: #111111;">{{ t.note }}</span>
-                <span style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 10.5px; letter-spacing: 0.1em; color: #111111;">{{ t.count }} ARTISTS ›</span>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 10.5px; letter-spacing: 0.1em; color: #111111;">{{ t.count }} ARTISTS ›</span>
               </a>
             </sc-for>
           </div>
@@ -119,14 +118,14 @@
 
         <section style="padding: 60px clamp(18px, 3vw, 40px) 0;">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
-            <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">BIRD LETTER</h2>
-            <a href="#" onClick="{{ goLetter }}" style="font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">SUBSCRIBE ›</a>
+            <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">BIRD LETTER</h2>
+            <a href="#" onClick="{{ goLetter }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">SUBSCRIBE ›</a>
           </div>
           <sc-for list="{{ homeLetters }}" as="l" hint-placeholder-count="3">
             <a href="#" onClick="{{ goLetter }}" style="display: grid; grid-template-columns: clamp(28px, 8vw, 52px) minmax(0, 1fr) auto; gap: clamp(10px, 3vw, 16px); align-items: baseline; padding: 16px 4px; border-bottom: 1px solid #dcdcdc; text-decoration: none; color: #111111;" style-hover="background: #f6f6f6;">
-              <span style="font-family: Oswald, sans-serif; font-size: 11.5px; color: #6b6b6b;">{{ l.no }}</span>
+              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; color: #6b6b6b;">{{ l.no }}</span>
               <span style="font-size: 13px; line-height: 1.6;">{{ l.title }}</span>
-              <span style="font-family: Oswald, sans-serif; font-size: 11px; color: #6b6b6b; text-align: right;">{{ l.date }}</span>
+              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; color: #6b6b6b; text-align: right;">{{ l.date }}</span>
             </a>
           </sc-for>
         </section>
@@ -134,28 +133,27 @@
         <section style="padding: 60px clamp(18px, 3vw, 40px) 0;">
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(20px, 3vw, 44px); align-items: center; padding: 34px 0; border-top: 1px solid #111111; border-bottom: 1px solid #111111;">
             <div>
-              <p style="font-family: Oswald, sans-serif; font-weight: 600; font-size: clamp(20px, 2.4vw, 27px); line-height: 1.2; margin: 0;">WE CREATE THE ERA</p>
+              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(20px, 2.4vw, 27px); line-height: 1.2; margin: 0;">WE CREATE THE ERA</p>
               <p style="font-size: 13px; line-height: 1.9; margin: 10px 0 0; color: #4a4a4a;">캐스팅·브랜드 협업·공연 섭외 — 브리프 한 줄로 시작해도 48시간 안에 회신드립니다.</p>
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-              <a href="#" onClick="{{ goContact }}" style="height: 42px; display: inline-flex; align-items: center; padding: 0 24px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; text-decoration: none;" style-hover="background: #23834b;">CASTING 문의</a>
-              <a href="#" onClick="{{ goAbout }}" style="height: 42px; display: inline-flex; align-items: center; padding: 0 24px; font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">ABOUT DINOBIRD</a>
+              <a href="#" onClick="{{ goContact }}" style="height: 42px; display: inline-flex; align-items: center; padding: 0 24px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #111111; text-decoration: none;" style-hover="background: #444444;">CASTING 문의</a>
+              <a href="#" onClick="{{ goAbout }}" style="height: 42px; display: inline-flex; align-items: center; padding: 0 24px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">ABOUT DINOBIRD</a>
             </div>
           </div>
         </section>
 
         <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
           <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
-            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
-            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; white-space: nowrap;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.06em; vertical-align: baseline;"></span></span>
           </a>
           <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
-            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
-            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
-            <a href="admin.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #2c9f5c;">ADMIN</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">INSTAGRAM</a>
+            <a href="DINOBIRD Admin.dc.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #6b6b6b;">ADMIN</a>
           </div>
         </footer>
        </div>
@@ -167,8 +165,8 @@
             <img src="assets/about-hero.png" alt="DINOBIRD campaign" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: 50% 50%; display: block; filter: blur(7px) brightness(1.12) saturate(0.9); transform: scale(1.06);">
             <div style="position: absolute; inset: 0; background: #ffffff; opacity: {{ aboutOverlay }};"></div>
             <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px;">
-              <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(38px, 5.4vw, 58px); line-height: 1; margin: 0;">DINOBIRD</h1>
-              <p style="font-family: Oswald, sans-serif; font-weight: 600; font-size: clamp(24px, 3.6vw, 38px); line-height: 1.1; margin: 6px 0 0;">{{ bannerText }}</p>
+              <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(42px, 6vw, 66px); line-height: 1; margin: 0;">DINOBIRD</h1>
+              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(24px, 3.6vw, 38px); line-height: 1.1; margin: 6px 0 0;">{{ bannerText }}</p>
               <p style="font-weight: 700; font-size: clamp(18px, 2.7vw, 31px); line-height: 1.3; margin: 58px 0 0;">{{ aboutHead }}</p>
             </div>
             <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ false }}">
@@ -185,7 +183,7 @@
             <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">DINOBIRD는 아티스트를 상징합니다.<br>서로 다른 개성과 전문성을 가진 아티스트들이 각자의 방식으로 진화하고,<br>그들의 예술이 모여 새로운 시대를 만듭니다.</p>
             <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">아티스트들이 모여 하나의 새로운 문화를 만들어가는 브랜드.</p>
             <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">DINOBIRD는 아티스트와 함께 새로운 예술의 ERA를 만들어갑니다.</p>
-            <p style="font-family: Oswald, sans-serif; font-weight: 500; font-size: 15px; line-height: 1.6; margin: 26px 0 0;">WE CREATE THE ERA.<br>DINOBIRD ERA.</p>
+            <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; font-size: 15px; line-height: 1.6; margin: 26px 0 0;">WE CREATE THE ERA.<br>DINOBIRD ERA.</p>
           </section>
 
           <section style="padding: clamp(80px, 12vw, 150px) 20px clamp(90px, 13vw, 160px); text-align: center;">
@@ -199,17 +197,17 @@
 
       <sc-if value="{{ isArtists }}" hint-placeholder-val="{{ false }}">
         <div style="padding: 34px clamp(18px, 3vw, 40px) 0;">
-          <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">{{ catTitle }}</h1>
+          <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">{{ catTitle }}</h1>
           <p style="font-size: 12px; line-height: 1.8; margin: 10px 0 0; color: #666666;">{{ catNote }}</p>
 
           <div style="display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 30px 0 0; padding-bottom: 14px; border-bottom: 1px solid #111111;">
             <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
               <span>
                 <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
-                  <a href="#" onClick="{{ t.go }}" style="font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #2c9f5c; font-weight: 600; text-decoration: none;">{{ t.text }}</a>
+                  <a href="#" onClick="{{ t.go }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #6b6b6b; font-weight: 600; text-decoration: none;">{{ t.text }}</a>
                 </sc-if>
                 <sc-if value="{{ t.inactive }}" hint-placeholder-val="{{ true }}">
-                  <a href="#" onClick="{{ t.go }}" style="font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; font-weight: 400; text-decoration: none;" style-hover="color: #2c9f5c;">{{ t.text }}</a>
+                  <a href="#" onClick="{{ t.go }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; font-weight: 400; text-decoration: none;" style-hover="color: #6b6b6b;">{{ t.text }}</a>
                 </sc-if>
               </span>
             </sc-for>
@@ -221,10 +219,10 @@
               <sc-for list="{{ sorts }}" as="s" hint-placeholder-count="3">
                 <span>
                   <sc-if value="{{ s.active }}" hint-placeholder-val="{{ false }}">
-                    <a href="#" onClick="{{ s.go }}" style="font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #111111; font-weight: 600; border-bottom: 1px solid #111111; text-decoration: none;">{{ s.label }}</a>
+                    <a href="#" onClick="{{ s.go }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #111111; font-weight: 600; border-bottom: 1px solid #111111; text-decoration: none;">{{ s.label }}</a>
                   </sc-if>
                   <sc-if value="{{ s.inactive }}" hint-placeholder-val="{{ true }}">
-                    <a href="#" onClick="{{ s.go }}" style="font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #767676; text-decoration: none;" style-hover="color: #111111;">{{ s.label }}</a>
+                    <a href="#" onClick="{{ s.go }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #767676; text-decoration: none;" style-hover="color: #111111;">{{ s.label }}</a>
                   </sc-if>
                 </span>
               </sc-for>
@@ -239,14 +237,14 @@
                     <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
                     <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot></sc-if>
                     <sc-if value="{{ a.hasBadge }}" hint-placeholder-val="{{ false }}">
-                      <span style="position: absolute; left: 8px; top: 8px; font-family: Oswald, sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; padding: 3px 7px; background: #111111; color: #ffffff;">{{ a.badge }}</span>
+                      <span style="position: absolute; left: 8px; top: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; padding: 3px 7px; background: #111111; color: #ffffff;">{{ a.badge }}</span>
                     </sc-if>
-                    <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
+                    <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
                   </div>
-                  <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h2>
+                  <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h2>
                 </a>
                 <p style="font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #444444;">{{ a.tags }}</p>
-                <p style="font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.06em; margin: 3px 0 0; color: #6b6b6b;">{{ a.stat }} · {{ a.cat }}</p>
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.06em; margin: 3px 0 0; color: #6b6b6b;">{{ a.stat }} · {{ a.cat }}</p>
               </article>
             </sc-for>
           </div>
@@ -256,32 +254,31 @@
           </sc-if>
 
           <div style="display: flex; justify-content: center; align-items: baseline; gap: 14px; padding: 60px 0 0;">
-            <a href="#" onClick="{{ goPrevPage }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">‹ PREV</a>
+            <a href="#" onClick="{{ goPrevPage }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">‹ PREV</a>
             <sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
               <span>
                 <sc-if value="{{ p.active }}" hint-placeholder-val="{{ true }}">
-                  <a href="#" onClick="{{ p.go }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #111111; font-weight: 600; border-bottom: 1px solid #111111; text-decoration: none;">{{ p.label }}</a>
+                  <a href="#" onClick="{{ p.go }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; color: #111111; font-weight: 600; border-bottom: 1px solid #111111; text-decoration: none;">{{ p.label }}</a>
                 </sc-if>
                 <sc-if value="{{ p.inactive }}" hint-placeholder-val="{{ false }}">
-                  <a href="#" onClick="{{ p.go }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">{{ p.label }}</a>
+                  <a href="#" onClick="{{ p.go }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">{{ p.label }}</a>
                 </sc-if>
               </span>
             </sc-for>
-            <a href="#" onClick="{{ goNextPage }}" style="font-family: Oswald, sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">NEXT ›</a>
+            <a href="#" onClick="{{ goNextPage }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">NEXT ›</a>
           </div>
 
           <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
           <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
-            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
-            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; white-space: nowrap;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.06em; vertical-align: baseline;"></span></span>
           </a>
           <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
-            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
-            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
-            <a href="admin.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #2c9f5c;">ADMIN</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">INSTAGRAM</a>
+            <a href="DINOBIRD Admin.dc.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #6b6b6b;">ADMIN</a>
           </div>
         </footer>
         </div>
@@ -289,7 +286,7 @@
 
       <sc-if value="{{ isArtist }}" hint-placeholder-val="{{ false }}">
         <div style="padding: 34px clamp(18px, 3vw, 40px) 0;">
-          <div style="display: flex; gap: 8px; align-items: baseline; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.06em; color: #6b6b6b;">
+          <div style="display: flex; gap: 8px; align-items: baseline; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.06em; color: #6b6b6b;">
             <a href="#" onClick="{{ backToList }}" style="color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">DINO ARTIST</a>
             <span>/</span>
             <a href="#" onClick="{{ backToList }}" style="color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">{{ detail.cat }}</a>
@@ -303,35 +300,35 @@
               <sc-if value="{{ detail.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ detail.slotBig }}" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot></sc-if>
             </div>
             <div>
-              <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; margin: 0;">{{ detail.name }}</h1>
+              <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; margin: 0;">{{ detail.name }}</h1>
               <p style="font-size: 12.5px; line-height: 1.8; margin: 8px 0 0; color: #444444;">{{ detail.tags }}</p>
               <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">{{ detail.bio }}</p>
 
               <dl style="display: grid; grid-template-columns: clamp(74px, 22vw, 92px) minmax(0, 1fr); gap: 0; margin: 34px 0 0; font-size: 12px;">
-                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">SECTION</dt>
+                <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">SECTION</dt>
                 <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.cat }}</dd>
-                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">SIZE</dt>
+                <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">SIZE</dt>
                 <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.stat }}</dd>
-                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">EYES</dt>
+                <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">EYES</dt>
                 <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.eye }}</dd>
-                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">HAIR</dt>
+                <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">HAIR</dt>
                 <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.hair }}</dd>
-                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">BASE</dt>
+                <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc;">BASE</dt>
                 <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc;">{{ detail.base }}</dd>
-                <dt style="font-family: Oswald, sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">CREDITS</dt>
+                <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: 0.06em; color: #6b6b6b; padding: 10px 0; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">CREDITS</dt>
                 <dd style="margin: 0; padding: 10px 0; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc;">{{ detail.credits }}</dd>
               </dl>
 
               <div style="display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap;">
-                <a href="#" onClick="{{ goContact }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; text-decoration: none;" style-hover="background: #23834b;">캐스팅 문의</a>
-                <a href="#" onClick="{{ backToList }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">목록으로</a>
+                <a href="#" onClick="{{ goContact }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #111111; text-decoration: none;" style-hover="background: #444444;">캐스팅 문의</a>
+                <a href="#" onClick="{{ backToList }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">목록으로</a>
               </div>
             </div>
           </div>
 
           <div style="display: flex; align-items: baseline; gap: 12px; margin: 70px 0 18px;">
-            <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.08em; margin: 0; color: #6b6b6b;">PORTFOLIO</h2>
-            <span style="font-family: Oswald, sans-serif; font-size: 11px; color: #9a9a9a;">{{ shotCount }}</span>
+            <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.08em; margin: 0; color: #6b6b6b;">PORTFOLIO</h2>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; color: #9a9a9a;">{{ shotCount }}</span>
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 220px), 1fr)); gap: 26px clamp(12px, 1.6vw, 22px);">
             <sc-for list="{{ shots }}" as="p" hint-placeholder-count="6">
@@ -350,22 +347,22 @@
                     <iframe src="{{ p.embed }}" title="{{ p.placeholder }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #111111;"></iframe>
                   </sc-if>
                   <sc-if value="{{ p.isEmptyVideo }}" hint-placeholder-val="{{ false }}">
-                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #9a9a9a; font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.1em;">
+                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #9a9a9a; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.1em;">
                       <span style="font-size: 20px;">▶</span>
                       <span>MOVEMENT VIDEO</span>
                     </div>
                   </sc-if>
                 </div>
-                <figcaption style="display: flex; gap: 8px; align-items: baseline; margin-top: 9px; font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.08em;">
+                <figcaption style="display: flex; gap: 8px; align-items: baseline; margin-top: 9px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.08em;">
                   <span style="color: #9a9a9a;">{{ p.no }}</span>
                   <span style="color: #111111;">{{ p.label }}</span>
-                  <span style="margin-left: auto; color: #2c9f5c;">{{ p.badge }}</span>
+                  <span style="margin-left: auto; color: #6b6b6b;">{{ p.badge }}</span>
                 </figcaption>
               </figure>
             </sc-for>
           </div>
 
-          <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.08em; margin: 70px 0 18px; color: #6b6b6b;">SAME SECTION</h2>
+          <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.08em; margin: 70px 0 18px; color: #6b6b6b;">SAME SECTION</h2>
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 30px clamp(12px, 1.6vw, 22px);">
             <sc-for list="{{ related }}" as="a" hint-placeholder-count="4">
               <article>
@@ -374,7 +371,7 @@
                     <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
                     <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot></sc-if>
                   </div>
-                  <h3 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; margin: 10px 0 0;">{{ a.name }}</h3>
+                  <h3 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; margin: 10px 0 0;">{{ a.name }}</h3>
                 </a>
                 <p style="font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #444444;">{{ a.tags }}</p>
               </article>
@@ -383,16 +380,15 @@
 
           <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
           <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
-            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
-            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; white-space: nowrap;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.06em; vertical-align: baseline;"></span></span>
           </a>
           <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
-            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
-            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
-            <a href="admin.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #2c9f5c;">ADMIN</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">INSTAGRAM</a>
+            <a href="DINOBIRD Admin.dc.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #6b6b6b;">ADMIN</a>
           </div>
         </footer>
         </div>
@@ -402,8 +398,8 @@
         <div style="padding: 34px clamp(18px, 3vw, 40px) 0; max-width: 900px;">
           <sc-if value="{{ readingLetter }}" hint-placeholder-val="{{ false }}">
             <article style="max-width: 680px;">
-              <a href="#" onClick="{{ closeLetter }}" style="font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">← BIRD LETTER</a>
-              <div style="display: flex; gap: 12px; align-items: baseline; margin-top: 26px; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
+              <a href="#" onClick="{{ closeLetter }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">← BIRD LETTER</a>
+              <div style="display: flex; gap: 12px; align-items: baseline; margin-top: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
                 <span>NO. {{ reader.no }}</span>
                 <span>{{ reader.date }}</span>
               </div>
@@ -416,28 +412,28 @@
                 </section>
               </sc-for>
               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 46px;">
-                <a href="#" onClick="{{ goContact }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; text-decoration: none;" style-hover="background: #23834b;">프로젝트 문의</a>
-                <a href="#" onClick="{{ closeLetter }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: Oswald, sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">목록으로</a>
+                <a href="#" onClick="{{ goContact }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #111111; text-decoration: none;" style-hover="background: #444444;">프로젝트 문의</a>
+                <a href="#" onClick="{{ closeLetter }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">목록으로</a>
               </div>
             </article>
           </sc-if>
           <sc-if value="{{ notReadingLetter }}" hint-placeholder-val="{{ true }}">
           <div>
-          <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">Bird letter</h1>
+          <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">Bird letter</h1>
           <p style="font-size: 13.5px; line-height: 2; margin: 14px 0 0;">DINOBIRD가 한 달에 한 번, 아티스트의 새로운 작업과 오디션·프로젝트 소식을 보냅니다.<br>광고는 없습니다. 편지 한 통 분량입니다.</p>
 
           <div style="display: flex; gap: 10px; margin-top: 30px; max-width: 430px;">
-            <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="dinobird@gmail.com" aria-label="이메일" style="flex: 1; min-width: 0; height: 40px; padding: 0 12px; font-size: 13px; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; border-radius: 0;">
-            <button type="button" onClick="{{ subscribe }}" style="height: 40px; padding: 0 22px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; border: 0; cursor: pointer;" style-hover="background: #23834b;">구독</button>
+            <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="dinobird@gmail.com" aria-label="이메일" style="flex: 1; min-width: 0; height: 40px; padding: 0 12px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; border-radius: 0;">
+            <button type="button" onClick="{{ subscribe }}" style="height: 40px; padding: 0 22px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #111111; border: 0; cursor: pointer;" style-hover="background: #444444;">구독</button>
           </div>
-          <p style="font-size: 12px; line-height: 2; margin: 12px 0 0; color: #2c9f5c;">{{ letterMsg }}</p>
+          <p style="font-size: 12px; line-height: 2; margin: 12px 0 0; color: #6b6b6b;">{{ letterMsg }}</p>
 
           <div style="margin-top: 56px; border-top: 1px solid #111111;">
             <sc-for list="{{ letters }}" as="l" hint-placeholder-count="5">
               <a href="#" onClick="{{ l.open }}" style="display: grid; grid-template-columns: clamp(30px, 8vw, 58px) minmax(0, 1fr) auto; gap: clamp(10px, 3vw, 16px); align-items: baseline; padding: 18px 4px; border-bottom: 1px solid #dcdcdc; text-decoration: none; color: #111111;" style-hover="background: #f6f6f6;">
-                <span style="font-family: Oswald, sans-serif; font-size: 12px; color: #6b6b6b;">{{ l.no }}</span>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; color: #6b6b6b;">{{ l.no }}</span>
                 <span style="font-size: 13.5px; line-height: 1.6;">{{ l.title }}</span>
-                <span style="font-family: Oswald, sans-serif; font-size: 11.5px; color: #6b6b6b; text-align: right;">{{ l.date }}</span>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; color: #6b6b6b; text-align: right;">{{ l.date }}</span>
               </a>
             </sc-for>
           </div>
@@ -446,16 +442,15 @@
 
           <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
           <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
-            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
-            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; white-space: nowrap;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.06em; vertical-align: baseline;"></span></span>
           </a>
           <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
-            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
-            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
-            <a href="admin.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #2c9f5c;">ADMIN</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">INSTAGRAM</a>
+            <a href="DINOBIRD Admin.dc.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #6b6b6b;">ADMIN</a>
           </div>
         </footer>
         </div>
@@ -463,32 +458,32 @@
 
       <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
         <div style="padding: 34px clamp(18px, 3vw, 40px) 0; max-width: 940px;">
-          <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">Contact</h1>
+          <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">Contact</h1>
           <p style="font-size: 13.5px; line-height: 2; margin: 14px 0 0;">캐스팅, 브랜드 협업, 공연 섭외, 아티스트 지원 모두 같은 주소로 받습니다.<br>브리프 한 줄로 시작해도 괜찮습니다. 48시간 안에 회신드립니다.</p>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(28px, 4vw, 60px); margin-top: 44px;">
             <div>
               <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-                <div style="padding: 26px; background: #f2f7f3; border: 1px solid #2c9f5c;">
-                  <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.06em; margin: 0 0 8px; color: #23834b;">RECEIVED</h2>
+                <div style="padding: 26px; background: #f4f4f4; border: 1px solid #111111;">
+                  <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.06em; margin: 0 0 8px; color: #111111;">RECEIVED</h2>
                   <p style="font-size: 13px; line-height: 1.9; margin: 0;">{{ sentName }} 님, 문의가 접수되었습니다. 48시간 안에 회신드립니다.</p>
                 </div>
               </sc-if>
               <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
                 <div style="display: flex; flex-direction: column; gap: 16px;">
-                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
+                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
                     NAME / BRAND
-                    <input type="text" value="{{ form.name }}" onChange="{{ onName }}" placeholder="스튜디오 하루" style="height: 40px; padding: 0 12px; font-size: 13px; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc;">
+                    <input type="text" value="{{ form.name }}" onChange="{{ onName }}" placeholder="스튜디오 하루" style="height: 40px; padding: 0 12px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc;">
                   </label>
-                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
+                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
                     EMAIL
-                    <input type="email" value="{{ form.email }}" onChange="{{ onFormEmail }}" placeholder="you@studio.kr" style="height: 40px; padding: 0 12px; font-size: 13px; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc;">
+                    <input type="email" value="{{ form.email }}" onChange="{{ onFormEmail }}" placeholder="you@studio.kr" style="height: 40px; padding: 0 12px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc;">
                   </label>
-                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: Oswald, sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
+                  <label style="display: flex; flex-direction: column; gap: 7px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.08em; color: #6b6b6b;">
                     BRIEF
-                    <textarea rows="5" value="{{ form.brief }}" onChange="{{ onBrief }}" placeholder="촬영 형태, 일정, 필요한 인원 수" style="padding: 10px 12px; font-size: 13px; line-height: 1.8; font-family: 'Noto Sans KR', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; resize: vertical;"></textarea>
+                    <textarea rows="5" value="{{ form.brief }}" onChange="{{ onBrief }}" placeholder="촬영 형태, 일정, 필요한 인원 수" style="padding: 10px 12px; font-size: 13px; line-height: 1.8; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; resize: vertical;"></textarea>
                   </label>
-                  <button type="button" onClick="{{ submit }}" style="align-self: flex-start; height: 42px; padding: 0 26px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #2c9f5c; border: 0; cursor: pointer;" style-hover="background: #23834b;">문의 보내기</button>
+                  <button type="button" onClick="{{ submit }}" style="align-self: flex-start; height: 42px; padding: 0 26px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #111111; border: 0; cursor: pointer;" style-hover="background: #444444;">문의 보내기</button>
                   <p style="font-size: 12px; line-height: 1.8; margin: 0; color: #b03030;">{{ formError }}</p>
                 </div>
               </sc-if>
@@ -496,19 +491,19 @@
 
             <div style="display: flex; flex-direction: column; gap: 26px;">
               <div>
-                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">EMAIL</h2>
+                <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">EMAIL</h2>
                 <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">dinobird@gmail.com</p>
               </div>
               <div>
-                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">PHONE</h2>
+                <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">PHONE</h2>
                 <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">+82 10-5064-4961</p>
               </div>
               <div>
-                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">CEO</h2>
+                <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">CEO</h2>
                 <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">Yoon Jiwon, Jang saeyan</p>
               </div>
               <div>
-                <h2 style="font-family: Oswald, sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">ARTIST 지원</h2>
+                <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.08em; margin: 0 0 6px; color: #6b6b6b;">ARTIST 지원</h2>
                 <p style="font-size: 13.5px; line-height: 1.8; margin: 0;">프로필과 영상 링크를 메일로 보내주세요. 상시 접수합니다.</p>
               </div>
             </div>
@@ -516,16 +511,15 @@
 
           <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
           <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
-            <img src="assets/dino-mark.png" alt="DINOBIRD" style="width: 30px; height: auto; display: block;">
-            <span style="font-family: Oswald, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em;">DINOBIRD</span>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; white-space: nowrap;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.06em; vertical-align: baseline;"></span></span>
           </a>
           <p style="flex: 1 1 340px; min-width: 0; margin: 0; font-size: 10.5px; line-height: 1.8; color: #6b6b6b;">CEO. YOON JIWON, JANG SAEYAN · LICENSE. 000-00-00000 · dinobird@gmail.com · +82 10-5064-4961 · 5F SEONGSUI-RO 12-GIL, SEONGDONG-GU, SEOUL (KR) · © 2026 DINOBIRD</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: Oswald, sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">TERMS OF USE</a>
-            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">PRIVACY</a>
-            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">CONTACT</a>
-            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #2c9f5c;">INSTAGRAM</a>
-            <a href="admin.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #2c9f5c;">ADMIN</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.08em;">
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">TERMS OF USE</a>
+            <a href="#" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">PRIVACY</a>
+            <a href="#" onClick="{{ goContact }}" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">CONTACT</a>
+            <a href="https://www.instagram.com/dinobird_agency/" target="_blank" rel="noopener" style="color: #111111; text-decoration: none;" style-hover="color: #6b6b6b;">INSTAGRAM</a>
+            <a href="DINOBIRD Admin.dc.html" target="_blank" style="color: #9a9a9a; text-decoration: none;" style-hover="color: #6b6b6b;">ADMIN</a>
           </div>
         </footer>
         </div>
@@ -533,7 +527,11 @@
 
     </main>
   </div>
-</div>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; left: -68px; top: -786px">
+              
+              
+              
+            </div></div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showAnnotations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;시안 옵션&quot;}}">
@@ -644,6 +642,12 @@ class Component extends DCLogic {
     };
   }
 
+  heroCandidates() {
+    const c = this.state && this.state.cms && this.state.cms.heroFile;
+    const list = [c, "uploads/As we like it (Dance film).mp4", "media/dinobird-film.mp4", "dist/media/dinobird-film.mp4", "dinobird-film.mp4"].filter(Boolean);
+    return list.filter((v, i) => list.indexOf(v) === i);
+  }
+
   applyCms(d) {
     if (!d || !d.savedAt) return;
     const live = Array.isArray(d.artists) ? d.artists.filter((a) => a && a.name && a.live !== false) : [];
@@ -738,7 +742,11 @@ class Component extends DCLogic {
 
     return {
       isHome: s.page === "home",
-      heroSrc: (s.cms && s.cms.heroFile) || "media/dinobird-film.mp4",
+      heroSrc: this.heroCandidates()[Math.min(s.heroTry || 0, this.heroCandidates().length - 1)],
+      onHeroError: () => {
+        const n = (this.state.heroTry || 0) + 1;
+        if (n < this.heroCandidates().length) this.setState({ heroTry: n }, () => { const el = document.querySelector("video[data-dino-hero]"); if (el) { el.load(); const p = el.play(); if (p && p.catch) p.catch(() => {}); } });
+      },
       heroVideoStyle: heroLook(s.cms || {}).video,
       heroOverlayStyle: heroLook(s.cms || {}).overlay,
       aboutHead: (s.cms && s.cms.aboutTitle) || "아티스트의 가치를 새로운 시대로",
@@ -805,7 +813,7 @@ class Component extends DCLogic {
       },
       shots: detailShots.map((p, i) => {
         const isVideo = p.type === "video" || (!p.type && /MOVEMENT/i.test(p.label));
-        const src = isVideo ? (p.video != null ? p.video : (p.id === "move" ? "media/dinobird-film.mp4" : "")) : "";
+        const src = isVideo ? (p.video != null ? p.video : (p.id === "move" ? "uploads/As we like it (Dance film).mp4" : "")) : "";
         const yt = src.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
         const vm = src.match(/vimeo\.com\/(\d+)/);
         const embed = yt ? "https://www.youtube.com/embed/" + yt[1] + "?autoplay=1&mute=1&loop=1&playlist=" + yt[1] + "&playsinline=1"

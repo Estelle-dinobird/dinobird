@@ -56,7 +56,7 @@
         <span style="font-family: 'Noto Sans KR', sans-serif; font-size: 11.5px; letter-spacing: 0; color: #c8c8c8;">초록 점선 영역을 누르면 바로 수정되고, 변경 사항은 자동 저장되어 사이트에 반영됩니다.</span>
         <span style="font-family: 'Noto Sans KR', sans-serif; font-size: 11.5px; letter-spacing: 0; color: {{ cloudColor }};">{{ cloudLabel }}</span>
         <div style="margin-left: auto; display: flex; gap: 14px; align-items: center;">
-          <a href="index.html" target="_blank" style="color: #ffffff; text-decoration: none;" style-hover="color: #2c9f5c;">사이트 보기 ↗</a>
+          <a href="DINOBIRD.dc.html" onClick="{{ openSite }}" style="color: #ffffff; text-decoration: none;" style-hover="color: #2c9f5c;">사이트 보기 ↗</a>
           <button type="button" onClick="{{ onReset }}" style="background: none; border: 0; padding: 0; font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.08em; color: #9a9a9a; cursor: pointer;" style-hover="color: #ffffff;">초기화</button>
           <button type="button" onClick="{{ onLogout }}" style="background: none; border: 0; padding: 0; font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 0.08em; color: #9a9a9a; cursor: pointer;" style-hover="color: #ffffff;">LOG OUT</button>
         </div>
@@ -566,7 +566,7 @@ const SEED_LETTERS = [{"no":"01","title":"WE CREATE THE ERA — DINOBIRD가 보�
 const DEFAULT_SHOTS = [
   { id: "full", label: "FULL BODY" }, { id: "upper", label: "UPPER BODY" }, { id: "lower", label: "LOWER BODY" },
   { id: "close", label: "CLOSE-UP" }, { id: "profile", label: "PROFILE" },
-  { id: "move", label: "MOVEMENT", type: "video", video: "media/dinobird-film.mp4" }
+  { id: "move", label: "MOVEMENT", type: "video", video: "uploads/As we like it (Dance film).mp4" }
 ];
 const SHOT_PRESETS = ["FULL BODY", "UPPER BODY", "LOWER BODY", "CLOSE-UP", "PROFILE", "HANDS", "BACK", "MOVEMENT"];
 const heroLook = (d) => {
@@ -628,7 +628,7 @@ class Component extends DCLogic {
     letterEdit: null,
     letterTitle: "", letterBody: "",
     inbox: SEED_INBOX.slice(),
-    heroFile: "media/dinobird-film.mp4",
+    heroFile: "uploads/As we like it (Dance film).mp4",
     heroRot: 90, heroFlip: false, heroExposure: 100, heroBright: 0, heroContrast: 100, heroSat: 100, heroZoom: 100,
     bannerText: "WE CREATE THE ERA",
     aboutTitle: "아티스트의 가치를 새로운 시대로",
@@ -918,7 +918,7 @@ class Component extends DCLogic {
       cloudColor: !(window.DinoCloud && window.DinoCloud.configured) ? "#9a9a9a" : s.cloudState === "error" ? "#ff6b6b" : "#2c9f5c",
       onReset: () => {
         if (!window.confirm("모든 편집 내용을 초기값으로 되돌릴까요?")) return;
-        this.commit({ artists: seedArtists(), cats: CATS0.slice(), letters: SEED_LETTERS.slice(), inbox: SEED_INBOX.slice(), heroFile: "media/dinobird-film.mp4", heroRot: 90, heroFlip: false, heroExposure: 100, heroBright: 0, heroContrast: 100, heroSat: 100, heroZoom: 100, bannerText: "WE CREATE THE ERA", aboutTitle: "아티스트의 가치를 새로운 시대로", dim: 42, edit: null, letterEdit: null, letterTitle: "", letterBody: "", view: "home" });
+        this.commit({ artists: seedArtists(), cats: CATS0.slice(), letters: SEED_LETTERS.slice(), inbox: SEED_INBOX.slice(), heroFile: "uploads/As we like it (Dance film).mp4", heroRot: 90, heroFlip: false, heroExposure: 100, heroBright: 0, heroContrast: 100, heroSat: 100, heroZoom: 100, bannerText: "WE CREATE THE ERA", aboutTitle: "아티스트의 가치를 새로운 시대로", dim: 42, edit: null, letterEdit: null, letterTitle: "", letterBody: "", view: "home" });
         this.flash("초기값으로 되돌렸습니다");
       },
 
@@ -931,6 +931,14 @@ class Component extends DCLogic {
       inboxNavStyle: adminNavStyle(s.view === "inbox"),
       analyticsNavStyle: adminNavStyle(s.view === "analytics"),
       newCount,
+      openSite: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const here = location.pathname;
+        const file = /\.dc\.html$/i.test(here) || /DINOBIRD/i.test(decodeURIComponent(here)) ? "DINOBIRD.dc.html" : "index.html";
+        const url = new URL(file === "index.html" ? "./" : file, location.href).href;
+        const w = window.open(url, "_blank", "noopener");
+        if (!w) location.href = url;
+      },
       goHome: this.go("home"),
       goArtists: this.go("artists"),
       goLetter: this.go("letter"),

@@ -69,3 +69,13 @@ create policy "media admin delete" on storage.objects for delete using (bucket_i
 do $$ begin
   alter publication supabase_realtime add table public.site_content;
 exception when duplicate_object then null; end $$;
+
+-- 6. 접근 권한 (새 Supabase 프로젝트는 기본 권한이 없어서 필요합니다. 실제 허용 범위는 위 정책이 제한합니다)
+grant usage on schema public to anon, authenticated;
+grant select on public.site_content to anon, authenticated;
+grant insert, update, delete on public.site_content to authenticated;
+grant insert on public.inquiries to anon, authenticated;
+grant select, update on public.inquiries to authenticated;
+grant insert on public.page_views to anon, authenticated;
+grant select on public.page_views to authenticated;
+grant execute on function public.is_admin() to anon, authenticated;

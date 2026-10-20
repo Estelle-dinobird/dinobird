@@ -38,8 +38,8 @@
         <form onSubmit="{{ onLogin }}" style="width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 16px; animation: dinoFade 240ms ease both;">
           <h1 style="font-family: Oswald, sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">Admin</h1>
           <p style="font-size: 13px; line-height: 2; margin: 0; color: #4a4a4a;">사이트와 같은 화면에서 바로 편집합니다. 관리자 계정으로 로그인하세요.</p>
-          <input type="email" value="{{ loginId }}" onChange="{{ onLoginId }}" placeholder="EMAIL" aria-label="이메일" style="height: 42px; padding: 0 12px; font-size: 13.5px; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; border-radius: 0;">
-          <input type="password" value="{{ loginPw }}" onChange="{{ onLoginPw }}" placeholder="PASSWORD" aria-label="비밀번호" style="height: 42px; padding: 0 12px; font-size: 13.5px; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; border-radius: 0;">
+          <input type="email" name="email" autocomplete="username" value="{{ loginId }}" onChange="{{ onLoginId }}" placeholder="EMAIL" aria-label="이메일" style="height: 42px; padding: 0 12px; font-size: 13.5px; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; border-radius: 0;">
+          <input type="password" name="password" autocomplete="current-password" value="{{ loginPw }}" onChange="{{ onLoginPw }}" placeholder="PASSWORD" aria-label="비밀번호" style="height: 42px; padding: 0 12px; font-size: 13.5px; color: #111111; background: #ffffff; border: 1px solid #dcdcdc; border-radius: 0;">
           <button type="submit" style="height: 44px; font-family: Oswald, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.08em; color: #ffffff; background: #2c9f5c; border: 0; cursor: pointer;" style-hover="background: #23834b;">{{ loginButton }}</button>
           <p style="font-size: 12px; line-height: 1.8; margin: 0; color: #b03030;">{{ loginError }}</p>
           <p style="font-size: 11.5px; line-height: 1.8; margin: 0; color: #9a9a9a;">{{ loginNote }}</p>
@@ -616,7 +616,7 @@ const SESSION = (() => { try { return sessionStorage.getItem("dinobird-cms-sessi
 
 class Component extends DCLogic {
   state = Object.assign({
-    loginId: "", loginPw: "",
+    loginId: (() => { try { return localStorage.getItem("dinobird-admin-email") || "dinobird.agency@gmail.com"; } catch (e) { return "dinobird.agency@gmail.com"; } })(), loginPw: "",
     view: "home",
     artists: seedArtists(),
     cats: CATS0.slice(),
@@ -890,7 +890,7 @@ class Component extends DCLogic {
           this.setState({ loggingIn: true, loginError: "" });
           cloud.signIn(s.loginId.trim(), s.loginPw)
             .then((d) => {
-              const email = d && d.user && d.user.email;
+              const email = d && d.user && d.user.email; try { if (email) localStorage.setItem("dinobird-admin-email", email); } catch (err) {}
               if (!email || email.toLowerCase() !== String(cloud.adminEmail).toLowerCase()) {
                 cloud.signOut();
                 this.setState({ loggingIn: false, loginError: "관리자 계정이 아닙니다." });

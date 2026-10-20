@@ -45,7 +45,7 @@
       <div onMouseEnter="{{ openMenu }}" onMouseLeave="{{ closeMenu }}" style="position: relative;">
         <a href="#" onClick="{{ toggleMenu }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Artist</a>
         <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-          <div style="position: absolute; left: -14px; top: 46px; min-width: 132px; background: #ffffff; border: 1px solid #dcdcdc; padding: 12px 0; display: flex; flex-direction: column; animation: dinoFade 160ms ease both; z-index: 40;">
+          <div style="position: absolute; left: -14px; top: 100%; min-width: 132px; background: #ffffff; border: 1px solid #dcdcdc; padding: 12px 0; display: flex; flex-direction: column; animation: dinoFade 160ms ease both; z-index: 40;">
             <sc-for list="{{ menuCats }}" as="c" hint-placeholder-count="5">
               <a href="#" onClick="{{ c.go }}" style="display: block; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 300; font-size: 12.5px; letter-spacing: 0.06em; color: #4a4a4a; padding: 7px 16px; text-decoration: none;" style-hover="color: #111111; background: #f4f4f4;">{{ c.label }}</a>
             </sc-for>
@@ -88,7 +88,7 @@
                 <a href="#" onClick="{{ a.open }}" style="text-decoration: none; color: #111111;">
                   <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;">
                     <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
-                    <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot></sc-if>
+                    <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}" style="pointer-events: none;"></image-slot></sc-if>
                     <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
                   </div>
                   <h3 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h3>
@@ -235,7 +235,7 @@
                 <a href="#" onClick="{{ a.open }}" style="display: block; text-decoration: none; color: #111111;">
                   <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;" style-hover="outline: 1px solid #111111; outline-offset: 0;">
                     <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
-                    <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot></sc-if>
+                    <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}" style="pointer-events: none;"></image-slot></sc-if>
                     <sc-if value="{{ a.hasBadge }}" hint-placeholder-val="{{ false }}">
                       <span style="position: absolute; left: 8px; top: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; padding: 3px 7px; background: #111111; color: #ffffff;">{{ a.badge }}</span>
                     </sc-if>
@@ -297,7 +297,7 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(24px, 4vw, 56px); margin-top: 26px;">
             <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; background: #f2f2f2;">
               <sc-if value="{{ detail.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ detail.photo }}" alt="{{ detail.name }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
-              <sc-if value="{{ detail.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ detail.slotBig }}" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot></sc-if>
+              <sc-if value="{{ detail.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ detail.slotBig }}" style="pointer-events: none;" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot></sc-if>
             </div>
             <div>
               <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; margin: 0;">{{ detail.name }}</h1>
@@ -330,15 +330,15 @@
             <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.08em; margin: 0; color: #6b6b6b;">PORTFOLIO</h2>
             <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; color: #9a9a9a;">{{ shotCount }}</span>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 220px), 1fr)); gap: 26px clamp(12px, 1.6vw, 22px);">
+          <div style="display: flex; flex-direction: column; gap: clamp(28px, 5vw, 56px); max-width: 860px; margin: 0 auto;">
             <sc-for list="{{ shots }}" as="p" hint-placeholder-count="6">
-              <figure style="margin: 0;">
-                <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; background: #f2f2f2; overflow: hidden;">
+              <figure style="margin: 0; width: 100%;">
+                <div style="position: relative; width: min(100%, calc(92vh * 3 / 4)); margin: 0 auto; aspect-ratio: 3 / 4; background: #f2f2f2; overflow: hidden;">
                   <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}">
                     <img src="{{ p.image }}" alt="{{ p.placeholder }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
                   </sc-if>
                   <sc-if value="{{ p.slotOnly }}" hint-placeholder-val="{{ true }}">
-                    <image-slot id="{{ p.slot }}" shape="rect" placeholder="{{ p.placeholder }}"></image-slot>
+                    <image-slot id="{{ p.slot }}" style="pointer-events: none;" shape="rect" placeholder="{{ p.placeholder }}"></image-slot>
                   </sc-if>
                   <sc-if value="{{ p.isFile }}" hint-placeholder-val="{{ false }}">
                     <video src="{{ p.src }}" muted="{{ true }}" autoPlay="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" controls="{{ true }}" preload="metadata" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: #111111;"></video>
@@ -369,7 +369,7 @@
                 <a href="#" onClick="{{ a.open }}" style="text-decoration: none; color: #111111;">
                   <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;">
                     <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
-                    <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}"></image-slot></sc-if>
+                    <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}" style="pointer-events: none;"></image-slot></sc-if>
                   </div>
                   <h3 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; margin: 10px 0 0;">{{ a.name }}</h3>
                 </a>
@@ -526,12 +526,7 @@
       </sc-if>
 
     </main>
-  </div>
-<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; left: -68px; top: -786px">
-              
-              
-              
-            </div></div>
+  </div></div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showAnnotations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;시안 옵션&quot;}}">
@@ -843,7 +838,7 @@ class Component extends DCLogic {
       goContact: this.nav("contact"),
       openMenu: () => this.setState({ menuOpen: true }),
       closeMenu: () => this.setState({ menuOpen: false }),
-      toggleMenu: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState((p) => ({ menuOpen: !p.menuOpen })); },
+      toggleMenu: this.nav("artists", { cat: "ALL", listPage: 0 }),
 
       letters: LETTERS.map((l, i) => Object.assign({}, l, { open: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ letterOpen: i }); window.scrollTo(0, 0); } })),
       readingLetter: s.letterOpen != null && !!LETTERS[s.letterOpen],

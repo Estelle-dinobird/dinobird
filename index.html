@@ -24,12 +24,13 @@
   a:hover { color: #6b6b6b; }
   ::selection { background: #111111; color: #ffffff; }
   @keyframes dinoFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes dinoSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
   @keyframes dinoWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
   @keyframes dinoMarqL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes dinoMarqR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
   @keyframes dinoRing { 0%, 100% { border-color: #f6c5d0; } 20% { border-color: #d4e6f6; } 40% { border-color: #d8eec2; } 60% { border-color: #ddd2f7; } 80% { border-color: #f2f2f2; } }
   @keyframes dinoBreath { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.045); } }
-  @media (prefers-reduced-motion: reduce) { [style*="dinoMarq"], [style*="dinoRing"] { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { [style*="dinoMarq"], [style*="dinoRing"], [style*="dinoSpin"] { animation: none !important; } }
 </style>
 </helmet>
 
@@ -134,8 +135,12 @@
                       <div style="white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);"><span style="display: inline-block; animation: dinoMarqL 42s linear infinite;">DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;</span></div>
                     </div>
                     <div aria-hidden="true" style="position: absolute; left: 50%; top: 44%; width: 74cqw; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); border-radius: 50%; border: 17cqw solid #f6c5d0; box-sizing: border-box; overflow: hidden; animation: dinoRing 12s ease-in-out infinite, dinoBreath 6s ease-in-out infinite; z-index: 1; background: #111111;">
-                      <video src="{{ mag.cover.film }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="metadata" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15);"></video>
+                      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: 5.6cqw; line-height: 0.92; letter-spacing: -0.04em; color: #ffffff;"><span>WE</span><span>CREATE</span><span>THE ERA.</span></div>
                     </div>
+                    <svg aria-hidden="true" viewBox="0 0 200 200" style="position: absolute; z-index: 1; left: 50%; top: 44%; width: 74cqw; height: 74cqw; transform: translate(-50%, -50%); animation: dinoSpin 40s linear infinite; pointer-events: none; overflow: visible;">
+                      <defs><path id="dinoRingPath" d="M100,100 m-77,0 a77,77 0 1,1 154,0 a77,77 0 1,1 -154,0"></path></defs>
+                      <text style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.4px;" fill="#111111"><textPath href="#dinoRingPath" startOffset="0">DIRECTOR · HOT COLOR · PURE · STREET · ERA · DINOBIRD ·</textPath></text>
+                    </svg>
                     <div style="position: absolute; z-index: 2; left: 5%; right: 5%; top: 4%; display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: max(10px, 1.9cqw); letter-spacing: 0.24em; mix-blend-mode: difference;">
                       <span>ISSUE 2026</span><span>WE CREATE THE ERA</span>
                     </div>

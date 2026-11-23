@@ -241,9 +241,9 @@
             <span style="{{ banner.metaOnPhoto }}">DINOBIRD ISSUE 2026 — SECTION {{ banner.no }}</span>
             <h1 data-dino-anim="title" style="{{ banner.coverTitle }}">{{ banner.title }}</h1>
             <sc-if value="{{ banner.coverCopy }}" hint-placeholder-val="{{ false }}">
-              <div data-dino-anim="copy" style="position: absolute; z-index: 3; right: clamp(24px, 4vw, 64px); bottom: clamp(28px, 5vh, 56px); width: min(30vw, 360px); display: flex; flex-direction: column; gap: 10px; color: #ffffff; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);">
-                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(15px, 1.35vw, 18px); line-height: 1.45; margin: 0; text-wrap: pretty;">{{ banner.en }}</p>
-                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 400; font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.7; margin: 0; text-wrap: pretty;">{{ banner.ko }}</p>
+              <div data-dino-anim="copy" style="{{ banner.coverCopyBox }}">
+                <p style="{{ banner.coverEn }}">{{ banner.en }}</p>
+                <p style="{{ banner.coverKo }}">{{ banner.ko }}</p>
               </div>
             </sc-if>
           </div>
@@ -986,13 +986,16 @@ class Component extends DCLogic {
           no: all ? "ALL " + String(CATS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
           ...(() => {
             const nar = !!s.narrow;
-            const mode = s.cat === "DIRECTOR" ? "spread" : s.cat === "PURE" ? "landscape" : "cover";
+            const mode = s.cat === "DIRECTOR" ? "spread" : s.cat === "PURE" ? "landscape" : s.cat === "HOT COLOR" ? "split" : "cover";
             const FF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             const cardBase = "display: flex; flex-direction: column; animation: dinoFade 220ms ease both;";
             const gridBase = "display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 40px clamp(12px, 1.6vw, 22px);";
             const meta = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: #ffffff; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45); pointer-events: none;";
             const fillImg = "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; opacity: 0; transition: opacity 500ms ease;";
-            const o = { mode, isCover: mode === "cover", coverCopy: mode === "cover" && !nar, metaOnPhoto: meta, imgStyle: fillImg, grid: gridBase, card: cardBase };
+            const o = { mode, isCover: mode === "cover", coverCopy: mode === "cover" && !nar,
+              coverCopyBox: "position: absolute; z-index: 3; right: clamp(24px, 4vw, 64px); bottom: clamp(28px, 5vh, 56px); width: min(30vw, 360px); display: flex; flex-direction: column; gap: 10px; color: #ffffff; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);",
+              coverEn: FF + " font-weight: 600; font-size: clamp(15px, 1.35vw, 18px); line-height: 1.45; margin: 0; text-wrap: pretty;",
+              coverKo: FF + " font-weight: 400; font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.7; margin: 0; text-wrap: pretty;", metaOnPhoto: meta, imgStyle: fillImg, grid: gridBase, card: cardBase };
             o.showHead = !(mode === "cover" && !nar);
             o.headTitle = false;
             o.shade = mode !== "landscape";
@@ -1039,6 +1042,32 @@ class Component extends DCLogic {
             const band = "background: " + PANEL + "; color: " + FG + "; margin: 0 calc(-1 * " + padX + "); padding-left: " + padX + "; padding-right: " + padX + ";";
             if (mode === "spread") {
               o.head = (nar ? "display: flex; flex-direction: column; gap: 16px; padding-top: 30px; padding-bottom: 30px;" : "display: flex; flex-direction: column; gap: 22px; padding-top: clamp(40px, 7vh, 80px); padding-bottom: clamp(34px, 5vh, 52px);") + " " + band;
+            } else if (mode === "split") {
+              const ink = "#3a1a1c";
+              o.page = "display: block;";
+              o.showHead = false;
+              o.coverCopy = true;
+              o.shade = false;
+              o.body = "padding: 0 clamp(18px, 3vw, 40px);";
+              const SER = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif;";
+              if (nar) {
+                o.media = "position: relative; display: flex; flex-direction: column; gap: 14px; background: " + PANEL + "; padding-bottom: 34px; overflow: hidden;";
+                o.imgStyle = "position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; opacity: 0; transition: opacity 500ms ease;";
+                o.metaOnPhoto = "position: relative; order: -1; display: flex; justify-content: space-between; padding: 14px 18px 0; " + FF + " font-weight: 700; font-size: 10px; letter-spacing: 0.24em; color: " + ink + ";";
+                o.coverTitle = "position: relative; margin: 8px 0 0; padding: 0 16px; " + FF + " font-weight: 800; font-size: clamp(56px, 18vw, 104px); line-height: 0.82; letter-spacing: -0.055em; color: " + ink + ";";
+                o.coverCopyBox = "position: relative; display: flex; flex-direction: column; gap: 12px; padding: 4px 18px 0; color: " + ink + ";";
+                o.coverEn = SER + " font-style: italic; font-size: 22px; line-height: 1.22; margin: 0; text-wrap: pretty;";
+                o.coverKo = FF + " font-size: 13.5px; line-height: 1.75; margin: 0; opacity: 0.86;";
+              } else {
+                const W = "54%";
+                o.media = "position: relative; width: 100%; height: clamp(560px, calc(100vh - 47px), 960px); overflow: hidden; background: " + PANEL + ";";
+                o.imgStyle = "position: absolute; top: 0; right: 0; bottom: 0; width: " + W + "; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; opacity: 0; transition: opacity 500ms ease;";
+                o.metaOnPhoto = "position: absolute; z-index: 3; left: clamp(20px, 3vw, 44px); right: calc(" + W + " + clamp(20px, 3vw, 44px)); top: clamp(16px, 2.4vw, 28px); display: flex; justify-content: space-between; gap: 12px; " + FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: " + ink + "; pointer-events: none;";
+                o.coverTitle = "position: absolute; z-index: 3; left: clamp(16px, 2.6vw, 38px); right: calc(" + W + " + 12px); top: clamp(56px, 10vh, 110px); margin: 0; " + FF + " font-weight: 800; font-size: clamp(78px, 9.6vw, 176px); line-height: 0.82; letter-spacing: -0.055em; color: " + ink + "; pointer-events: none;";
+                o.coverCopyBox = "position: absolute; z-index: 3; left: clamp(20px, 3vw, 44px); bottom: clamp(32px, 6vh, 64px); width: min(calc(100% - " + W + " - 88px), 440px); display: flex; flex-direction: column; gap: 14px; color: " + ink + ";";
+                o.coverEn = SER + " font-style: italic; font-size: clamp(22px, 2.2vw, 34px); line-height: 1.2; letter-spacing: -0.01em; margin: 0; text-wrap: pretty;";
+                o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 15px); line-height: 1.75; margin: 0; opacity: 0.86; text-wrap: pretty;";
+              }
             } else if (mode === "landscape") {
               const ink = "#3f6f93";
               o.coverTitle = "position: absolute; z-index: 3; left: clamp(12px, 2.4vw, 34px); right: 0; top: " + (nar ? "34px" : "clamp(40px, 7vh, 76px)") + "; margin: 0; " + FF + " font-weight: 800; font-size: " + (nar ? "clamp(64px, 22vw, 120px)" : "clamp(110px, 17vw, 300px)") + "; line-height: 0.8; letter-spacing: -0.055em; color: #7fb0d6; mix-blend-mode: multiply; white-space: nowrap; pointer-events: none;";
@@ -1057,7 +1086,7 @@ class Component extends DCLogic {
               o.fadeStyle = "position: absolute; left: 0; right: 0; bottom: 0; height: 9%; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, " + PANEL + " 100%);";
               o.head = (nar ? "display: flex; flex-direction: column; gap: 16px; padding-top: 28px; padding-bottom: 30px;" : "display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 22px 56px; padding-top: clamp(34px, 4.5vw, 60px); padding-bottom: clamp(34px, 4.5vw, 60px);") + " " + band + " margin-bottom: 6px;";
             }
-            if (mode !== "landscape") {
+            if (mode !== "landscape" && mode !== "split") {
               const tint = mode === "spread" || all ? "#ffffff" : (info.bg || "#ffffff");
               const size = mode === "spread"
                 ? (nar ? "clamp(56px, 17vw, 104px)" : "min(9.4vw, calc((100vh - 47px) * 0.8 / 5.4))")

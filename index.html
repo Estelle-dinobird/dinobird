@@ -235,6 +235,9 @@
             <sc-if value="{{ banner.shade }}" hint-placeholder-val="{{ false }}">
               <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.55) 100%);"></div>
             </sc-if>
+            <sc-if value="{{ banner.fade }}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="{{ banner.fadeStyle }}"></div>
+            </sc-if>
             <span style="{{ banner.metaOnPhoto }}">DINOBIRD ISSUE 2026 — SECTION {{ banner.no }}</span>
             <h1 data-dino-anim="title" style="{{ banner.coverTitle }}">{{ banner.title }}</h1>
             <sc-if value="{{ banner.coverCopy }}" hint-placeholder-val="{{ false }}">
@@ -248,14 +251,14 @@
             <sc-if value="{{ banner.showHead }}" hint-placeholder-val="{{ false }}">
               <div data-dino-anim="copy" style="{{ banner.head }}">
                 <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
-                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #6b6b6b;">SECTION {{ banner.no }}</span>
+                  <span style="{{ banner.labelStyle }}">SECTION {{ banner.no }}</span>
                   <sc-if value="{{ banner.headTitle }}" hint-placeholder-val="{{ false }}">
                     <h1 data-dino-anim="title" style="{{ banner.headTitleStyle }}">{{ banner.title }}</h1>
                   </sc-if>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 10px; max-width: 380px;">
-                  <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(15px, 1.35vw, 18px); line-height: 1.45; margin: 0; color: #111111; text-wrap: pretty;">{{ banner.en }}</p>
-                  <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 400; font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.7; margin: 0; color: #333333; text-wrap: pretty;">{{ banner.ko }}</p>
+                <div style="{{ banner.copyBox }}">
+                  <p style="{{ banner.enStyle }}">{{ banner.en }}</p>
+                  <p style="{{ banner.koStyle }}">{{ banner.ko }}</p>
                 </div>
               </div>
             </sc-if>
@@ -1021,6 +1024,36 @@ class Component extends DCLogic {
               o.body = "padding: 0 clamp(18px, 3vw, 40px);";
               o.head = "display: flex; flex-direction: column; gap: 10px; padding: 26px 0 6px;";
               o.headTitleStyle = "margin: 0;";
+            }
+            // section colour + editorial type (merged from the colour issue layout)
+            const PANEL = all ? "#2a2a2a" : (info.bg || "#2a2a2a");
+            const FG = all ? "#ffffff" : (info.fg || "#ffffff");
+            const SERIF = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif;";
+            const padX = mode === "spread" ? (nar ? "18px" : "clamp(22px, 3vw, 44px)") : (nar ? "18px" : "clamp(18px, 3vw, 40px)");
+            o.labelStyle = FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: " + FG + "; opacity: 0.72;";
+            o.enStyle = SERIF + " font-style: italic; font-weight: 400; font-size: " + (nar ? "22px" : "clamp(22px, 2.1vw, 32px)") + "; line-height: 1.22; letter-spacing: -0.01em; margin: 0; color: " + FG + "; text-wrap: pretty;";
+            o.koStyle = FF + " font-weight: 400; font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.75; margin: 0; color: " + FG + "; opacity: 0.84; text-wrap: pretty;";
+            o.copyBox = "display: flex; flex-direction: column; gap: 12px; max-width: " + (nar ? "none" : "440px") + ";";
+            o.fade = false;
+            o.fadeStyle = "display: none;";
+            const band = "background: " + PANEL + "; color: " + FG + "; margin: 0 calc(-1 * " + padX + "); padding-left: " + padX + "; padding-right: " + padX + ";";
+            if (mode === "spread") {
+              o.head = (nar ? "display: flex; flex-direction: column; gap: 16px; padding-top: 30px; padding-bottom: 30px;" : "display: flex; flex-direction: column; gap: 22px; padding-top: clamp(40px, 7vh, 80px); padding-bottom: clamp(34px, 5vh, 52px);") + " " + band;
+            } else if (mode === "landscape") {
+              const ink = "#3f6f93";
+              o.coverTitle = "position: absolute; z-index: 3; left: clamp(12px, 2.4vw, 34px); right: 0; top: " + (nar ? "34px" : "clamp(40px, 7vh, 76px)") + "; margin: 0; " + FF + " font-weight: 800; font-size: " + (nar ? "clamp(64px, 22vw, 120px)" : "clamp(110px, 17vw, 300px)") + "; line-height: 0.8; letter-spacing: -0.055em; color: #7fb0d6; mix-blend-mode: multiply; white-space: nowrap; pointer-events: none;";
+              o.metaOnPhoto = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(12px, 2vw, 24px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + ink + "; pointer-events: none;";
+              o.fade = true;
+              o.fadeStyle = "position: absolute; left: 0; right: 0; bottom: 0; height: 22%; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(216, 236, 248, 0) 0%, " + PANEL + " 100%);";
+              o.head = (nar ? "display: flex; flex-direction: column; gap: 16px; padding-top: 10px; padding-bottom: 30px;" : "display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 22px 56px; padding-top: clamp(8px, 1.5vw, 20px); padding-bottom: clamp(38px, 5vw, 64px);") + " " + band + " border-bottom: 0; margin-bottom: 6px;";
+              o.labelStyle = FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: " + ink + ";";
+              o.enStyle = o.enStyle.replace("color: " + FG, "color: #1f3a4f");
+              o.koStyle = o.koStyle.replace("color: " + FG + "; opacity: 0.84", "color: #2c4a60");
+              o.copyBox = "display: flex; flex-direction: column; gap: 12px; max-width: " + (nar ? "none" : "520px") + ";";
+            } else {
+              o.coverCopy = false;
+              o.showHead = true;
+              o.head = (nar ? "display: flex; flex-direction: column; gap: 16px; padding-top: 28px; padding-bottom: 30px;" : "display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 22px 56px; padding-top: clamp(34px, 4.5vw, 60px); padding-bottom: clamp(34px, 4.5vw, 60px);") + " " + band + " margin-bottom: 6px;";
             }
             return o;
           })(),

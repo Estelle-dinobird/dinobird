@@ -286,7 +286,9 @@
             <img src="{{ banner.img }}" alt="{{ banner.title }} 컨셉 사진" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="{{ banner.imgStyle }}">
             <sc-if value="{{ banner.hasSlider }}" hint-placeholder-val="{{ false }}">
               <sc-for list="{{ banner.slides }}" as="sl" hint-placeholder-count="3">
-                <img src="{{ sl.src }}" alt="{{ sl.alt }}" draggable="false" style="{{ sl.style }}">
+                <div style="{{ sl.wrap }}">
+                  <img src="{{ sl.src }}" alt="{{ sl.alt }}" draggable="false" style="{{ sl.style }}">
+                </div>
               </sc-for>
             </sc-if>
             <sc-if value="{{ banner.shade }}" hint-placeholder-val="{{ false }}">
@@ -1261,9 +1263,17 @@ class Component extends DCLogic {
               const ink = "#3f6f93";
               o.coverTitle = "position: absolute; z-index: 3; left: clamp(12px, 2.4vw, 34px); right: 0; top: " + (nar ? "34px" : "clamp(40px, 7vh, 76px)") + "; margin: 0; " + FF + " font-weight: 800; font-size: " + (nar ? "clamp(64px, 22vw, 120px)" : "clamp(110px, 17vw, 300px)") + "; line-height: 0.8; letter-spacing: -0.055em; color: #7fb0d6; mix-blend-mode: multiply; white-space: nowrap; pointer-events: none;";
               o.metaOnPhoto = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(12px, 2vw, 24px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + ink + "; pointer-events: none;";
-              o.fade = true;
-              o.fadeStyle = "position: absolute; left: 0; right: 0; bottom: 0; height: 22%; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(216, 236, 248, 0) 0%, " + PANEL + " 100%);";
-              o.head = (nar ? "display: flex; flex-direction: column; gap: 16px; padding-top: 10px; padding-bottom: 30px;" : "display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 22px 56px; padding-top: clamp(8px, 1.5vw, 20px); padding-bottom: clamp(38px, 5vw, 64px);") + " " + band + " border-bottom: 0; margin-bottom: 6px;";
+              o.fade = false;
+              o.head = "display: flex; flex-direction: column; gap: 14px; padding-top: 24px; padding-bottom: 26px; border-bottom: 1px solid #e6e6e6; margin-bottom: 6px;";
+              o.showHead = !!nar;
+              if (!nar) {
+                o.media = "position: relative; width: 100%; height: clamp(560px, calc(100vh - 47px), 960px); overflow: hidden; background: #eef1f4;";
+                o.imgStyle = "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 82%; display: block; opacity: 0; transition: opacity 500ms ease;";
+                o.coverCopy = true;
+                o.coverCopyBox = "position: absolute; z-index: 3; right: clamp(24px, 5vw, 80px); top: clamp(56px, 11vh, 120px); width: min(30vw, 400px); display: flex; flex-direction: column; gap: 12px; color: #1f3a4f; text-align: right;";
+                o.coverEn = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-style: italic; font-size: clamp(20px, 1.9vw, 30px); line-height: 1.2; margin: 0; text-wrap: pretty;";
+                o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 15px); line-height: 1.75; margin: 0; color: #2c4a60;";
+              }
               o.labelStyle = FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: " + ink + ";";
               o.enStyle = o.enStyle.replace("color: " + FG, "color: #1f3a4f");
               o.koStyle = o.koStyle.replace("color: " + FG + "; opacity: 0.84", "color: #2c4a60");
@@ -1380,11 +1390,20 @@ class Component extends DCLogic {
             const area = mode === "split"
               ? (nar ? "position: absolute; left: 0; top: 0; width: 100%; height: 125vw;" : "position: absolute; inset: 0; width: 100%; height: 100%;")
               : "position: absolute; inset: 0; width: 100%; height: 100%;";
-            o.slides = GAL.map((g, gi) => ({
-              src: "media/sections/" + g[0],
-              alt: s.cat + " 컨셉 사진 " + (gi + 2),
-              style: area + " display: block; object-fit: cover; object-position: 50% 28%; transition: opacity 700ms ease; pointer-events: none; user-select: none; opacity: " + (cur === gi + 1 ? 1 : 0) + ";" + mono
-            }));
+            const backdrop = mode === "landscape" ? "#eef1f4" : mode === "spread" ? "#8a8a8a" : mode === "split" ? "#10284a" : "#1a1a1a";
+            let portraitN = 0;
+            o.slides = GAL.map((g, gi) => {
+              const portrait = g[1] < 1 && !nar;
+              const side = portrait ? (portraitN++ % 2 === 0 ? "right" : "left") : "";
+              return {
+                src: "media/sections/" + g[0],
+                alt: s.cat + " 컨셉 사진 " + (gi + 2),
+                wrap: area + " overflow: hidden; background: " + (portrait ? backdrop : "transparent") + "; transition: opacity 700ms ease; pointer-events: none; opacity: " + (cur === gi + 1 ? 1 : 0) + ";",
+                style: portrait
+                  ? "position: absolute; top: 0; bottom: 0; " + side + ": clamp(0px, 7vw, 120px); height: 100%; width: auto; aspect-ratio: " + g[1] + "; object-fit: cover; display: block; user-select: none;" + mono
+                  : "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block; user-select: none;" + mono
+              };
+            });
             const dotOn = mode === "landscape" ? "#3f6f93" : "#ffffff";
             const dotOff = mode === "landscape" ? "rgba(63, 111, 147, 0.35)" : "rgba(255, 255, 255, 0.5)";
             o.dots = Array.from({ length: nSl }, (_, i) => ({
@@ -1392,7 +1411,7 @@ class Component extends DCLogic {
               go: (e) => { if (e && e.stopPropagation) e.stopPropagation(); goSl(i); },
               style: "width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; background: " + (i === cur ? dotOn : dotOff) + "; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); transition: background 200ms ease;"
             }));
-            const dotsTop = mode === "split" && nar ? "top: calc(125vw - 28px);" : (mode === "landscape" ? "bottom: 24%;" : "bottom: 22px;");
+            const dotsTop = mode === "split" && nar ? "top: calc(125vw - 28px);" : "bottom: 22px;";
             o.dotsBox = "position: absolute; z-index: 6; " + dotsTop + " " + "left: 0; right: 0;" + " display: flex; justify-content: center; gap: 10px;";
             const arrow = "position: absolute; z-index: 6; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.78); color: #111111; font-size: 24px; line-height: 1; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);";
             o.prevStyle = arrow + " left: 16px;";

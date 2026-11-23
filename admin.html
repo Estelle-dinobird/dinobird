@@ -4342,11 +4342,31 @@ class Component extends DCLogic {
       const v = document.createElement("video");
       v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = src;
       const fail = (m) => { try { URL.revokeObjectURL(src); } catch (e) {} reject(new Error(m)); };
-      v.onerror = () => fail("이 영상 형식은 열 수 없습니다. MP4(H.264)나 MOV로 저장해서 다시 올려주세요");
-      v.onloadedmetadata = () => {
+      const codecMsg = "이 브라우저가 이 영상 형식을 열지 못합니다 (아이폰 HEVC·ProRes 영상일 수 있어요). Mac이면 Safari로 어드민을 열어 다시 올리거나, 영상을 H.264 MP4로 내보내서 올려주세요";
+      v.onerror = () => fail(codecMsg);
+      let started = false;
+      const timer = setTimeout(() => { if (!started) fail(codecMsg); }, 20000);
+      const ready = () => {
+        if (started) return;
+        let dur = v.duration;
+        if (!isFinite(dur) || !(dur > 0)) {
+          if (!v._probing) {
+            v._probing = true;
+            const back = () => { v.removeEventListener("durationchange", back); v.removeEventListener("timeupdate", back); v.currentTime = 0; setTimeout(ready, 300); };
+            v.addEventListener("durationchange", back); v.addEventListener("timeupdate", back);
+            try { v.currentTime = 1e7; } catch (e) {}
+          }
+          return;
+        }
+        if (!v.videoWidth || !v.videoHeight) return;
+        started = true; clearTimeout(timer);
+        go(dur);
+      };
+      v.onloadedmetadata = ready;
+      v.onloadeddata = ready;
+      v.oncanplay = ready;
+      const go = (dur) => {
         let w = v.videoWidth, h = v.videoHeight;
-        const dur = isFinite(v.duration) && v.duration > 0 ? v.duration : 0;
-        if (!w || !h || !dur) return fail("영상 정보를 읽을 수 없습니다");
         const k = Math.min(1, 1920 / Math.max(w, h));
         w = Math.max(2, Math.round((w * k) / 2) * 2); h = Math.max(2, Math.round((h * k) / 2) * 2);
         const c = document.createElement("canvas"); c.width = w; c.height = h;

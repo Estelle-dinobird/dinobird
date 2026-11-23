@@ -261,17 +261,18 @@
 
       <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
         <div>
+          <section style="min-height: calc(100vh - 47px); background: #f4f4f4; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(48px, 8vh, 90px) 20px; box-sizing: border-box;">
+            <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(52px, 8.6vw, 132px); line-height: 1; letter-spacing: 0.01em; color: #111111;">DINOBIRD</h1>
+            <p style="margin: clamp(10px, 1.4vw, 20px) 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 4.4vw, 68px); line-height: 1.05; letter-spacing: 0.01em; color: #111111;">WE CREATE THE ERA.</p>
+            <p style="margin: clamp(48px, 8vw, 120px) 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 4.6vw, 72px); line-height: 1.2; letter-spacing: -0.01em; color: #111111; word-break: keep-all;">{{ aboutHead }}</p>
+          </section>
+
           <section style="position: relative; height: clamp(520px, calc(100vh - 47px), 980px); overflow: hidden; background: #10284a;">
             <img src="media/sections/about-1.jpg" alt="DINOBIRD 컨셉 사진" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block;">
             <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 26%);"></div>
             <div style="position: absolute; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #ffffff;">
               <span>ABOUT DINOBIRD</span><span>SEOUL — 2026</span>
             </div>
-          </section>
-
-          <section style="padding: clamp(56px, 9vw, 140px) clamp(16px, 3vw, 40px) clamp(56px, 9vw, 140px); border-bottom: 1px solid #111111;">
-            <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(44px, 8.4vw, 150px); line-height: 0.98; letter-spacing: -0.05em; color: #111111; text-wrap: balance;">{{ aboutHead }}</h1>
-            <p style="margin: clamp(18px, 2.4vw, 32px) 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(13px, 1.2vw, 16px); letter-spacing: 0.24em; color: #111111;">{{ bannerText }}</p>
           </section>
 
           <section style="display: flex; flex-wrap: wrap; align-items: stretch;">

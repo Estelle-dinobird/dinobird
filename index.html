@@ -838,10 +838,19 @@ class Component extends DCLogic {
       if (this.state.page === "artists" || this.state.cat) {
         const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (!reduce) {
-          document.querySelectorAll('[data-dino-anim]').forEach((n, i) => {
+          const ease = "cubic-bezier(.22,.61,.12,1)";
+          document.querySelectorAll('[data-dino-anim]').forEach((n) => {
             const kind = n.getAttribute("data-dino-anim");
-            const from = kind === "photo" ? "translateY(48px)" : kind === "title" ? "translateX(-6%)" : "translateY(18px)";
-            try { n.animate([{ opacity: 0, transform: from }, { opacity: 1, transform: "none" }], { duration: kind === "photo" ? 900 : 1000, delay: kind === "copy" ? 260 : kind === "title" ? 120 : 0, easing: "cubic-bezier(.2,.7,.1,1)", fill: "backwards" }); } catch (e) {}
+            try {
+              if (kind === "photo") {
+                const img = n.querySelector("img") || n;
+                img.animate([{ transform: "scale(1.08)" }, { transform: "scale(1)" }], { duration: 2200, easing: ease, fill: "backwards" });
+              } else if (kind === "title") {
+                n.animate([{ clipPath: "inset(0 100% 0 0)", opacity: 1 }, { clipPath: "inset(0 0 0 0)", opacity: 1 }], { duration: 1100, delay: 350, easing: ease, fill: "backwards" });
+              } else {
+                n.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: 700, easing: "ease-out", fill: "backwards" });
+              }
+            } catch (e) {}
           });
         }
       }

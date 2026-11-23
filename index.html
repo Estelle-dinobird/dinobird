@@ -1373,7 +1373,7 @@ class Component extends DCLogic {
             const GAL = {
               "HOT COLOR": [["hot-1.jpg", 1.5], ["hot-3.jpg", 0.667], ["hot-2.jpg", 0.667], ["hot-4.jpg", 1.5]],
               PURE: [["pure-1.jpg", 1.5], ["pure-2.jpg", 0.667]],
-              DIRECTOR: [["director-1.jpg", 1.5], ["director-2.jpg", 0.667]]
+              DIRECTOR: [["director-1.jpg", 1.5], ["director-3.jpg", 0.667, "color"]]
             }[s.cat] || [];
             o.hasGallery = GAL.length > 0;
             const mono = mode === "spread" ? " filter: grayscale(1);" : "";
@@ -1402,8 +1402,8 @@ class Component extends DCLogic {
                 alt: s.cat + " 컨셉 사진 " + (gi + 2),
                 wrap: area + " overflow: hidden; background: " + (portrait ? backdrop : "transparent") + "; transition: opacity 700ms ease; pointer-events: none; opacity: " + (cur === gi + 1 ? 1 : 0) + ";",
                 style: portrait
-                  ? "position: absolute; top: 0; bottom: 0; " + side + ": clamp(0px, 7vw, 120px); height: 100%; width: auto; aspect-ratio: " + g[1] + "; object-fit: cover; display: block; user-select: none;" + mono
-                  : "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block; user-select: none;" + mono
+                  ? "position: absolute; top: 0; bottom: 0; " + side + ": clamp(0px, 7vw, 120px); height: 100%; width: auto; aspect-ratio: " + g[1] + "; object-fit: cover; display: block; user-select: none;" + (g[2] === "color" ? "" : mono)
+                  : "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block; user-select: none;" + (g[2] === "color" ? "" : mono)
               };
             });
             const dotOn = mode === "landscape" ? "#3f6f93" : "#ffffff";

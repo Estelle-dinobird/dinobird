@@ -261,36 +261,51 @@
 
       <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
         <div>
-          <section style="position: relative; height: clamp(360px, 56vh, 560px); overflow: hidden;">
-            <img src="assets/hot-main.png" alt="DINOBIRD HOT COLOR" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; display: block; filter: blur(7px) brightness(1.12) saturate(0.9); transform: scale(1.06);">
-            <div style="position: absolute; inset: 0; background: #ffffff; opacity: {{ aboutOverlay }};"></div>
-            <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px;">
-              <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(42px, 6vw, 66px); line-height: 1; margin: 0;">DINOBIRD</h1>
-              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(24px, 3.6vw, 38px); line-height: 1.1; margin: 6px 0 0;">{{ bannerText }}</p>
-              <p style="font-weight: 700; font-size: clamp(18px, 2.7vw, 31px); line-height: 1.3; margin: 58px 0 0;">{{ aboutHead }}</p>
+          <section style="position: relative; height: clamp(520px, calc(100vh - 47px), 980px); overflow: hidden; background: #10284a;">
+            <img src="media/sections/about-1.jpg" alt="DINOBIRD 컨셉 사진" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block;">
+            <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 26%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.5) 100%);"></div>
+            <div style="position: absolute; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #ffffff;">
+              <span>ABOUT DINOBIRD</span><span>SEOUL — 2026</span>
             </div>
-            <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ false }}">
-              <span style="position: absolute; right: 18px; bottom: 12px; font-size: 13px; font-weight: 700; color: #ff2b2b;">(핫컬러 B컷)</span>
-            </sc-if>
+            <div style="position: absolute; left: clamp(14px, 2.6vw, 38px); right: clamp(16px, 3vw, 40px); bottom: clamp(28px, 6vh, 64px); color: #ffffff; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 18px 40px;">
+              <div>
+                <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(64px, 13vw, 230px); line-height: 0.8; letter-spacing: -0.055em;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span></h1>
+                <p style="margin: 16px 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(18px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.01em;">{{ bannerText }}</p>
+              </div>
+              <p style="margin: 0; max-width: 380px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(16px, 1.6vw, 22px); line-height: 1.4; text-align: right;">{{ aboutHead }}</p>
+            </div>
           </section>
 
-          <section style="background: #e4ecf5; padding: 0 0 26px; display: flex; justify-content: center;">
-            <img src="assets/about-band.png" alt="DINOBIRD artist" style="width: min(76%, 780px); height: auto; display: block;">
+          <section style="display: flex; flex-wrap: wrap; align-items: stretch;">
+            <div style="position: relative; flex: 1 1 380px; min-height: clamp(520px, 82vh, 900px); overflow: hidden; background: #2e2e2e;">
+              <img src="media/sections/about-2.jpg" alt="DINOBIRD 디렉터 컨셉 사진" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; display: block;">
+            </div>
+            <div style="flex: 1 1 380px; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: clamp(48px, 8vw, 120px) clamp(22px, 6vw, 96px);">
+              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #6b6b6b;">01 — THE NAME</span>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">공룡에서 새로 이어진 진화처럼<br>예술 역시 시대에 따라 변화하고 확장됩니다.<br>DINOBIRD는 변화와 진화, 새로운 가능성을 의미합니다.</p>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">DINOBIRD는 아티스트를 상징합니다.<br>서로 다른 개성과 전문성을 가진 아티스트들이 각자의 방식으로 진화하고,<br>그들의 예술이 모여 새로운 시대를 만듭니다.</p>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">아티스트들이 모여 하나의 새로운 문화를 만들어가는 브랜드.</p>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">DINOBIRD는 아티스트와 함께 새로운 예술의 ERA를 만들어갑니다.</p>
+            </div>
           </section>
 
-          <section style="padding: clamp(60px, 9vw, 116px) 20px 0 clamp(28px, 11vw, 130px);">
-            <p style="font-size: 13.5px; line-height: 2; margin: 0;">공룡에서 새로 이어진 진화처럼<br>예술 역시 시대에 따라 변화하고 확장됩니다.<br>DINOBIRD는 변화와 진화, 새로운 가능성을 의미합니다.</p>
-            <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">DINOBIRD는 아티스트를 상징합니다.<br>서로 다른 개성과 전문성을 가진 아티스트들이 각자의 방식으로 진화하고,<br>그들의 예술이 모여 새로운 시대를 만듭니다.</p>
-            <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">아티스트들이 모여 하나의 새로운 문화를 만들어가는 브랜드.</p>
-            <p style="font-size: 13.5px; line-height: 2; margin: 26px 0 0;">DINOBIRD는 아티스트와 함께 새로운 예술의 ERA를 만들어갑니다.</p>
-            <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; font-size: 15px; line-height: 1.6; margin: 26px 0 0;">WE CREATE THE ERA.<br>DINOBIRD ERA.</p>
+          <section style="position: relative; height: clamp(420px, 78vh, 860px); overflow: hidden; background: #2e2e2e;">
+            <img src="media/sections/about-3.jpg" alt="DINOBIRD 컨셉 사진" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; display: block;">
+            <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.45) 100%);"></div>
+            <p style="position: absolute; left: clamp(14px, 2.6vw, 38px); bottom: clamp(24px, 5vh, 56px); margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(40px, 7.6vw, 132px); line-height: 0.86; letter-spacing: -0.05em; color: #ffffff;">WE CREATE THE ERA.<br>DINOBIRD ERA.</p>
           </section>
 
-          <section style="padding: clamp(80px, 12vw, 150px) 20px clamp(90px, 13vw, 160px); text-align: center;">
-            <p style="font-size: 15px; line-height: 2.1; margin: 0;">DINOBIRD는 댄서를 중심으로 새로운 예술의 ERA를 만들어가는 아티스트 에이전시입니다.<br>아티스트는 각자의 전문성과 개성을 가지고 있습니다.<br>DINOBIRD는 그 가치를 정확하게 이해하고, 아티스트에게 가장 적합한 기회와 프로젝트를 연결합니다.</p>
-            <p style="font-size: 15px; line-height: 2.1; margin: 34px 0 0;">댄스와 퍼포먼스를 기반으로 안무, 공연, 콘텐츠, 음악, 패션, 브랜드 협업 등<br>아티스트가 가진 역량을 다양한 영역으로 확장합니다.</p>
-            <p style="font-size: 15px; line-height: 2.1; margin: 34px 0 0;">아티스트의 가치를 잘 아는 것.<br>그리고 그 가치로 새로운 예술을 만들어가는 것.<br>DINOBIRD의 매니지먼트는 여기에서 시작합니다.</p>
-            <p style="font-size: 15px; line-height: 2.1; margin: 34px 0 0;">각자의 전문성과 개성이 하나의 결과를 만들고,<br>그 결과들이 모여 새로운 문화와 예술의 흐름을 만듭니다.<br>DINOBIRD는 그 흐름을 통해 새로운 예술의 시대, ERA를 만들어갑니다.</p>
+          <section style="display: flex; flex-wrap: wrap-reverse; align-items: stretch;">
+            <div style="flex: 1 1 380px; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: clamp(48px, 8vw, 120px) clamp(22px, 6vw, 96px);">
+              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #6b6b6b;">02 — WHAT WE DO</span>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">DINOBIRD는 댄서를 중심으로 새로운 예술의 ERA를 만들어가는 아티스트 에이전시입니다.<br>아티스트는 각자의 전문성과 개성을 가지고 있습니다.<br>DINOBIRD는 그 가치를 정확하게 이해하고, 아티스트에게 가장 적합한 기회와 프로젝트를 연결합니다.</p>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">댄스와 퍼포먼스를 기반으로 안무, 공연, 콘텐츠, 음악, 패션, 브랜드 협업 등<br>아티스트가 가진 역량을 다양한 영역으로 확장합니다.</p>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">아티스트의 가치를 잘 아는 것.<br>그리고 그 가치로 새로운 예술을 만들어가는 것.<br>DINOBIRD의 매니지먼트는 여기에서 시작합니다.</p>
+              <p style="font-size: clamp(14px, 1.15vw, 16px); line-height: 2.05; margin: 0;">각자의 전문성과 개성이 하나의 결과를 만들고,<br>그 결과들이 모여 새로운 문화와 예술의 흐름을 만듭니다.<br>DINOBIRD는 그 흐름을 통해 새로운 예술의 시대, ERA를 만들어갑니다.</p>
+            </div>
+            <div style="position: relative; flex: 1 1 380px; min-height: clamp(520px, 82vh, 900px); overflow: hidden; background: #8a8a8a;">
+              <img src="media/sections/about-4.jpg" alt="DINOBIRD 디렉터 컨셉 사진" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block;">
+            </div>
           </section>
         </div>
       </sc-if>

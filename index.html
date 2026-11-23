@@ -1373,7 +1373,7 @@ class Component extends DCLogic {
             const GAL = {
               "HOT COLOR": [["hot-1.jpg", 1.5], ["hot-3.jpg", 0.667], ["hot-2.jpg", 0.667], ["hot-4.jpg", 1.5]],
               PURE: [["pure-1.jpg", 1.5], ["pure-2.jpg", 0.667]],
-              DIRECTOR: [["director-1.jpg", 1.5], ["director-3.jpg", 0.667, "color"]]
+              DIRECTOR: [["director-1.jpg", 1.5], ["director-2.jpg", 0.667, "color"]]
             }[s.cat] || [];
             o.hasGallery = GAL.length > 0;
             const mono = mode === "spread" ? " filter: grayscale(1);" : "";
@@ -1395,7 +1395,7 @@ class Component extends DCLogic {
             const backdrop = mode === "landscape" ? "#eef1f4" : mode === "spread" ? "#8a8a8a" : mode === "split" ? "#10284a" : "#1a1a1a";
             let portraitN = 0;
             o.slides = GAL.map((g, gi) => {
-              const portrait = g[1] < 1 && !nar;
+              const portrait = g[1] < 1 && !nar && mode !== "spread";
               const side = portrait ? (portraitN++ % 2 === 0 ? "right" : "left") : "";
               return {
                 src: "media/sections/" + g[0],

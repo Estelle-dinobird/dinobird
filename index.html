@@ -217,37 +217,50 @@
       </sc-if>
 
       <sc-if value="{{ isArtists }}" hint-placeholder-val="{{ false }}">
-        <section style="position: relative; background: {{ banner.panel }}; color: {{ banner.fg }};">
-          <div style="{{ banner.stage }}">
-            <div aria-hidden="true" data-dino-anim="title" style="{{ banner.titleSolid }}">{{ banner.title }}</div>
-            <div data-dino-anim="photo" style="{{ banner.photoBox }}">
-              <img src="{{ banner.img }}" alt="{{ banner.title }} 컨셉 사진" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; opacity: 0; transition: opacity 500ms ease;">
-            </div>
-            <h1 data-dino-anim="title" style="{{ banner.titleLine }}">{{ banner.title }}</h1>
-            <div style="{{ banner.metaTop }}">
-              <span>DINOBIRD ISSUE 2026 — SECTION {{ banner.no }}</span>
-            </div>
-            <div data-dino-anim="copy" style="{{ banner.copy }}">
-              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.2em;">{{ banner.no }}</span>
-              <p style="font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', serif; font-style: italic; font-size: clamp(20px, 2.3vw, 32px); line-height: 1.25; letter-spacing: -0.01em; margin: 0; text-wrap: balance;">{{ banner.en }}</p>
-              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13px, 1.15vw, 15px); line-height: 1.75; margin: 0; max-width: 340px; text-wrap: pretty;">{{ banner.ko }}</p>
-            </div>
-            <span aria-hidden="true" style="{{ banner.vertical }}">{{ banner.verticalText }}</span>
+          <nav aria-label="섹션" style="position: relative; z-index: 2; background: #ffffff; border-bottom: 1px solid #e6e6e6; overflow-x: auto; scrollbar-width: none; padding: 0 18px;"><div style="display: flex; flex-wrap: nowrap; width: max-content; margin: 0 auto; gap: 0 clamp(20px, 3vw, 40px);">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+            <span style="display: flex;">
+              <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
+                <a href="#" onClick="{{ t.go }}" style="display: inline-flex; padding: 18px 0 14px; border-bottom: 2px solid #111111; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13.5px, 1.5vw, 15px); letter-spacing: 0.05em; color: #111111; font-weight: 700; white-space: nowrap; text-decoration: none;">{{ t.label }}</a>
+              </sc-if>
+              <sc-if value="{{ t.inactive }}" hint-placeholder-val="{{ true }}">
+                <a href="#" onClick="{{ t.go }}" style="display: inline-flex; padding: 18px 0 14px; border-bottom: 2px solid transparent; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13.5px, 1.5vw, 15px); letter-spacing: 0.05em; color: #555555; font-weight: 500; white-space: nowrap; text-decoration: none; transition: color 180ms ease, border-color 180ms ease;" style-hover="color: #111111; border-bottom-color: rgba(17, 17, 17, 0.3);">{{ t.label }}</a>
+              </sc-if>
+            </span>
+          </sc-for>
+        </div></nav>
+        <div style="{{ banner.page }}">
+          <div data-dino-anim="photo" style="{{ banner.media }}">
+            <img src="{{ banner.img }}" alt="{{ banner.title }} 컨셉 사진" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="{{ banner.imgStyle }}">
+            <sc-if value="{{ banner.isCover }}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.55) 100%);"></div>
+            </sc-if>
+            <span style="{{ banner.metaOnPhoto }}">DINOBIRD ISSUE 2026 — SECTION {{ banner.no }}</span>
+            <sc-if value="{{ banner.isCover }}" hint-placeholder-val="{{ false }}">
+              <h1 data-dino-anim="title" style="{{ banner.coverTitle }}">{{ banner.title }}</h1>
+            </sc-if>
+            <sc-if value="{{ banner.coverCopy }}" hint-placeholder-val="{{ false }}">
+              <div data-dino-anim="copy" style="position: absolute; z-index: 3; right: clamp(24px, 4vw, 64px); bottom: clamp(28px, 5vh, 56px); width: min(30vw, 360px); display: flex; flex-direction: column; gap: 10px; color: #ffffff; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);">
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(15px, 1.35vw, 18px); line-height: 1.45; margin: 0; text-wrap: pretty;">{{ banner.en }}</p>
+                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 400; font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.7; margin: 0; text-wrap: pretty;">{{ banner.ko }}</p>
+              </div>
+            </sc-if>
           </div>
-          <nav style="position: relative; z-index: 2; background: #ffffff; border-bottom: 1px solid #e6e6e6; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 clamp(20px, 3vw, 40px); padding: 0 18px;">
-            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
-              <span style="display: flex;">
-                <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
-                  <a href="#" onClick="{{ t.go }}" style="display: inline-flex; padding: 18px 0 14px; border-bottom: 2px solid #111111; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13.5px, 1.5vw, 15px); letter-spacing: 0.05em; color: #111111; font-weight: 700; white-space: nowrap; text-decoration: none;">{{ t.label }}</a>
-                </sc-if>
-                <sc-if value="{{ t.inactive }}" hint-placeholder-val="{{ true }}">
-                  <a href="#" onClick="{{ t.go }}" style="display: inline-flex; padding: 18px 0 14px; border-bottom: 2px solid transparent; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13.5px, 1.5vw, 15px); letter-spacing: 0.05em; color: #555555; font-weight: 500; white-space: nowrap; text-decoration: none; transition: color 180ms ease, border-color 180ms ease;" style-hover="color: #111111; border-bottom-color: rgba(17, 17, 17, 0.3);">{{ t.label }}</a>
-                </sc-if>
-              </span>
-            </sc-for>
-          </nav>
-        </section>
-        <div style="padding: 0 clamp(18px, 3vw, 40px);">
+          <div style="{{ banner.body }}">
+            <sc-if value="{{ banner.showHead }}" hint-placeholder-val="{{ false }}">
+              <div data-dino-anim="copy" style="{{ banner.head }}">
+                <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #6b6b6b;">SECTION {{ banner.no }}</span>
+                  <sc-if value="{{ banner.headTitle }}" hint-placeholder-val="{{ false }}">
+                    <h1 data-dino-anim="title" style="{{ banner.headTitleStyle }}">{{ banner.title }}</h1>
+                  </sc-if>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; max-width: 380px;">
+                  <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(15px, 1.35vw, 18px); line-height: 1.45; margin: 0; color: #111111; text-wrap: pretty;">{{ banner.en }}</p>
+                  <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 400; font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.7; margin: 0; color: #333333; text-wrap: pretty;">{{ banner.ko }}</p>
+                </div>
+              </div>
+            </sc-if>
 
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px 20px; padding: 26px 0 22px;">
             <span style="font-size: 11.5px; color: #666666;">{{ countLabel }}</span>
@@ -265,9 +278,9 @@
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 40px clamp(12px, 1.6vw, 22px);">
+          <div style="{{ banner.grid }}">
             <sc-for list="{{ listed }}" as="a" hint-placeholder-count="8">
-              <article style="display: flex; flex-direction: column; animation: dinoFade 220ms ease both;">
+              <article style="{{ banner.card }}">
                 <a href="#" onClick="{{ a.open }}" style="display: block; text-decoration: none; color: #111111;">
                   <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;" style-hover="outline: 1px solid #111111; outline-offset: 0;">
                     <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ a.ff.fit }}; object-position: {{ a.ff.pos }}; transform: {{ a.ff.tf }}; transform-origin: {{ a.ff.pos }}; background-color: {{ a.ff.bg }}; display: block;"></sc-if>
@@ -303,7 +316,9 @@
             </sc-for>
             <a href="#" onClick="{{ goNextPage }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; color: #767676; text-decoration: none;" style-hover="color: #111111;">NEXT ›</a>
           </div>
-
+          </div>
+        </div>
+        <div style="padding: 0 clamp(18px, 3vw, 40px);">
           <footer style="margin-top: 44px; padding: 20px clamp(18px, 3vw, 40px) 30px; border-top: 1px solid #dcdcdc; display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(18px, 3vw, 40px);">
           <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; text-decoration: none; color: #111111;">
             <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.03em; white-space: nowrap;">DINOBIRD<span aria-hidden="true" style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.06em; vertical-align: baseline;"></span></span>
@@ -956,28 +971,46 @@ class Component extends DCLogic {
           panel: all ? "#2a2a2a" : (info.bg || "#2a2a2a"),
           fg: all ? "#ffffff" : (info.fg || "#ffffff"),
           no: all ? "ALL " + String(CATS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
-          verticalText: all ? "EVERY DINOBIRD ARTIST" : (info.en || s.cat).replace(/[.,]/g, "").toUpperCase(),
-          stage: s.narrow
-            ? "position: relative; overflow: hidden; display: flex; flex-direction: column;"
-            : "position: relative; overflow: hidden; height: clamp(540px, 84vh, 860px);",
-          photoBox: s.narrow
-            ? "position: relative; z-index: 2; width: 100%; height: min(124vw, 640px); overflow: hidden;"
-            : "position: absolute; z-index: 2; right: clamp(56px, 9vw, 150px); top: 0; bottom: 0; width: clamp(300px, 34vw, 540px); overflow: hidden;",
-          titleSolid: s.narrow
-            ? "display: none;"
-            : "position: absolute; z-index: 1; left: -0.04em; right: 0; bottom: 0.02em; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(96px, 16.5vw, 280px); line-height: 0.78; letter-spacing: -0.055em; white-space: nowrap; pointer-events: none; user-select: none;",
-          titleLine: s.narrow
-            ? "position: absolute; z-index: 3; left: 14px; right: 0; top: calc(min(124vw, 640px) - 0.62em); margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(54px, 17vw, 120px); line-height: 0.78; letter-spacing: -0.05em; white-space: nowrap; color: #ffffff; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25); pointer-events: none;"
-            : "position: absolute; z-index: 3; left: -0.04em; right: 0; bottom: 0.02em; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(96px, 16.5vw, 280px); line-height: 0.78; letter-spacing: -0.055em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.5px " + (all ? "#ffffff" : (info.fg || "#ffffff")) + "; pointer-events: none; user-select: none;",
-          metaTop: s.narrow
-            ? "position: absolute; z-index: 4; left: 16px; right: 16px; top: 14px; display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 10.5px; letter-spacing: 0.22em; color: #ffffff; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);"
-            : "position: absolute; z-index: 4; left: clamp(24px, 4vw, 64px); right: clamp(24px, 4vw, 64px); top: 26px; display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em;",
-          copy: s.narrow
-            ? "position: relative; z-index: 2; display: flex; flex-direction: column; gap: 12px; padding: clamp(46px, 13vw, 80px) 22px 40px;"
-            : "position: absolute; z-index: 4; left: clamp(24px, 4vw, 64px); top: clamp(90px, 16vh, 150px); width: min(30vw, 380px); display: flex; flex-direction: column; gap: 16px;",
-          vertical: s.narrow
-            ? "display: none;"
-            : "position: absolute; z-index: 4; right: clamp(18px, 2.6vw, 44px); top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 10.5px; letter-spacing: 0.32em; white-space: nowrap;",
+          ...(() => {
+            const nar = !!s.narrow;
+            const mode = s.cat === "DIRECTOR" ? "spread" : s.cat === "PURE" ? "landscape" : "cover";
+            const FF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
+            const cardBase = "display: flex; flex-direction: column; animation: dinoFade 220ms ease both;";
+            const gridBase = "display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 40px clamp(12px, 1.6vw, 22px);";
+            const meta = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: #ffffff; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45); pointer-events: none;";
+            const fillImg = "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; opacity: 0; transition: opacity 500ms ease;";
+            const o = { mode, isCover: mode === "cover", coverCopy: mode === "cover" && !nar, metaOnPhoto: meta, imgStyle: fillImg, grid: gridBase, card: cardBase };
+            o.showHead = !(mode === "cover" && !nar);
+            o.headTitle = mode !== "cover";
+            o.coverTitle = "position: absolute; z-index: 3; left: clamp(14px, 3vw, 40px); right: 0; bottom: " + (nar ? "18px" : "clamp(22px, 4vh, 44px)") + "; margin: 0; " + FF + " font-weight: 700; font-size: " + (nar ? "clamp(48px, 15vw, 96px)" : "clamp(64px, 11.5vw, 200px)") + "; line-height: 0.86; letter-spacing: -0.045em; color: #ffffff; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25); white-space: nowrap; pointer-events: none;";
+            if (mode === "spread") {
+              o.page = nar ? "display: block;" : "display: grid; grid-template-columns: min(58vw, calc((100vh - 47px) * 0.8)) minmax(0, 1fr); align-items: start;";
+              o.media = nar ? "position: relative; width: 100%; height: min(136vw, 760px); overflow: hidden; background: #ededed;" : "position: sticky; top: 47px; height: calc(100vh - 47px); overflow: hidden; background: #ededed;";
+              o.body = nar ? "padding: 0 18px;" : "min-width: 0; padding: 0 clamp(22px, 3vw, 44px) 10px; border-left: 1px solid #e6e6e6;";
+              o.head = nar ? "display: flex; flex-direction: column; gap: 16px; padding: 28px 0 8px;" : "display: flex; flex-direction: column; gap: 22px; padding: clamp(36px, 6vh, 72px) 0 clamp(20px, 3vh, 32px);";
+              o.headTitleStyle = "margin: 0; " + FF + " font-weight: 700; font-size: " + (nar ? "clamp(44px, 13vw, 72px)" : "clamp(46px, 5vw, 92px)") + "; line-height: 0.9; letter-spacing: -0.04em; color: #111111;";
+              if (!nar) {
+                o.grid = "display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #e6e6e6; margin: 0 calc(-1 * clamp(22px, 3vw, 44px));";
+                o.card = cardBase + " padding: 18px 18px 26px; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;";
+                o.bodyPad = true;
+              }
+            } else if (mode === "landscape") {
+              o.page = "display: block;";
+              o.media = nar ? "position: relative; width: 100%; background: #ffffff;" : "position: relative; display: flex; justify-content: center; padding: clamp(18px, 2.6vw, 36px) clamp(18px, 3vw, 40px) 0; background: #ffffff;";
+              o.imgStyle = "position: relative; display: block; width: auto; max-width: 100%; height: auto; max-height: " + (nar ? "none" : "calc(100vh - 150px)") + "; opacity: 0; transition: opacity 500ms ease;";
+              o.metaOnPhoto = "display: none;";
+              o.body = "padding: 0 clamp(18px, 3vw, 40px);";
+              o.head = "display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 18px 48px; padding: clamp(26px, 4vw, 56px) 0 clamp(22px, 3vw, 36px); border-bottom: 1px solid #111111; margin-bottom: 6px;";
+              o.headTitleStyle = "margin: 0; " + FF + " font-weight: 700; font-size: " + (nar ? "clamp(52px, 16vw, 96px)" : "clamp(72px, 12vw, 210px)") + "; line-height: 0.84; letter-spacing: -0.05em; color: #111111;";
+            } else {
+              o.page = "display: block;";
+              o.media = "position: relative; width: 100%; height: " + (nar ? "min(132vw, 760px)" : "clamp(560px, calc(100vh - 47px), 1000px)") + "; overflow: hidden; background: #1a1a1a;";
+              o.body = "padding: 0 clamp(18px, 3vw, 40px);";
+              o.head = "display: flex; flex-direction: column; gap: 10px; padding: 26px 0 6px;";
+              o.headTitleStyle = "margin: 0;";
+            }
+            return o;
+          })(),
           img: ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
         };
       })(),

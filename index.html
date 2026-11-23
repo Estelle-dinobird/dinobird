@@ -843,7 +843,7 @@ const cutBg = (cat) => (SECTION_INFO[cat] && SECTION_INFO[cat].bg) || "#f2f2f2";
 const withCut = (ff) => ff;
 const fitOf = (f) => { const b = fitBase(f); return { fit: b.fit, pos: b.x + "% " + b.y + "%", tf: "scale(" + (b.z / 100) + ")", bg: b.fit === "contain" ? "#ffffff" : "transparent" }; };
 const SECTION_INFO = {
-  DIRECTOR: { bg: "#161616", soft: "rgba(22, 22, 22, 0.78)", fg: "#ffffff", en: "Movement direction and choreography, from brief to camera.", ko: "브리프부터 카메라까지, 움직임을 총괄 디렉팅합니다." },
+  DIRECTOR: { bg: "#2e2e2e", soft: "rgba(46, 46, 46, 0.78)", fg: "#ffffff", en: "Movement direction and choreography, from brief to camera.", ko: "브리프부터 카메라까지, 움직임을 총괄 디렉팅합니다." },
   "HOT COLOR": { bg: "#f7d6d3", soft: "rgba(247, 214, 211, 0.45)", fg: "#111111", en: "Bold presence that heats up on camera.", ko: "카메라 앞에서 더 강렬해지는 존재감." },
   PURE: { bg: "#d8ecf8", soft: "rgba(216, 236, 248, 0.45)", fg: "#111111", en: "Clean lines and breath, rooted in contemporary and ballet.", ko: "컨템포러리·발레 기반의 맑은 라인과 호흡." },
   STREET: { bg: "#d3dcf3", soft: "rgba(211, 220, 243, 0.45)", fg: "#111111", en: "Street-born precision, from solo to crew.", ko: "솔로부터 크루까지, 스트릿 기반의 정교한 컨트롤." },
@@ -1191,7 +1191,7 @@ class Component extends DCLogic {
           title: all ? "DINO ARTIST" : s.cat,
           en: all ? "Every DINOBIRD artist, one roster." : (info.en || ""),
           ko: all ? "DINOBIRD 전속 아티스트 전체 로스터." : (info.ko || CAT_NOTE[s.cat] || ""),
-          bg: all ? "#2a2a2a" : (info.bg ? (s.cat === "DIRECTOR" ? "#161616" : "#5c5c5c") : "#2a2a2a"),
+          bg: all ? "#2a2a2a" : (info.bg ? (s.cat === "DIRECTOR" ? "#2e2e2e" : "#5c5c5c") : "#2a2a2a"),
           panel: all ? "#2a2a2a" : (info.bg || "#2a2a2a"),
           fg: all ? "#ffffff" : (info.fg || "#ffffff"),
           no: all ? "ALL " + String(CATS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
@@ -1412,6 +1412,13 @@ class Component extends DCLogic {
             const area = mode === "split"
               ? (nar ? "position: absolute; left: 0; top: 0; width: 100%; height: 125vw;" : "position: absolute; inset: 0; width: 100%; height: 100%;")
               : "position: absolute; inset: 0; width: 100%; height: 100%;";
+            if (mode === "spread" && o.hasSlider && cur > 0) {
+              const tSize = nar ? "clamp(56px, 17vw, 104px)" : "min(9.4vw, calc((100vh - 47px) * 0.8 / 5.4))";
+              const pos = cur === 1
+                ? "left: clamp(12px, 2.4vw, 34px); top: " + (nar ? "34px" : "clamp(40px, 7vh, 76px)") + "; text-align: left;"
+                : "right: clamp(12px, 2.4vw, 34px); bottom: " + (nar ? "40px" : "clamp(44px, 8vh, 80px)") + "; text-align: right;";
+              o.coverTitle = "position: absolute; z-index: 3; " + pos + " margin: 0; " + FF + " font-weight: 800; font-size: " + tSize + "; line-height: 0.8; letter-spacing: -0.055em; color: #ffffff; text-shadow: 0 2px 28px rgba(0, 0, 0, 0.22); white-space: nowrap; pointer-events: none; animation: dinoFade 500ms ease both;";
+            }
             if (o.hasSlider && o.coverCopyBox) o.coverCopyBox = o.coverCopyBox + " transition: opacity 500ms ease; opacity: " + (cur === 0 ? 1 : 0) + ";";
             const backdrop = mode === "landscape" ? "#eef1f4" : mode === "spread" ? "#8a8a8a" : mode === "split" ? "#10284a" : "#1a1a1a";
             let portraitN = 0;
@@ -1504,7 +1511,7 @@ class Component extends DCLogic {
           const map = (x) => ({ img: x.image || "", imgStyle: fill(false), kicker: (x.kicker || "").toUpperCase(), title: x.title, by: x.by ? "BY " + String(x.by).toUpperCase() : "", go: go(x.link) });
           left = L.map(map); right = R.map(map);
         } else {
-          const DOT = { DIRECTOR: "#161616", "HOT COLOR": "#e39a94", PURE: "#7fb0d6", STREET: "#8496d0", ERA: "#8cc795" };
+          const DOT = { DIRECTOR: "#2e2e2e", "HOT COLOR": "#e39a94", PURE: "#7fb0d6", STREET: "#8496d0", ERA: "#8cc795" };
           cover = { logo: true, photo: false, img: "", kicker: "DINOBIRD", title: (s.cms && s.cms.aboutTitle) || "아티스트의 가치를 새로운 시대로", by: "BY DINOBIRD EDITORIAL", big: "", sub: "", side1: "", side2: "", go: this.nav("about"),
             lines: CATS.map((c) => ({ label: c, dot: "display: inline-block; width: max(7px, 1.6cqw); height: max(7px, 1.6cqw); border-radius: 50%; background: " + (DOT[c] || "#111111") + ";" })) };
           left = [

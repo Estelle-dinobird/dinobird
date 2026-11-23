@@ -218,16 +218,22 @@
 
       <sc-if value="{{ isArtists }}" hint-placeholder-val="{{ false }}">
         <section style="position: relative; background: {{ banner.panel }}; color: {{ banner.fg }};">
-          <div style="{{ banner.wrap }}">
-            <div style="{{ banner.photoBox }}">
-              <img src="{{ banner.img }}" alt="{{ banner.title }} 컨셉 사진" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; opacity: 0; transition: opacity 400ms ease;">
+          <div style="{{ banner.stage }}">
+            <div aria-hidden="true" data-dino-anim="title" style="{{ banner.titleSolid }}">{{ banner.title }}</div>
+            <div data-dino-anim="photo" style="{{ banner.photoBox }}">
+              <img src="{{ banner.img }}" alt="{{ banner.title }} 컨셉 사진" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; opacity: 0; transition: opacity 500ms ease;">
             </div>
-            <div style="{{ banner.textBox }}">
-              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.22em; margin: 0; opacity: 0.78;">DINOBIRD SECTION</p>
-              <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(40px, 6.4vw, 96px); line-height: 0.95; letter-spacing: -0.02em; margin: 0;">{{ banner.title }}</h1>
-              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(13.5px, 1.4vw, 17px); line-height: 1.55; letter-spacing: 0.01em; margin: 6px 0 0; max-width: 480px; text-wrap: pretty;">{{ banner.en }}</p>
-              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13px, 1.3vw, 15.5px); line-height: 1.7; margin: 0; max-width: 480px; text-wrap: pretty;">{{ banner.ko }}</p>
+            <h1 data-dino-anim="title" style="{{ banner.titleLine }}">{{ banner.title }}</h1>
+            <div style="{{ banner.metaTop }}">
+              <span>DINOBIRD ISSUE 2026</span>
+              <span>SECTION {{ banner.no }}</span>
             </div>
+            <div data-dino-anim="copy" style="{{ banner.copy }}">
+              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.2em;">{{ banner.no }}</span>
+              <p style="font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', serif; font-style: italic; font-size: clamp(20px, 2.3vw, 32px); line-height: 1.25; letter-spacing: -0.01em; margin: 0; text-wrap: balance;">{{ banner.en }}</p>
+              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13px, 1.15vw, 15px); line-height: 1.75; margin: 0; max-width: 340px; text-wrap: pretty;">{{ banner.ko }}</p>
+            </div>
+            <span aria-hidden="true" style="{{ banner.vertical }}">{{ banner.verticalText }}</span>
           </div>
           <nav style="position: relative; z-index: 2; background: #ffffff; border-bottom: 1px solid #e6e6e6; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 clamp(20px, 3vw, 40px); padding: 0 18px;">
             <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
@@ -810,7 +816,21 @@ class Component extends DCLogic {
     if (this._bc) this._bc.close();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    const key = this.state.page + "|" + this.state.cat;
+    if (this._animKey !== key) {
+      this._animKey = key;
+      if (this.state.page === "artists" || this.state.cat) {
+        const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!reduce) {
+          document.querySelectorAll('[data-dino-anim]').forEach((n, i) => {
+            const kind = n.getAttribute("data-dino-anim");
+            const from = kind === "photo" ? "translateY(48px)" : kind === "title" ? "translateX(-6%)" : "translateY(18px)";
+            try { n.animate([{ opacity: 0, transform: from }, { opacity: 1, transform: "none" }], { duration: kind === "photo" ? 900 : 1000, delay: kind === "copy" ? 260 : kind === "title" ? 120 : 0, easing: "cubic-bezier(.2,.7,.1,1)", fill: "backwards" }); } catch (e) {}
+          });
+        }
+      }
+    }
     const el = (this.video && this.video.current) || document.querySelector('video[data-dino-hero]');
     if (el && el.muted !== this.state.muted) { el.muted = this.state.muted; el.volume = 1; }
   }
@@ -936,15 +956,29 @@ class Component extends DCLogic {
           bg: all ? "#2a2a2a" : (info.bg ? (s.cat === "DIRECTOR" ? "#161616" : "#5c5c5c") : "#2a2a2a"),
           panel: all ? "#2a2a2a" : (info.bg || "#2a2a2a"),
           fg: all ? "#ffffff" : (info.fg || "#ffffff"),
-          wrap: s.narrow
-            ? "display: flex; flex-direction: column;"
-            : "display: flex; flex-direction: row-reverse; align-items: stretch; height: clamp(460px, 74vh, 780px);",
+          no: all ? "ALL " + String(CATS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
+          verticalText: all ? "EVERY DINOBIRD ARTIST" : (info.en || s.cat).replace(/[.,]/g, "").toUpperCase(),
+          stage: s.narrow
+            ? "position: relative; overflow: hidden; display: flex; flex-direction: column;"
+            : "position: relative; overflow: hidden; height: clamp(540px, 84vh, 860px);",
           photoBox: s.narrow
-            ? "position: relative; width: 100%; height: min(118vw, 620px); overflow: hidden;"
-            : "position: relative; flex: 0 0 auto; width: clamp(320px, 40vw, 600px); height: 100%; overflow: hidden;",
-          textBox: s.narrow
-            ? "display: flex; flex-direction: column; gap: 12px; padding: 30px 22px 38px;"
-            : "flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 48px clamp(28px, 7vw, 120px);",
+            ? "position: relative; z-index: 2; width: 100%; height: min(124vw, 640px); overflow: hidden;"
+            : "position: absolute; z-index: 2; right: clamp(56px, 9vw, 150px); top: 0; bottom: 0; width: clamp(300px, 34vw, 540px); overflow: hidden;",
+          titleSolid: s.narrow
+            ? "display: none;"
+            : "position: absolute; z-index: 1; left: -0.04em; right: 0; bottom: 0.02em; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(96px, 16.5vw, 280px); line-height: 0.78; letter-spacing: -0.055em; white-space: nowrap; pointer-events: none; user-select: none;",
+          titleLine: s.narrow
+            ? "position: absolute; z-index: 3; left: 14px; right: 0; top: calc(min(124vw, 640px) - 0.62em); margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(54px, 17vw, 120px); line-height: 0.78; letter-spacing: -0.05em; white-space: nowrap; color: #ffffff; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25); pointer-events: none;"
+            : "position: absolute; z-index: 3; left: -0.04em; right: 0; bottom: 0.02em; margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(96px, 16.5vw, 280px); line-height: 0.78; letter-spacing: -0.055em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.5px " + (all ? "#ffffff" : (info.fg || "#ffffff")) + "; pointer-events: none; user-select: none;",
+          metaTop: s.narrow
+            ? "position: absolute; z-index: 4; left: 16px; right: 16px; top: 14px; display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 10.5px; letter-spacing: 0.22em; color: #ffffff; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);"
+            : "position: absolute; z-index: 4; left: clamp(24px, 4vw, 64px); right: clamp(24px, 4vw, 64px); top: 26px; display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em;",
+          copy: s.narrow
+            ? "position: relative; z-index: 2; display: flex; flex-direction: column; gap: 12px; padding: clamp(46px, 13vw, 80px) 22px 40px;"
+            : "position: absolute; z-index: 4; left: clamp(24px, 4vw, 64px); top: clamp(90px, 16vh, 150px); width: min(30vw, 380px); display: flex; flex-direction: column; gap: 16px;",
+          vertical: s.narrow
+            ? "display: none;"
+            : "position: absolute; z-index: 4; right: clamp(18px, 2.6vw, 44px); top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 10.5px; letter-spacing: 0.32em; white-space: nowrap;",
           img: ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
         };
       })(),

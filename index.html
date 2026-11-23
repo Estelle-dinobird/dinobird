@@ -26,7 +26,7 @@
   @keyframes dinoFade { from { opacity: 0; } to { opacity: 1; } }
   @keyframes dinoMarqL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes dinoMarqR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-  @keyframes dinoRing { 0%, 100% { border-color: #e39a94; } 20% { border-color: #7fb0d6; } 40% { border-color: #8cc795; } 60% { border-color: #8496d0; } 80% { border-color: #f2f2f2; } }
+  @keyframes dinoRing { 0%, 100% { border-color: #f6c5d0; } 20% { border-color: #d4e6f6; } 40% { border-color: #d8eec2; } 60% { border-color: #ddd2f7; } 80% { border-color: #f2f2f2; } }
   @keyframes dinoBreath { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.045); } }
   @media (prefers-reduced-motion: reduce) { [style*="dinoMarq"], [style*="dinoRing"] { animation: none !important; } }
 </style>
@@ -132,7 +132,7 @@
                       <div style="white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);"><span style="display: inline-block; animation: dinoMarqR 52s linear infinite;">DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;</span></div>
                       <div style="white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);"><span style="display: inline-block; animation: dinoMarqL 42s linear infinite;">DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;DINOBIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span>&nbsp;&nbsp;</span></div>
                     </div>
-                    <div aria-hidden="true" style="position: absolute; left: 50%; top: 44%; width: 74cqw; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); border-radius: 50%; border: 17cqw solid #e39a94; box-sizing: border-box; overflow: hidden; animation: dinoRing 12s ease-in-out infinite, dinoBreath 6s ease-in-out infinite; z-index: 1; background: #111111;">
+                    <div aria-hidden="true" style="position: absolute; left: 50%; top: 44%; width: 74cqw; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); border-radius: 50%; border: 17cqw solid #f6c5d0; box-sizing: border-box; overflow: hidden; animation: dinoRing 12s ease-in-out infinite, dinoBreath 6s ease-in-out infinite; z-index: 1; background: #111111;">
                       <video src="{{ mag.cover.film }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="metadata" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15);"></video>
                     </div>
                     <div style="position: absolute; z-index: 2; left: 5%; right: 5%; top: 4%; display: flex; justify-content: space-between; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: max(10px, 1.9cqw); letter-spacing: 0.24em; mix-blend-mode: difference;">
@@ -848,10 +848,10 @@ const withCut = (ff) => ff;
 const fitOf = (f) => { const b = fitBase(f); return { fit: b.fit, pos: b.x + "% " + b.y + "%", tf: "scale(" + (b.z / 100) + ")", bg: b.fit === "contain" ? "#ffffff" : "transparent" }; };
 const SECTION_INFO = {
   DIRECTOR: { bg: "#2e2e2e", soft: "rgba(46, 46, 46, 0.78)", fg: "#ffffff", en: "Movement direction and choreography, from brief to camera.", ko: "브리프부터 카메라까지, 움직임을 총괄 디렉팅합니다." },
-  "HOT COLOR": { bg: "#f7d6d3", soft: "rgba(247, 214, 211, 0.45)", fg: "#111111", en: "Bold presence that heats up on camera.", ko: "카메라 앞에서 더 강렬해지는 존재감." },
-  PURE: { bg: "#d8ecf8", soft: "rgba(216, 236, 248, 0.45)", fg: "#111111", en: "Clean lines and breath, rooted in contemporary and ballet.", ko: "컨템포러리·발레 기반의 맑은 라인과 호흡." },
-  STREET: { bg: "#d3dcf3", soft: "rgba(211, 220, 243, 0.45)", fg: "#111111", en: "Street-born precision, from solo to crew.", ko: "솔로부터 크루까지, 스트릿 기반의 정교한 컨트롤." },
-  ERA: { bg: "#d6eed8", soft: "rgba(214, 238, 216, 0.45)", fg: "#111111", en: "New talent across genres, the first line of a new era.", ko: "장르를 넘나드는 신인, 새로운 시대의 첫 줄." },
+  "HOT COLOR": { bg: "#f6c5d0", ink: "#a8123f", soft: "rgba(246, 197, 208, 0.45)", fg: "#111111", en: "Bold presence that heats up on camera.", ko: "카메라 앞에서 더 강렬해지는 존재감." },
+  PURE: { bg: "#d4e6f6", ink: "#2b5e8c", soft: "rgba(212, 230, 246, 0.45)", fg: "#111111", en: "Clean lines and breath, rooted in contemporary and ballet.", ko: "컨템포러리·발레 기반의 맑은 라인과 호흡." },
+  STREET: { bg: "#ddd2f7", ink: "#4a2db0", soft: "rgba(221, 210, 247, 0.45)", fg: "#111111", en: "Street-born precision, from solo to crew.", ko: "솔로부터 크루까지, 스트릿 기반의 정교한 컨트롤." },
+  ERA: { bg: "#d8eec2", ink: "#3d6b14", soft: "rgba(216, 238, 194, 0.45)", fg: "#111111", en: "New talent across genres, the first line of a new era.", ko: "장르를 넘나드는 신인, 새로운 시대의 첫 줄." },
 };
 const A = (name, cat, tags, stat, base, credits, bio) => ({ name, cat, tags, stat, base, credits, bio });
 const ARTISTS = [];
@@ -1258,7 +1258,7 @@ class Component extends DCLogic {
             if (mode === "spread") {
               o.head = (nar ? "display: flex; flex-direction: column; gap: 16px; padding-top: 30px; padding-bottom: 30px;" : "display: flex; flex-direction: column; gap: 22px; padding-top: clamp(40px, 7vh, 80px); padding-bottom: clamp(34px, 5vh, 52px);") + " " + band;
             } else if (mode === "split") {
-              const ink = "#3a1a1c";
+              const ink = info.ink || "#3a1a1c";
               o.page = "display: block;";
               o.showHead = false;
               o.coverCopy = true;
@@ -1286,8 +1286,8 @@ class Component extends DCLogic {
                 o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 15px); line-height: 1.75; margin: 0; opacity: 0.92; text-wrap: pretty;";
               }
             } else if (mode === "landscape") {
-              const ink = "#3f6f93";
-              o.coverTitle = "position: absolute; z-index: 3; left: clamp(12px, 2.4vw, 34px); right: 0; top: " + (nar ? "34px" : "clamp(40px, 7vh, 76px)") + "; margin: 0; " + FF + " font-weight: 800; font-size: " + (nar ? "clamp(64px, 22vw, 120px)" : "clamp(110px, 17vw, 300px)") + "; line-height: 0.8; letter-spacing: -0.055em; color: #7fb0d6; mix-blend-mode: multiply; white-space: nowrap; pointer-events: none;";
+              const ink = info.ink || "#3f6f93";
+              o.coverTitle = "position: absolute; z-index: 3; left: clamp(12px, 2.4vw, 34px); right: 0; top: " + (nar ? "34px" : "clamp(40px, 7vh, 76px)") + "; margin: 0; " + FF + " font-weight: 800; font-size: " + (nar ? "clamp(64px, 22vw, 120px)" : "clamp(110px, 17vw, 300px)") + "; line-height: 0.8; letter-spacing: -0.055em; color: #86b6e2; mix-blend-mode: multiply; white-space: nowrap; pointer-events: none;";
               o.metaOnPhoto = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(12px, 2vw, 24px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + ink + "; pointer-events: none;";
               o.fade = false;
               o.head = "display: flex; flex-direction: column; gap: 14px; padding-top: 24px; padding-bottom: 26px; border-bottom: 1px solid #e6e6e6; margin-bottom: 6px;";
@@ -1347,7 +1347,7 @@ class Component extends DCLogic {
               o.insetCap = capStyle("#3f6f93");
             }
             if (mode === "poster") {
-              const ink = "#1d2b55";
+              const ink = info.ink || "#1d2b55";
               o.isPoster = true;
               o.page = "display: block;";
               o.shade = false; o.fade = false;
@@ -1372,7 +1372,7 @@ class Component extends DCLogic {
               if (nar) { o.showHead = true; o.head = "display: flex; flex-direction: column; gap: 14px; padding-top: 26px; padding-bottom: 30px; " + band + " margin-bottom: 6px;"; }
             }
             if (mode === "contents") {
-              const ink = "#1f3d26";
+              const ink = info.ink || "#1f3d26";
               o.isContents = true;
               o.page = "display: block;";
               o.shade = false; o.fade = false;
@@ -1515,7 +1515,7 @@ class Component extends DCLogic {
           const map = (x) => ({ img: x.image || "", imgStyle: fill(false), kicker: (x.kicker || "").toUpperCase(), title: x.title, by: x.by ? "BY " + String(x.by).toUpperCase() : "", go: go(x.link) });
           left = L.map(map); right = R.map(map);
         } else {
-          const DOT = { DIRECTOR: "#2e2e2e", "HOT COLOR": "#e39a94", PURE: "#7fb0d6", STREET: "#8496d0", ERA: "#8cc795" };
+          const DOT = { DIRECTOR: "#2e2e2e", "HOT COLOR": "#ee8fa6", PURE: "#86b6e2", STREET: "#a58bec", ERA: "#9bcf6b" };
           cover = { logo: true, photo: false, film: (s.cms && s.cms.heroFile) || "media/hero-1080.mp4", img: "", kicker: "DINOBIRD", title: (s.cms && s.cms.aboutTitle) || "아티스트의 가치를 새로운 시대로", by: "BY DINOBIRD EDITORIAL", big: "", sub: "", side1: "", side2: "", go: this.nav("about"),
             lines: CATS.map((c) => ({ label: c, dot: "display: inline-block; width: max(7px, 1.6cqw); height: max(7px, 1.6cqw); border-radius: 50%; background: " + (DOT[c] || "#111111") + ";" })) };
           left = [

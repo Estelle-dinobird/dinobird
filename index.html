@@ -319,7 +319,6 @@
                 <span style="{{ banner.posterGhost }}">{{ banner.title }}</span>
                 <span style="{{ banner.posterOutline }}">{{ banner.title }}</span>
               </div>
-              <span style="{{ banner.sticker }}">NEW FACES · CASTING OPEN</span>
             </sc-if>
             <sc-if value="{{ banner.isContents }}" hint-placeholder-val="{{ false }}">
               <nav aria-label="DINOBIRD 섹션 목차" style="{{ banner.contentsBox }}">
@@ -1331,14 +1330,14 @@ class Component extends DCLogic {
               o.coverCopy = !nar;
               o.media = "position: relative; width: 100%; height: " + (nar ? "min(128vw, 700px)" : "clamp(560px, calc(100vh - 47px), 920px)") + "; overflow: hidden; background: " + PANEL + ";";
               o.imgStyle = hasPhoto
-                ? (nar ? "position: absolute; z-index: 2; right: 7%; top: 16%; width: 50vw; aspect-ratio: 4 / 5; object-fit: cover; border: 6px solid #ffffff; transform: rotate(4deg); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25); opacity: 0; transition: opacity 500ms ease;"
-                       : "position: absolute; z-index: 2; right: 9%; top: 11%; width: min(28vw, 420px); aspect-ratio: 4 / 5; object-fit: cover; border: 10px solid #ffffff; transform: rotate(4deg); box-shadow: 0 26px 60px rgba(0, 0, 0, 0.25); opacity: 0; transition: opacity 500ms ease;")
+                ? "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block; opacity: 0; transition: opacity 500ms ease;"
                 : "display: none;";
               const big = nar ? "clamp(80px, 27vw, 150px)" : "clamp(120px, 19vw, 330px)";
               const row = FF + " display: block; font-weight: 800; font-size: " + big + "; line-height: 0.84; letter-spacing: -0.05em; white-space: nowrap;";
               o.posterRows = "position: absolute; z-index: 1; inset: 0; display: flex; flex-direction: column; justify-content: center; padding-left: clamp(10px, 2.4vw, 34px); pointer-events: none;";
               o.posterOutline = row + " color: transparent; -webkit-text-stroke: " + (nar ? "1.5px" : "2px") + " " + ink + "; opacity: 0.55;";
               o.posterGhost = row + " visibility: hidden;";
+              if (hasPhoto) o.posterOutline = o.posterOutline.replace("opacity: 0.55;", "opacity: 0;");
               o.coverTitle = "position: absolute; z-index: 3; left: clamp(10px, 2.4vw, 34px); top: 50%; transform: translateY(-50%); margin: 0; " + FF + " font-weight: 800; font-size: " + big + "; line-height: 0.84; letter-spacing: -0.05em; color: " + ink + "; white-space: nowrap; pointer-events: none;";
               o.metaOnPhoto = "position: absolute; z-index: 4; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + ink + ";";
               o.sticker = "position: absolute; z-index: 5; right: " + (nar ? "16px" : "clamp(28px, 6vw, 90px)") + "; bottom: " + (nar ? "22px" : "clamp(36px, 9vh, 90px)") + "; padding: 10px 14px; background: #111111; color: #ffffff; " + FF + " font-weight: 700; font-size: " + (nar ? "10.5px" : "12px") + "; letter-spacing: 0.16em; transform: rotate(-5deg); box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);";

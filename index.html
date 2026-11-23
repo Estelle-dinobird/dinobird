@@ -80,7 +80,7 @@
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
        <div>
         <div style="position: relative; width: 100%; height: calc(100svh - 125px); min-height: 320px; overflow: hidden; background: #111111; container-type: size;">
-          <video ref="{{ videoRef }}" data-dino-hero="1" src="{{ heroSrc }}" onError="{{ onHeroError }}" poster="assets/hero.png" preload="metadata" playsinline="" webkit-playsinline="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" style="{{ heroVideoStyle }}"></video>
+          <video ref="{{ videoRef }}" data-dino-hero="1" src="{{ heroSrc }}" onError="{{ onHeroError }}" preload="auto" playsinline="" webkit-playsinline="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" style="{{ heroVideoStyle }}"></video>
           <div style="{{ heroOverlayStyle }}"></div>
           <button type="button" onClick="{{ toggleSound }}" aria-label="{{ soundLabel }}" title="{{ soundLabel }}" style="position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; justify-content: center; color: #ffffff; background: none; border: none; cursor: pointer; padding: 4px; opacity: 0.85;" style-hover="opacity: 1; color: #6b6b6b;">
             <sc-if value="{{ muted }}" hint-placeholder-val="{{ true }}">
@@ -746,7 +746,8 @@ class Component extends DCLogic {
 
   heroCandidates() {
     const c = this.state && this.state.cms && this.state.cms.heroFile;
-    const list = [c, "uploads/As we like it (Dance film).mp4", "media/dinobird-film.mp4", "dist/media/dinobird-film.mp4", "dinobird-film.mp4"].filter(Boolean);
+    if (!c && !(this.state && this.state.cmsTried)) return [];
+    const list = [c, "media/hero-1080.mp4"].filter(Boolean);
     return list.filter((v, i) => list.indexOf(v) === i);
   }
 
@@ -785,13 +786,14 @@ class Component extends DCLogic {
     let n = 0;
     const waitCloud = () => {
       const cloud = window.DinoCloud;
-      if (!cloud) { if (++n < 100) this._waitCloud = setTimeout(waitCloud, 50); return; }
-      if (!cloud.configured) return;
-      cloud.loadContent().then((d) => { if (d) this.applyCms(d); }).catch(() => {});
+      if (!cloud) { if (++n < 100) this._waitCloud = setTimeout(waitCloud, 50); else this.setState({ cmsTried: true }); return; }
+      if (!cloud.configured) { this.setState({ cmsTried: true }); return; }
+      cloud.loadContent().then((d) => { if (d) this.applyCms(d); }).catch(() => {}).then(() => { if (!this.state.cmsTried) this.setState({ cmsTried: true }); });
       cloud.subscribeContent((d) => this.applyCms(d)).catch(() => {});
       cloud.track("/");
     };
     waitCloud();
+    this._cmsFallback = setTimeout(() => { if (!this.state.cmsTried) this.setState({ cmsTried: true }); }, 5000);
     const cloud = window.DinoCloud;
     try {
       const raw = (cloud && cloud.configured) ? null : localStorage.getItem("dinobird-cms-v2");
@@ -827,6 +829,7 @@ class Component extends DCLogic {
     document.removeEventListener('visibilitychange', this._onVis);
     window.removeEventListener("storage", this._onStore);
     clearTimeout(this._waitCloud);
+    clearTimeout(this._cmsFallback);
     if (this._bc) this._bc.close();
   }
 
@@ -920,7 +923,7 @@ class Component extends DCLogic {
 
     return {
       isHome: s.page === "home",
-      heroSrc: this.heroCandidates()[Math.min(s.heroTry || 0, this.heroCandidates().length - 1)],
+      heroSrc: this.heroCandidates()[Math.min(s.heroTry || 0, this.heroCandidates().length - 1)] || undefined,
       onHeroError: () => {
         const n = (this.state.heroTry || 0) + 1;
         if (n < this.heroCandidates().length) this.setState({ heroTry: n }, () => { const el = document.querySelector("video[data-dino-hero]"); if (el) { el.load(); const p = el.play(); if (p && p.catch) p.catch(() => {}); } });

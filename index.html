@@ -651,13 +651,17 @@
                 <span>{{ reader.date }}</span>
               </div>
               <h1 style="font-weight: 700; font-size: clamp(22px, 3vw, 30px); line-height: 1.4; margin: 12px 0 0; text-wrap: pretty;">{{ reader.title }}</h1>
-              <p style="font-size: 15px; line-height: 2; margin: 26px 0 0; color: #222222; text-wrap: pretty;">{{ reader.lead }}</p>
-              <sc-for list="{{ reader.sections }}" as="sec" hint-placeholder-count="5">
-                <section style="margin-top: 44px; padding-top: 22px; border-top: 1px solid #dcdcdc;">
-                  <h2 style="font-weight: 700; font-size: 16px; line-height: 1.5; margin: 0;">{{ sec.h }}</h2>
-                  <p style="font-size: 14px; line-height: 2.05; margin: 14px 0 0; color: #333333; white-space: pre-line; text-wrap: pretty;">{{ sec.p }}</p>
-                </section>
-              </sc-for>
+              <p style="margin: 22px 0 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(16px, 1.4vw, 19px); line-height: 2; color: #222222; word-break: keep-all;">{{ reader.preview }}</p>
+              <p aria-hidden="true" style="margin: 6px 0 0; font-size: 22px; letter-spacing: 0.3em; color: #9a9a9a;">···</p>
+              <div style="margin-top: 34px; padding: clamp(22px, 3vw, 34px); background: #f4f4f4; display: flex; flex-direction: column; gap: 14px;">
+                <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.5; color: #111111;">이 편지의 나머지는 메일함으로 보내드릴게요.</p>
+                <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 13.5px; line-height: 1.8; color: #4a4a4a;">이메일 주소만 남겨 주세요. 편지 한 통 분량이고, 광고는 보내지 않아요.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                  <input type="email" value="{{ letterEmail }}" onChange="{{ onLetterEmail }}" placeholder="name@email.com" aria-label="편지를 받을 이메일" style="flex: 1 1 220px; min-width: 0; height: 46px; padding: 0 14px; border: 1px solid #111111; background: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 15px; border-radius: 0;">
+                  <button type="button" onClick="{{ sendLetter }}" style="height: 46px; padding: 0 22px; border: 0; background: #111111; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.12em; cursor: pointer;" style-hover="background: #444444;">편지 받기</button>
+                </div>
+                <p role="status" style="margin: 0; min-height: 1.6em; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 13.5px; line-height: 1.6; color: #111111;">{{ letterSendMsg }}</p>
+              </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 46px;">
                 <a href="#" onClick="{{ goContact }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; color: #ffffff; background: #111111; text-decoration: none;" style-hover="background: #444444;">프로젝트 문의</a>
                 <a href="#" onClick="{{ closeLetter }}" style="height: 40px; display: inline-flex; align-items: center; padding: 0 22px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12.5px; letter-spacing: 0.06em; color: #111111; border: 1px solid #dcdcdc; text-decoration: none;" style-hover="border-color: #111111;">목록으로</a>
@@ -874,7 +878,7 @@ const LETTERS = [{
   "no": "01",
   "title": "댄서로서의 삶에서 시작된 에이전시",
   "date": "2026.10.01",
-  "body": "현재까지도 댄서로 활동하며 수많은 현장을 경험했습니다.\n무대, 작품을 준비하기 위해 누구보다 많은 시간과 노력을 쏟았지만, 돌아오는 것은 그에 걸맞지 않은 대우와 불안정한 환경인 경우가 많았습니다. 그때마다 한 가지 질문이 머릿속을 떠나지 않았습니다. \"우리는 왜 늘 이런 대우를 받아야 할까?\"\n\n무대 위에서 요구되는 실력과 전문성은 계속해서 높아지고 있지만, 이를 뒷받침하는 산업 구조와 처우는 여전히 그 속도를 따라가지 못하고 있습니다. 예술가의 가치는 성장하고 있지만, 예술가를 대하는 기준은 여전히 과거에 머물러 있습니다.\n\n저는 이 현실을 개인의 선택이나 희생으로 받아들이고 싶지 않았습니다. 문제는 예술가가 아니라, 예술가를 제대로 뒷받침하지 못하는 구조에 있다고 생각했습니다.\n\n우리는 예술가가 혼자 버티는 것이 당연한 산업이 아니라, 자신의 역량에 합당한 기회와 대우를 받으며 지속적으로 활동할 수 있는 환경을 만들고자 합니다. 그것이 우리가 해결하고자 하는 문제이며, 이 회사를 존재하게 만든 출발점입니다."
+  "preview": "안녕하세요, DINOBIRD입니다. 첫 편지를 어떤 이야기로 시작할까 오래 고민하다가, 결국 제 이야기로 문을 열기로 했어요."
 }];
 const PER_PAGE = 8;
 const slugify = (s) => "dino-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -1597,6 +1601,7 @@ class Component extends DCLogic {
       notReadingLetter: !(s.letterOpen != null && !!LETTERS[s.letterOpen]),
       reader: (() => {
         const l = LETTERS[s.letterOpen] || LETTERS[0] || {};
+        const firstLines = (t) => { const m = String(t || "").replace(/\s+/g, " ").trim().match(/[^.!?。]+[.!?。]+/g) || []; return m.slice(0, 2).join(" ").trim() || String(t || "").slice(0, 90); };
         if (l.body) {
           let lead = "";
           const sections = [];
@@ -1613,15 +1618,33 @@ class Component extends DCLogic {
               lead = lead ? lead + "\n\n" + c : c;
             }
           });
-          return { no: l.no || "", date: l.date || "", title: l.title || "", lead, sections };
+          return { no: l.no || "", date: l.date || "", title: l.title || "", lead, sections, preview: l.preview || firstLines(lead || l.body) };
         }
         const sections = Array.isArray(l.sections) ? l.sections : [];
-        return { no: l.no || "", date: l.date || "", title: l.title || "", lead: l.lead || "", sections };
+        return { no: l.no || "", date: l.date || "", title: l.title || "", lead: l.lead || "", sections, preview: l.preview || firstLines(l.lead || "") };
       })(),
+      letterEmail: s.letterEmail || "",
+      onLetterEmail: (e) => this.setState({ letterEmail: e.target.value, letterSendMsg: "" }),
+      letterSendMsg: s.letterSendMsg || "",
+      sendLetter: () => {
+        const em = String(s.letterEmail || "").trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { this.setState({ letterSendMsg: "이메일 주소를 다시 확인해 주세요." }); return; }
+        const l = LETTERS[s.letterOpen] || LETTERS[0] || {};
+        const cloud = window.DinoCloud;
+        if (!cloud || !cloud.configured || !cloud.requestLetter) { this.setState({ letterSendMsg: "지금은 신청을 받을 수 없어요. 잠시 후 다시 시도해 주세요." }); return; }
+        this.setState({ letterSendMsg: "보내는 중…" });
+        cloud.requestLetter(em, l.no || "").then(() => this.setState({ letterSendMsg: "고마워요. 편지를 곧 메일함으로 보내드릴게요.", letterEmail: "" })).catch(() => this.setState({ letterSendMsg: "신청이 잘 되지 않았어요. 잠시 후 다시 시도해 주세요." }));
+      },
       closeLetter: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ letterOpen: null }); },
       email: s.email,
       onEmail: (e) => this.setState({ email: e.target.value }),
-      subscribe: () => this.setState({ letterMsg: s.email ? "구독 신청이 접수되었습니다. 첫 편지는 다음 달 첫 주에 도착합니다." : "이메일 주소를 입력해주세요." }),
+      subscribe: () => {
+        const em = String(s.email || "").trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { this.setState({ letterMsg: "이메일 주소를 다시 확인해 주세요." }); return; }
+        const cloud = window.DinoCloud;
+        if (!cloud || !cloud.configured || !cloud.requestLetter) { this.setState({ letterMsg: "지금은 신청을 받을 수 없어요. 잠시 후 다시 시도해 주세요." }); return; }
+        cloud.requestLetter(em, "subscribe").then(() => this.setState({ letterMsg: "구독해 주셔서 고마워요. 새 편지가 나오면 메일함으로 찾아갈게요.", email: "" })).catch(() => this.setState({ letterMsg: "신청이 잘 되지 않았어요. 잠시 후 다시 시도해 주세요." }));
+      },
       letterMsg: s.letterMsg,
 
       form: s.form,

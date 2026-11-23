@@ -57,6 +57,9 @@
     configured: configured,
     adminEmail: CFG.adminEmail || "",
 
+    requestLetter: function (email, no) {
+      return client().then(function (cl) { return cl.from("letter_requests").insert({ email: String(email || "").trim(), letter_no: String(no || "") }); }).then(unwrap);
+    },
     loadContent: function () {
       return client().then(function (c) { return c.from("site_content").select("data").eq("id", "main").maybeSingle(); })
         .then(unwrap).then(function (row) { return row ? row.data : null; });

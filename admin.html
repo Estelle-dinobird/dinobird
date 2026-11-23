@@ -3364,6 +3364,7 @@ window.DINO_SUPABASE = {
                 <label style="height: 34px; display: inline-flex; align-items: center; padding: 0 14px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11.5px; letter-spacing: 0.06em; color: #ffffff; background: #111111; cursor: pointer;" style-hover="background: #444444;">파일 선택
                   <input type="file" accept="video/*" onChange="{{ onHeroPick }}" style="display: none;">
                 </label>
+                <span style="flex: 1 1 100%; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; line-height: 1.6; color: #4a4a4a;">50MB가 넘는 영상은 자동으로 웹용 크기로 줄여서 올립니다 (영상 길이만큼 걸려요).</span>
               </div>
             </div>
 
@@ -4235,7 +4236,7 @@ class Component extends DCLogic {
     }
     if (isOffline() || !this.state.cloudReady) { this.queueOffline(file, folder, cb); return; }
     this.setState({ uploading: true });
-    this.flash("업로드 중…");
+    this.flashStay("업로드 중… (" + Math.max(1, Math.round((file.size || 0) / 1048576)) + "MB) 창을 닫지 마세요");
     cloud.upload(file, folder)
       .then((url) => { cb(url, false); this.setState({ uploading: false }); this.flash("업로드했습니다"); })
       .catch((err) => {
@@ -4328,6 +4329,60 @@ class Component extends DCLogic {
     this.setState({ toast: msg });
     clearTimeout(this._t);
     this._t = setTimeout(() => this.setState({ toast: "" }), 1800);
+  }
+
+  flashStay(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg });
+  }
+
+  compressVideo(file, onProg) {
+    return new Promise((resolve, reject) => {
+      const src = URL.createObjectURL(file);
+      const v = document.createElement("video");
+      v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = src;
+      const fail = (m) => { try { URL.revokeObjectURL(src); } catch (e) {} reject(new Error(m)); };
+      v.onerror = () => fail("이 영상 형식은 열 수 없습니다. MP4(H.264)나 MOV로 저장해서 다시 올려주세요");
+      v.onloadedmetadata = () => {
+        let w = v.videoWidth, h = v.videoHeight;
+        const dur = isFinite(v.duration) && v.duration > 0 ? v.duration : 0;
+        if (!w || !h || !dur) return fail("영상 정보를 읽을 수 없습니다");
+        const k = Math.min(1, 1920 / Math.max(w, h));
+        w = Math.max(2, Math.round((w * k) / 2) * 2); h = Math.max(2, Math.round((h * k) / 2) * 2);
+        const c = document.createElement("canvas"); c.width = w; c.height = h;
+        const g = c.getContext("2d");
+        const types = ["video/mp4;codecs=avc1.42E01E", "video/mp4", "video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"];
+        const mime = window.MediaRecorder && types.find((t) => MediaRecorder.isTypeSupported(t));
+        if (!mime || !c.captureStream) return fail("이 브라우저는 영상 줄이기를 지원하지 않습니다 — 크롬에서 다시 해주세요");
+        const vbps = Math.max(500000, Math.min(6000000, Math.floor((40 * 1024 * 1024 * 8) / dur)));
+        const rec = new MediaRecorder(c.captureStream(30), { mimeType: mime, videoBitsPerSecond: vbps });
+        const chunks = [];
+        rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+        rec.onstop = () => {
+          try { URL.revokeObjectURL(src); } catch (e) {}
+          const type = mime.split(";")[0];
+          const name = (file.name || "hero").replace(/\.[^.]+$/, "") + "-web." + (type === "video/mp4" ? "mp4" : "webm");
+          resolve(new File([new Blob(chunks, { type })], name, { type }));
+        };
+        let last = -1, raf = 0, stopped = false;
+        const draw = () => {
+          g.drawImage(v, 0, 0, w, h);
+          const pct = Math.min(99, Math.floor((v.currentTime / dur) * 100));
+          if (pct !== last) { last = pct; if (onProg) onProg(pct); }
+          if (!v.ended) raf = requestAnimationFrame(draw);
+        };
+        v.onended = () => {
+          if (stopped) return; stopped = true;
+          cancelAnimationFrame(raf); g.drawImage(v, 0, 0, w, h);
+          setTimeout(() => rec.stop(), 250);
+        };
+        g.drawImage(v, 0, 0, w, h);
+        rec.start(1000);
+        const p = v.play();
+        if (p && p.then) p.then(draw).catch(() => { try { rec.stop(); } catch (e) {} fail("영상을 재생할 수 없습니다"); });
+        else draw();
+      };
+    });
   }
 
   val(e) { return e && e.target ? e.target.value : ""; }
@@ -4569,7 +4624,21 @@ class Component extends DCLogic {
       onHeroFile: (e) => this.commit({ heroFile: this.val(e) }),
       onHeroPick: (e) => {
         const f = e && e.target && e.target.files && e.target.files[0];
-        this.uploadTo(f, "hero", (url, local) => { if (local) this.setState({ heroFile: url }); else this.commit({ heroFile: url }); });
+        if (e && e.target) e.target.value = "";
+        if (!f) return;
+        const send = (file) => this.uploadTo(file, "hero", (url, local) => { if (local) this.setState({ heroFile: url }); else this.commit({ heroFile: url }); });
+        const MB = 1024 * 1024;
+        if (f.size <= 48 * MB) { send(f); return; }
+        this.setState({ uploading: true });
+        this.flashStay("영상이 " + Math.round(f.size / MB) + "MB라 웹용으로 줄이는 중… 이 창을 켜둔 채로 기다려 주세요");
+        this.compressVideo(f, (pct) => this.flashStay("영상 줄이는 중… " + pct + "% — 이 창을 닫거나 다른 탭으로 옮기지 마세요"))
+          .then((small) => {
+            this.setState({ uploading: false });
+            if (small.size > 50 * MB) { this.flash("줄여도 50MB가 넘습니다 — 영상을 더 짧게 잘라서 올려주세요"); return; }
+            this.flashStay("줄이기 완료 (" + Math.max(1, Math.round(small.size / MB)) + "MB) — 서버에 올리는 중…");
+            send(small);
+          })
+          .catch((err) => { this.setState({ uploading: false }); this.flash("영상 줄이기 실패: " + ((err && err.message) || "다시 시도해주세요")); });
       },
       homeNew: s.artists.filter((a) => a.live !== false && (a.cat === "ERA" || a.cat === "HOT COLOR")).slice(0, 4).map((a) => ({
         name: a.name, tags: a.tags, cat: a.cat, slot: slugify(a.name), photo: a.photo || "", hasPhoto: !!a.photo, noPhoto: !a.photo, ff: withCut(fitOf(a.photoFit), a.photoCut, a.cat),

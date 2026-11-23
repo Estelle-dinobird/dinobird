@@ -1113,7 +1113,7 @@ class Component extends DCLogic {
       aboutVeil: s.cms && typeof s.cms.dim === "number" ? Math.max(0.6, Math.min(0.9, s.cms.dim / 100 + 0.2)) : 0.62,
       isAbout: s.page === "about",
       notAbout: s.page !== "about",
-      aboutHeadline: (() => { const t = String((s.cms && s.cms.aboutTitle) || "아티스트의 가치를 새로운 시대로").trim(); return /[.!?。]$/.test(t) ? t : t + "."; })(),
+      aboutHeadline: String((s.cms && s.cms.aboutTitle) || "아티스트의 가치를 새로운 시대로").trim().replace(/[.。]+$/, ""),
       isArtists: s.page === "artists",
       isArtist: s.page === "artist",
       isLetter: s.page === "letter",

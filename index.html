@@ -18,6 +18,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style>
   body { margin: 0; background: #ffffff; color: #111111; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  :root { --font-heading: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; --font-body: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  button, input, textarea, select { font-family: inherit; }
   a { color: #111111; text-decoration: none; }
   a:hover { color: #6b6b6b; }
   ::selection { background: #111111; color: #ffffff; }
@@ -118,7 +120,7 @@
               <a href="#" onClick="{{ mag.cover.go }}" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; text-decoration: none; color: #111111;" style-hover="opacity: 0.92;">
                 <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #0f1f3a;">
                   <img src="{{ mag.cover.img }}" alt="{{ mag.cover.title }}" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; opacity: 0; transition: opacity 500ms ease;">
-                  <span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 2.5%; text-align: center; font-family: 'Bodoni 72', Didot, 'Bodoni Moda', 'Playfair Display', 'Times New Roman', serif; font-weight: 400; font-size: clamp(64px, 9.6vw, 170px); line-height: 0.85; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.72); mix-blend-mode: screen; pointer-events: none;">DINOBIRD</span>
+                  <span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 2.5%; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(56px, 8.4vw, 150px); line-height: 0.85; letter-spacing: -0.03em; color: rgba(255, 255, 255, 0.72); mix-blend-mode: screen; pointer-events: none;">DINOBIRD</span>
                   <span style="position: absolute; right: 4%; top: 31%; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(14px, 1.5vw, 24px); line-height: 1.05; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85);">{{ mag.cover.side1 }}<br>{{ mag.cover.side2 }}</span>
                   <div style="position: absolute; left: 0; right: 0; bottom: 6%; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 6%; color: #ffffff; text-shadow: 0 2px 22px rgba(0, 0, 0, 0.35);">
                     <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 86px); line-height: 0.9; letter-spacing: -0.03em;">{{ mag.cover.big }}</span>
@@ -669,7 +671,7 @@
               <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #6b6b6b;">DINOBIRD ISSUE 2026 — PORTFOLIO</span>
               <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(72px, 15vw, 250px); line-height: 0.8; letter-spacing: -0.055em; color: #111111;">WORK</h1>
             </div>
-            <p style="margin: 0 0 6px; max-width: 360px; font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-style: italic; font-size: clamp(17px, 1.7vw, 24px); line-height: 1.3; color: #111111; text-align: right; text-wrap: pretty;">Stages, films and campaigns we have moved.</p>
+            <p style="margin: 0 0 6px; max-width: 360px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(17px, 1.7vw, 24px); line-height: 1.3; color: #111111; text-align: right; text-wrap: pretty;">Stages, films and campaigns we have moved.</p>
           </header>
           <div style="display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 16px 0 6px;">
             <sc-for list="{{ workTabs }}" as="t" hint-placeholder-count="4">
@@ -698,7 +700,7 @@
                     <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: baseline;">
                       <h2 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: {{ w.titleSize }}; line-height: 1.05; letter-spacing: -0.02em;">{{ w.title }}</h2>
                       <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.16em; color: #6b6b6b; white-space: nowrap;">{{ w.year }}</span>
-                      <p style="margin: 0; grid-column: 1 / -1; font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-style: italic; font-size: 15.5px; line-height: 1.45; color: #333333;">{{ w.meta }}</p>
+                      <p style="margin: 0; grid-column: 1 / -1; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 15.5px; line-height: 1.45; color: #333333;">{{ w.meta }}</p>
                       <sc-if value="{{ w.hasDesc }}" hint-placeholder-val="{{ false }}">
                         <p style="margin: 0; grid-column: 1 / -1; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 13.5px; line-height: 1.75; color: #4a4a4a; text-wrap: pretty;">{{ w.desc }}</p>
                       </sc-if>
@@ -1220,10 +1222,10 @@ class Component extends DCLogic {
             // section colour + editorial type (merged from the colour issue layout)
             const PANEL = all ? "#2a2a2a" : (info.bg || "#2a2a2a");
             const FG = all ? "#ffffff" : (info.fg || "#ffffff");
-            const SERIF = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif;";
+            const SERIF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             const padX = mode === "spread" ? (nar ? "18px" : "clamp(22px, 3vw, 44px)") : (nar ? "18px" : "clamp(18px, 3vw, 40px)");
             o.labelStyle = FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: " + FG + "; opacity: 0.72;";
-            o.enStyle = SERIF + " font-style: italic; font-weight: 400; font-size: " + (nar ? "22px" : "clamp(22px, 2.1vw, 32px)") + "; line-height: 1.22; letter-spacing: -0.01em; margin: 0; color: " + FG + "; text-wrap: pretty;";
+            o.enStyle = SERIF + " font-weight: 400; font-size: " + (nar ? "22px" : "clamp(22px, 2.1vw, 32px)") + "; line-height: 1.22; letter-spacing: -0.01em; margin: 0; color: " + FG + "; text-wrap: pretty;";
             o.koStyle = FF + " font-weight: 400; font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.75; margin: 0; color: " + FG + "; opacity: 0.84; text-wrap: pretty;";
             o.copyBox = "display: flex; flex-direction: column; gap: 12px; max-width: " + (nar ? "none" : "440px") + ";";
             o.fade = false;
@@ -1238,14 +1240,14 @@ class Component extends DCLogic {
               o.coverCopy = true;
               o.shade = false;
               o.body = "padding: 0 clamp(18px, 3vw, 40px);";
-              const SER = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif;";
+              const SER = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
               if (nar) {
                 o.media = "position: relative; display: flex; flex-direction: column; gap: 14px; background: " + PANEL + "; padding-bottom: 34px; overflow: hidden;";
                 o.imgStyle = "position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; opacity: 0; transition: opacity 500ms ease;";
                 o.metaOnPhoto = "position: relative; display: flex; justify-content: space-between; padding: 0 18px; " + FF + " font-weight: 700; font-size: 10px; letter-spacing: 0.24em; color: " + ink + ";";
                 o.coverTitle = "position: relative; margin: 8px 0 0; padding: 0 16px; " + FF + " font-weight: 800; font-size: clamp(56px, 18vw, 104px); line-height: 0.82; letter-spacing: -0.055em; color: " + ink + ";";
                 o.coverCopyBox = "position: relative; display: flex; flex-direction: column; gap: 12px; padding: 4px 18px 0; color: " + ink + ";";
-                o.coverEn = SER + " font-style: italic; font-size: 22px; line-height: 1.22; margin: 0; text-wrap: pretty;";
+                o.coverEn = SER + " font-size: 22px; line-height: 1.22; margin: 0; text-wrap: pretty;";
                 o.coverKo = FF + " font-size: 13.5px; line-height: 1.75; margin: 0; opacity: 0.86;";
               } else {
                 const W = "100%";
@@ -1256,7 +1258,7 @@ class Component extends DCLogic {
                 o.metaOnPhoto = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: " + pink + "; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); pointer-events: none;";
                 o.coverTitle = "position: absolute; z-index: 3; left: clamp(12px, 2.4vw, 34px); right: 0; top: clamp(40px, 7vh, 76px); margin: 0; " + FF + " font-weight: 800; font-size: clamp(84px, 12vw, 210px); line-height: 0.8; letter-spacing: -0.055em; color: " + pink + "; text-shadow: 0 2px 28px rgba(0, 0, 0, 0.18); white-space: nowrap; pointer-events: none;";
                 o.coverCopyBox = "position: absolute; z-index: 3; left: clamp(20px, 3vw, 44px); bottom: clamp(56px, 9vh, 96px); width: min(34vw, 420px); display: flex; flex-direction: column; gap: 12px; color: #ffffff; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);";
-                o.coverEn = SER + " font-style: italic; font-size: clamp(20px, 1.9vw, 30px); line-height: 1.2; letter-spacing: -0.01em; margin: 0; text-wrap: pretty;";
+                o.coverEn = SER + " font-size: clamp(20px, 1.9vw, 30px); line-height: 1.2; letter-spacing: -0.01em; margin: 0; text-wrap: pretty;";
                 o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 15px); line-height: 1.75; margin: 0; opacity: 0.92; text-wrap: pretty;";
               }
             } else if (mode === "landscape") {
@@ -1271,7 +1273,7 @@ class Component extends DCLogic {
                 o.imgStyle = "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 82%; display: block; opacity: 0; transition: opacity 500ms ease;";
                 o.coverCopy = true;
                 o.coverCopyBox = "position: absolute; z-index: 3; right: clamp(24px, 5vw, 80px); top: clamp(56px, 11vh, 120px); width: min(30vw, 400px); display: flex; flex-direction: column; gap: 12px; color: #1f3a4f; text-align: right;";
-                o.coverEn = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-style: italic; font-size: clamp(20px, 1.9vw, 30px); line-height: 1.2; margin: 0; text-wrap: pretty;";
+                o.coverEn = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(20px, 1.9vw, 30px); line-height: 1.2; margin: 0; text-wrap: pretty;";
                 o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 15px); line-height: 1.75; margin: 0; color: #2c4a60;";
               }
               o.labelStyle = FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: " + ink + ";";
@@ -1295,8 +1297,8 @@ class Component extends DCLogic {
               o.shade = true;
             }
             const hasPhoto = !!(s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]);
-            const SERIF2 = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif;";
-            const DIDONE = "font-family: 'Bodoni 72', Didot, 'Bodoni Moda', 'Playfair Display', 'Times New Roman', 'Nanum Myeongjo', serif;";
+            const SERIF2 = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
+            const DIDONE = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             o.hasInset = false; o.isPoster = false; o.isContents = false;
             o.insetImg = ""; o.insetText = ""; o.insetBox = "display: none;"; o.insetCap = "display: none;";
             const frame = (rot) => "margin: 0; z-index: 4; border: " + (nar ? "6px" : "9px") + " solid #ffffff; box-shadow: 0 22px 46px rgba(0, 0, 0, 0.22); transform: rotate(" + rot + "); background: #ffffff;";
@@ -1341,7 +1343,7 @@ class Component extends DCLogic {
               o.metaOnPhoto = "position: absolute; z-index: 4; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + ink + ";";
               o.sticker = "position: absolute; z-index: 5; right: " + (nar ? "16px" : "clamp(28px, 6vw, 90px)") + "; bottom: " + (nar ? "22px" : "clamp(36px, 9vh, 90px)") + "; padding: 10px 14px; background: #111111; color: #ffffff; " + FF + " font-weight: 700; font-size: " + (nar ? "10.5px" : "12px") + "; letter-spacing: 0.16em; transform: rotate(-5deg); box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);";
               o.coverCopyBox = "position: absolute; z-index: 4; left: clamp(20px, 3vw, 44px); bottom: clamp(32px, 6vh, 64px); width: min(36vw, 440px); display: flex; flex-direction: column; gap: 12px; color: " + ink + ";";
-              o.coverEn = SERIF2 + " font-style: italic; font-size: clamp(20px, 1.9vw, 28px); line-height: 1.22; margin: 0; text-wrap: pretty;";
+              o.coverEn = SERIF2 + " font-size: clamp(20px, 1.9vw, 28px); line-height: 1.22; margin: 0; text-wrap: pretty;";
               o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.75; margin: 0; opacity: 0.86;";
               if (nar) { o.showHead = true; o.head = "display: flex; flex-direction: column; gap: 14px; padding-top: 26px; padding-bottom: 30px; " + band + " margin-bottom: 6px;"; }
             }
@@ -1360,9 +1362,9 @@ class Component extends DCLogic {
                 ? "grid-area: side; position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; opacity: 0; transition: opacity 500ms ease;"
                 : "display: none;";
               o.metaOnPhoto = "grid-area: meta; display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid " + ink + "; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em;";
-              o.coverTitle = "grid-area: title; margin: 0; text-align: center; " + DIDONE + " font-weight: 400; font-size: " + (nar ? "clamp(96px, 34vw, 170px)" : "clamp(150px, 22vw, 380px)") + "; line-height: 0.82; letter-spacing: -0.02em; color: " + ink + "; padding-bottom: " + (nar ? "6px" : "14px") + "; border-bottom: 1px solid " + ink + ";";
+              o.coverTitle = "grid-area: title; margin: 0; text-align: center; " + DIDONE + " font-weight: 800; font-size: " + (nar ? "clamp(96px, 34vw, 170px)" : "clamp(150px, 22vw, 380px)") + "; line-height: 0.82; letter-spacing: -0.02em; color: " + ink + "; padding-bottom: " + (nar ? "6px" : "14px") + "; border-bottom: 1px solid " + ink + ";";
               o.coverCopyBox = "grid-area: copy; display: flex; flex-direction: column; gap: 14px; max-width: 460px;";
-              o.coverEn = SERIF2 + " font-style: italic; font-size: " + (nar ? "22px" : "clamp(22px, 2.1vw, 32px)") + "; line-height: 1.22; margin: 0; text-wrap: pretty;";
+              o.coverEn = SERIF2 + " font-size: " + (nar ? "22px" : "clamp(22px, 2.1vw, 32px)") + "; line-height: 1.22; margin: 0; text-wrap: pretty;";
               o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 15px); line-height: 1.75; margin: 0; opacity: 0.86;";
               o.contentsBox = "grid-area: list; display: flex; flex-direction: column;";
               o.contentsHead = FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; margin: 0 0 6px;";

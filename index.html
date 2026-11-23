@@ -96,6 +96,57 @@
           </sc-if>
         </div>
 
+        <section aria-label="DINOBIRD MAGAZINE" style="padding: clamp(44px, 6vw, 84px) clamp(18px, 3vw, 40px) 0;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
+            <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">DINOBIRD MAGAZINE</h2>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.16em; color: #6b6b6b;">ISSUE 2026</span>
+          </div>
+          <div style="{{ mag.grid }}">
+            <div style="{{ mag.colLeft }}">
+              <sc-for list="{{ mag.left }}" as="m" hint-placeholder-count="2">
+                <a href="#" onClick="{{ m.go }}" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; text-decoration: none; color: #111111;" style-hover="opacity: 0.85;">
+                  <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #ededed;">
+                    <img src="{{ m.img }}" alt="{{ m.title }}" loading="lazy" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="{{ m.imgStyle }}">
+                  </div>
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.2em; color: #111111; margin-top: 6px;">{{ m.kicker }}</span>
+                  <h3 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; letter-spacing: -0.01em; color: #111111; text-wrap: balance; font-size: clamp(19px, 1.65vw, 25px); line-height: 1.25;">{{ m.title }}</h3>
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; font-size: 11.5px; letter-spacing: 0.18em; color: #111111;">{{ m.by }}</span>
+                </a>
+              </sc-for>
+            </div>
+            <div style="{{ mag.colCenter }}">
+              <a href="#" onClick="{{ mag.cover.go }}" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; text-decoration: none; color: #111111;" style-hover="opacity: 0.92;">
+                <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #0f1f3a;">
+                  <img src="{{ mag.cover.img }}" alt="{{ mag.cover.title }}" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; opacity: 0; transition: opacity 500ms ease;">
+                  <span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 2.5%; text-align: center; font-family: 'Bodoni 72', Didot, 'Bodoni Moda', 'Playfair Display', 'Times New Roman', serif; font-weight: 400; font-size: clamp(64px, 9.6vw, 170px); line-height: 0.85; letter-spacing: -0.02em; color: rgba(255, 255, 255, 0.72); mix-blend-mode: screen; pointer-events: none;">DINOBIRD</span>
+                  <span style="position: absolute; right: 4%; top: 31%; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(14px, 1.5vw, 24px); line-height: 1.05; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85);">{{ mag.cover.side1 }}<br>{{ mag.cover.side2 }}</span>
+                  <div style="position: absolute; left: 0; right: 0; bottom: 6%; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 6%; color: #ffffff; text-shadow: 0 2px 22px rgba(0, 0, 0, 0.35);">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 86px); line-height: 0.9; letter-spacing: -0.03em;">{{ mag.cover.big }}</span>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(13px, 1.5vw, 24px); letter-spacing: 0.04em;">{{ mag.cover.sub }}</span>
+                  </div>
+                </div>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.2em; color: #111111; margin-top: 8px;">{{ mag.cover.kicker }}</span>
+                <h3 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; letter-spacing: -0.01em; color: #111111; text-wrap: balance; font-size: clamp(22px, 2.2vw, 34px); line-height: 1.2; max-width: 640px;">{{ mag.cover.title }}</h3>
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; font-size: 11.5px; letter-spacing: 0.18em; color: #111111;">{{ mag.cover.by }}</span>
+              </a>
+            </div>
+            <div style="{{ mag.colRight }}">
+              <sc-for list="{{ mag.right }}" as="m" hint-placeholder-count="3">
+                <a href="#" onClick="{{ m.go }}" style="display: grid; grid-template-columns: minmax(0, 1fr) clamp(80px, 7vw, 120px); gap: clamp(14px, 1.8vw, 26px); align-items: center; text-decoration: none; color: #111111;" style-hover="opacity: 0.85;">
+                  <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.2em; color: #111111;">{{ m.kicker }}</span>
+                    <h3 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; letter-spacing: -0.01em; color: #111111; text-wrap: balance; font-size: clamp(18px, 1.5vw, 23px); line-height: 1.3;">{{ m.title }}</h3>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; font-size: 11.5px; letter-spacing: 0.18em; color: #111111;">{{ m.by }}</span>
+                  </div>
+                  <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #ededed;">
+                    <img src="{{ m.img }}" alt="" loading="lazy" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="{{ m.imgStyle }}">
+                  </div>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+
         <section style="padding: 56px clamp(18px, 3vw, 40px) 0;">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
             <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">THIS YEAR ARTIST</h2>
@@ -1339,11 +1390,11 @@ class Component extends DCLogic {
             o.dots = Array.from({ length: nSl }, (_, i) => ({
               label: "사진 " + (i + 1) + " / " + nSl,
               go: (e) => { if (e && e.stopPropagation) e.stopPropagation(); goSl(i); },
-              style: "width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; background: " + (i === cur ? dotOn : dotOff) + "; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); transition: background 200ms ease;"
+              style: "width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; background: " + (i === cur ? dotOn : dotOff) + "; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); transition: background 200ms ease;"
             }));
             const dotsTop = mode === "split" && nar ? "top: calc(125vw - 28px);" : (mode === "landscape" ? "bottom: 24%;" : "bottom: 22px;");
             o.dotsBox = "position: absolute; z-index: 6; " + dotsTop + " " + "left: 0; right: 0;" + " display: flex; justify-content: center; gap: 10px;";
-            const arrow = "position: absolute; z-index: 6; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.78); color: #111111; font-size: 24px; line-height: 1; cursor: pointer; display: " + (nar ? "none" : "flex") + "; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);";
+            const arrow = "position: absolute; z-index: 6; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.78); color: #111111; font-size: 24px; line-height: 1; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);";
             o.prevStyle = arrow + " left: 16px;";
             o.nextStyle = arrow + " right: 16px;";
             o.prev = (e) => { if (e && e.stopPropagation) e.stopPropagation(); goSl(cur - 1); };
@@ -1385,6 +1436,50 @@ class Component extends DCLogic {
         touch: () => { this.touchMode = true; },
         tap: (e) => { if (this.touchMode && s.hoverTile !== c) { if (e && e.preventDefault) e.preventDefault(); this.setState({ hoverTile: c }); return; } this.setState({ hoverTile: null }); go(e); }, label: c, textWeight: on ? 600 : 400, koOpacity: on ? 1 : 0.8, descScale: on ? "scale(1.3)" : "scale(1)", stitch: "rgba(17, 17, 17, 0.45)", enter: () => this.setState({ hoverTile: c }), leave: () => this.setState((p) => (p.hoverTile === c ? { hoverTile: null } : null)), bg: on ? ((SECTION_INFO[c] || {}).soft || "rgba(242, 242, 242, 0.5)") : ((SECTION_INFO[c] || {}).bg || "#f2f2f2"), fg: (SECTION_INFO[c] || {}).fg || "#111111", en: (SECTION_INFO[c] || {}).en || "", ko: (SECTION_INFO[c] || {}).ko || CAT_NOTE[c] || "", count: ARTISTS.filter((a) => a.cat === c).length, go: this.nav("artists", { cat: c, listPage: 0 }) }; }),
       homeLetters: LETTERS.slice(0, 3),
+      mag: (() => {
+        const nar = !!s.narrow;
+        const SB = (s.cms && s.cms.sectionBanners) || {};
+        const fill = (gray) => "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; opacity: 0; transition: opacity 500ms ease;" + (gray ? " filter: grayscale(1);" : "");
+        const toSection = (c) => this.nav("artists", { cat: c, listPage: 0 });
+        const toLetter = (i) => this.nav("letter", { letterOpen: i });
+        const go = (link) => {
+          const m = /^(section|letter|page):(.+)$/.exec(String(link || ""));
+          if (m && m[1] === "section") return toSection(m[2]);
+          if (m && m[1] === "letter") return toLetter(Number(m[2]) || 0);
+          if (m && m[1] === "page") return this.nav(m[2]);
+          if (/^https?:/.test(String(link || ""))) return (e) => { if (e && e.preventDefault) e.preventDefault(); window.open(link, "_blank", "noopener"); };
+          return (e) => { if (e && e.preventDefault) e.preventDefault(); };
+        };
+        const custom = (s.cms && Array.isArray(s.cms.stories)) ? s.cms.stories.filter((x) => x && x.title && x.live !== false) : [];
+        let cover, left, right;
+        if (custom.length) {
+          const pick = (slot) => custom.filter((x) => x.slot === slot);
+          const c0 = pick("cover")[0] || custom[0];
+          cover = { img: c0.image || "", kicker: (c0.kicker || "").toUpperCase(), title: c0.title, by: c0.by ? "BY " + String(c0.by).toUpperCase() : "", big: c0.coverTitle || "", sub: c0.coverSub || "", side1: c0.side1 || "", side2: c0.side2 || "", go: go(c0.link) };
+          const rest = custom.filter((x) => x !== c0);
+          const L = pick("left").length ? pick("left") : rest.slice(0, 2);
+          const R = pick("right").length ? pick("right") : rest.slice(2, 6);
+          const map = (x) => ({ img: x.image || "", imgStyle: fill(false), kicker: (x.kicker || "").toUpperCase(), title: x.title, by: x.by ? "BY " + String(x.by).toUpperCase() : "", go: go(x.link) });
+          left = L.map(map); right = R.map(map);
+        } else {
+          cover = { img: SB["HOT COLOR"] || "media/sections/hot-1.jpg", kicker: "HOT COLOR", title: "카메라 앞에서 더 강렬해지는 존재감 — DINOBIRD HOT COLOR 라인업", by: "BY DINOBIRD EDITORIAL", big: "HOT COLOR", sub: "BOLD PRESENCE ON CAMERA", side1: "ISSUE", side2: "2026", go: toSection("HOT COLOR") };
+          left = [
+            { img: SB.PURE || "media/sections/pure-1.jpg", imgStyle: fill(false), kicker: "PURE", title: "컨템포러리·발레 기반의 맑은 라인과 호흡", by: "BY DINOBIRD EDITORIAL", go: toSection("PURE") },
+            { img: "media/sections/director-2.jpg", imgStyle: fill(true), kicker: "DIRECTOR", title: "브리프부터 카메라까지, 움직임을 총괄 디렉팅합니다", by: "BY DINOBIRD EDITORIAL", go: toSection("DIRECTOR") }
+          ];
+          const thumbs = ["media/sections/pure-2.jpg", "media/sections/hot-2.jpg", "media/sections/hot-4.jpg", "media/sections/director-1.jpg"];
+          right = LETTERS.slice(0, 2).map((l, i) => ({ img: thumbs[i], imgStyle: fill(false), kicker: "BIRD LETTER", title: l.title, by: "BY DINOBIRD", go: toLetter(i) }));
+          right.push({ img: thumbs[2], imgStyle: fill(false), kicker: "DINO ARTIST", title: "DINOBIRD 전속 아티스트 전체 로스터", by: "BY DINOBIRD", go: toSection("ALL") });
+          right.push({ img: thumbs[3], imgStyle: fill(true), kicker: "CASTING", title: "캐스팅·협업 문의는 DINOBIRD로", by: "BY DINOBIRD", go: this.nav("contact") });
+        }
+        return {
+          cover, left, right,
+          grid: nar ? "display: flex; flex-direction: column; gap: 44px; padding: 26px 0 0;" : "display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.05fr) minmax(0, 1.2fr); gap: clamp(22px, 3vw, 52px); padding: clamp(26px, 3vw, 44px) 0 0; align-items: start;",
+          colLeft: "display: flex; flex-direction: column; gap: " + (nar ? "44px" : "clamp(44px, 5vw, 72px)") + ";" + (nar ? " order: 2;" : ""),
+          colCenter: "min-width: 0;" + (nar ? " order: 1;" : ""),
+          colRight: "display: flex; flex-direction: column; gap: " + (nar ? "30px" : "clamp(36px, 4vw, 56px)") + ";" + (nar ? " order: 3;" : "")
+        };
+      })(),
       goAllArtists: this.nav("artists", { cat: "ALL", listPage: 0 }),
       goPrevPage: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ listPage: Math.max(0, cur - 1) }); },
       goNextPage: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ listPage: Math.min(pageCount - 1, cur + 1) }); },

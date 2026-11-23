@@ -746,7 +746,12 @@ class Component extends DCLogic {
         LETTERS.push(Object.assign({}, base, l));
       });
     }
-    this.setState({ cms: d });
+    const prevHero = this.state && this.state.cms && this.state.cms.heroFile;
+    if (d.heroFile && d.heroFile !== prevHero) {
+      this.setState({ cms: d, heroTry: 0 }, () => { const el = document.querySelector("video[data-dino-hero]"); if (el) { el.load(); const p = el.play(); if (p && p.catch) p.catch(() => {}); } });
+    } else {
+      this.setState({ cms: d });
+    }
   }
 
   componentDidMount() {

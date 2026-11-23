@@ -217,15 +217,19 @@
       </sc-if>
 
       <sc-if value="{{ isArtists }}" hint-placeholder-val="{{ false }}">
-        <section style="position: relative; height: clamp(340px, 54vh, 580px); overflow: hidden; background: {{ banner.bg }}; color: #ffffff;">
-          <img src="{{ banner.img }}" alt="" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; opacity: 0; transition: opacity 400ms ease;">
-          <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0.05) 100%);"></div>
-          <div style="position: absolute; left: clamp(20px, 9vw, 120px); right: 20px; top: 50%; transform: translateY(-62%); pointer-events: none; display: flex; flex-direction: column; gap: 14px;">
-            <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(42px, 7vw, 92px); line-height: 0.95; letter-spacing: -0.02em; margin: 0;">{{ banner.title }}</h1>
-            <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(13px, 1.4vw, 16px); line-height: 1.5; letter-spacing: 0.02em; margin: 0; max-width: 560px; text-wrap: pretty;">{{ banner.en }}</p>
-            <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(12.5px, 1.3vw, 15px); line-height: 1.6; margin: 0; max-width: 560px; text-wrap: pretty;">{{ banner.ko }}</p>
+        <section style="position: relative; background: {{ banner.panel }}; color: {{ banner.fg }};">
+          <div style="{{ banner.wrap }}">
+            <div style="{{ banner.photoBox }}">
+              <img src="{{ banner.img }}" alt="{{ banner.title }} 컨셉 사진" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; opacity: 0; transition: opacity 400ms ease;">
+            </div>
+            <div style="{{ banner.textBox }}">
+              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.22em; margin: 0; opacity: 0.78;">DINOBIRD SECTION</p>
+              <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(40px, 6.4vw, 96px); line-height: 0.95; letter-spacing: -0.02em; margin: 0;">{{ banner.title }}</h1>
+              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(13.5px, 1.4vw, 17px); line-height: 1.55; letter-spacing: 0.01em; margin: 6px 0 0; max-width: 480px; text-wrap: pretty;">{{ banner.en }}</p>
+              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(13px, 1.3vw, 15.5px); line-height: 1.7; margin: 0; max-width: 480px; text-wrap: pretty;">{{ banner.ko }}</p>
+            </div>
           </div>
-          <nav style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; background: rgba(255, 255, 255, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; flex-wrap: wrap; justify-content: center; gap: 0 clamp(20px, 3vw, 40px); padding: 0 18px;">
+          <nav style="position: relative; z-index: 2; background: #ffffff; border-bottom: 1px solid #e6e6e6; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 clamp(20px, 3vw, 40px); padding: 0 18px;">
             <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
               <span style="display: flex;">
                 <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
@@ -930,6 +934,17 @@ class Component extends DCLogic {
           en: all ? "Every DINOBIRD artist, one roster." : (info.en || ""),
           ko: all ? "DINOBIRD 전속 아티스트 전체 로스터." : (info.ko || CAT_NOTE[s.cat] || ""),
           bg: all ? "#2a2a2a" : (info.bg ? (s.cat === "DIRECTOR" ? "#161616" : "#5c5c5c") : "#2a2a2a"),
+          panel: all ? "#2a2a2a" : (info.bg || "#2a2a2a"),
+          fg: all ? "#ffffff" : (info.fg || "#ffffff"),
+          wrap: s.narrow
+            ? "display: flex; flex-direction: column;"
+            : "display: flex; flex-direction: row-reverse; align-items: stretch; height: clamp(460px, 74vh, 780px);",
+          photoBox: s.narrow
+            ? "position: relative; width: 100%; height: min(118vw, 620px); overflow: hidden;"
+            : "position: relative; flex: 0 0 auto; width: clamp(320px, 40vw, 600px); height: 100%; overflow: hidden;",
+          textBox: s.narrow
+            ? "display: flex; flex-direction: column; gap: 12px; padding: 30px 22px 38px;"
+            : "flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 48px clamp(28px, 7vw, 120px);",
           img: ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
         };
       })(),

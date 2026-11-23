@@ -118,15 +118,36 @@
             </div>
             <div style="{{ mag.colCenter }}">
               <a href="#" onClick="{{ mag.cover.go }}" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; text-decoration: none; color: #111111;" style-hover="opacity: 0.92;">
-                <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #0f1f3a;">
-                  <img src="{{ mag.cover.img }}" alt="{{ mag.cover.title }}" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; opacity: 0; transition: opacity 500ms ease;">
-                  <span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 2.5%; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(56px, 8.4vw, 150px); line-height: 0.85; letter-spacing: -0.03em; color: rgba(255, 255, 255, 0.72); mix-blend-mode: screen; pointer-events: none;">DINOBIRD</span>
-                  <span style="position: absolute; right: 4%; top: 31%; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(14px, 1.5vw, 24px); line-height: 1.05; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85);">{{ mag.cover.side1 }}<br>{{ mag.cover.side2 }}</span>
-                  <div style="position: absolute; left: 0; right: 0; bottom: 6%; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 6%; color: #ffffff; text-shadow: 0 2px 22px rgba(0, 0, 0, 0.35);">
-                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 86px); line-height: 0.9; letter-spacing: -0.03em;">{{ mag.cover.big }}</span>
-                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(13px, 1.5vw, 24px); letter-spacing: 0.04em;">{{ mag.cover.sub }}</span>
+                <sc-if value="{{ mag.cover.logo }}" hint-placeholder-val="{{ true }}">
+                  <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #ffffff; border: 1px solid #111111; container-type: inline-size; display: flex; flex-direction: column; justify-content: space-between; padding: 4.5% 4.5% 5%; box-sizing: border-box; color: #111111; text-align: left;">
+                    <div style="display: flex; justify-content: space-between; padding-bottom: 2cqw; border-bottom: 1px solid #111111; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: max(10px, 1.9cqw); letter-spacing: 0.24em;">
+                      <span>ISSUE 2026</span><span>SEOUL</span>
+                    </div>
+                    <div aria-hidden="true" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; letter-spacing: -0.04em; line-height: 0.78; margin-left: -0.04em;">
+                      <span style="display: block; font-size: 37cqw;">DINO</span>
+                      <span style="display: block; font-size: 37cqw; white-space: nowrap;">BIRD<span style="display: inline-block; width: 0.22em; height: 0.22em; border: 0.055em solid currentColor; border-radius: 50%; box-sizing: border-box; margin-left: 0.04em; vertical-align: baseline;"></span></span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 4cqw;">
+                      <div style="display: flex; flex-direction: column; gap: 1.3cqw; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: max(10px, 2.2cqw); letter-spacing: 0.16em;">
+                        <sc-for list="{{ mag.cover.lines }}" as="cl" hint-placeholder-count="5">
+                          <span style="display: flex; align-items: center; gap: 1.4cqw;"><span style="{{ cl.dot }}"></span>{{ cl.label }}</span>
+                        </sc-for>
+                      </div>
+                      <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: 6.4cqw; line-height: 0.92; letter-spacing: -0.03em; text-align: right;">WE CREATE<br>THE ERA.</span>
+                    </div>
                   </div>
-                </div>
+                </sc-if>
+                <sc-if value="{{ mag.cover.photo }}" hint-placeholder-val="{{ false }}">
+                  <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #0f1f3a;">
+                    <img src="{{ mag.cover.img }}" alt="{{ mag.cover.title }}" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; opacity: 0; transition: opacity 500ms ease;">
+                    <span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 2.5%; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(56px, 8.4vw, 150px); line-height: 0.85; letter-spacing: -0.03em; color: rgba(255, 255, 255, 0.72); mix-blend-mode: screen; pointer-events: none;">DINOBIRD</span>
+                    <span style="position: absolute; right: 4%; top: 31%; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(14px, 1.5vw, 24px); line-height: 1.05; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85);">{{ mag.cover.side1 }}<br>{{ mag.cover.side2 }}</span>
+                    <div style="position: absolute; left: 0; right: 0; bottom: 6%; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 6%; color: #ffffff; text-shadow: 0 2px 22px rgba(0, 0, 0, 0.35);">
+                      <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 86px); line-height: 0.9; letter-spacing: -0.03em;">{{ mag.cover.big }}</span>
+                      <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(13px, 1.5vw, 24px); letter-spacing: 0.04em;">{{ mag.cover.sub }}</span>
+                    </div>
+                  </div>
+                </sc-if>
                 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.2em; color: #111111; margin-top: 8px;">{{ mag.cover.kicker }}</span>
                 <h3 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; letter-spacing: -0.01em; color: #111111; text-wrap: balance; font-size: clamp(22px, 2.2vw, 34px); line-height: 1.2; max-width: 640px;">{{ mag.cover.title }}</h3>
                 <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 500; font-size: 11.5px; letter-spacing: 0.18em; color: #111111;">{{ mag.cover.by }}</span>
@@ -1476,14 +1497,16 @@ class Component extends DCLogic {
         if (custom.length) {
           const pick = (slot) => custom.filter((x) => x.slot === slot);
           const c0 = pick("cover")[0] || custom[0];
-          cover = { img: c0.image || "", kicker: (c0.kicker || "").toUpperCase(), title: c0.title, by: c0.by ? "BY " + String(c0.by).toUpperCase() : "", big: c0.coverTitle || "", sub: c0.coverSub || "", side1: c0.side1 || "", side2: c0.side2 || "", go: go(c0.link) };
+          cover = { logo: false, photo: true, lines: [], img: c0.image || "", kicker: (c0.kicker || "").toUpperCase(), title: c0.title, by: c0.by ? "BY " + String(c0.by).toUpperCase() : "", big: c0.coverTitle || "", sub: c0.coverSub || "", side1: c0.side1 || "", side2: c0.side2 || "", go: go(c0.link) };
           const rest = custom.filter((x) => x !== c0);
           const L = pick("left").length ? pick("left") : rest.slice(0, 2);
           const R = pick("right").length ? pick("right") : rest.slice(2, 6);
           const map = (x) => ({ img: x.image || "", imgStyle: fill(false), kicker: (x.kicker || "").toUpperCase(), title: x.title, by: x.by ? "BY " + String(x.by).toUpperCase() : "", go: go(x.link) });
           left = L.map(map); right = R.map(map);
         } else {
-          cover = { img: SB["HOT COLOR"] || "media/sections/hot-1.jpg", kicker: "HOT COLOR", title: "카메라 앞에서 더 강렬해지는 존재감 — DINOBIRD HOT COLOR 라인업", by: "BY DINOBIRD EDITORIAL", big: "HOT COLOR", sub: "BOLD PRESENCE ON CAMERA", side1: "ISSUE", side2: "2026", go: toSection("HOT COLOR") };
+          const DOT = { DIRECTOR: "#161616", "HOT COLOR": "#e39a94", PURE: "#7fb0d6", STREET: "#8496d0", ERA: "#8cc795" };
+          cover = { logo: true, photo: false, img: "", kicker: "DINOBIRD", title: (s.cms && s.cms.aboutTitle) || "아티스트의 가치를 새로운 시대로", by: "BY DINOBIRD EDITORIAL", big: "", sub: "", side1: "", side2: "", go: this.nav("about"),
+            lines: CATS.map((c) => ({ label: c, dot: "display: inline-block; width: max(7px, 1.6cqw); height: max(7px, 1.6cqw); border-radius: 50%; background: " + (DOT[c] || "#111111") + ";" })) };
           left = [
             { img: SB.PURE || "media/sections/pure-1.jpg", imgStyle: fill(false), kicker: "PURE", title: "컨템포러리·발레 기반의 맑은 라인과 호흡", by: "BY DINOBIRD EDITORIAL", go: toSection("PURE") },
             { img: "media/sections/director-2.jpg", imgStyle: fill(true), kicker: "DIRECTOR", title: "브리프부터 카메라까지, 움직임을 총괄 디렉팅합니다", by: "BY DINOBIRD EDITORIAL", go: toSection("DIRECTOR") }

@@ -4032,7 +4032,7 @@ class Component extends DCLogic {
 
   persist() {
     const s = this.state;
-    const payload = {
+    const payload = Object.assign({}, this._extra || {}, {
       artists: s.artists, cats: s.cats, letters: s.letters, inbox: s.inbox,
       heroFile: s.heroFile, bannerText: s.bannerText, aboutTitle: s.aboutTitle, dim: s.dim,
       heroRot: s.heroRot, heroFlip: s.heroFlip, heroExposure: s.heroExposure, heroBright: s.heroBright,
@@ -4040,7 +4040,7 @@ class Component extends DCLogic {
       sectionBanners: s.sectionBanners || {},
       samplesCleared: true,
       savedAt: Date.now()
-    };
+    });
     try {
       localStorage.setItem("dinobird-cms-v2", JSON.stringify(payload));
       if (this._bc === undefined) this._bc = typeof BroadcastChannel === "function" ? new BroadcastChannel("dinobird-cms") : null;
@@ -4048,7 +4048,8 @@ class Component extends DCLogic {
     } catch (err) {}
     const cloud = window.DinoCloud;
     if (cloud && cloud.configured && !s.locked) {
-      if (s.guest || !s.cloudReady || isOffline() || (s.queued || 0) > 0) {
+      if (s.guest || !s.cloudReady || !this._extraLoaded || isOffline() || (s.queued || 0) > 0) {
+        if (!this._extraLoaded && !s.guest && s.cloudReady && !isOffline()) this.retryLater();
         setPending(true);
         clearTimeout(this._save);
         const st = s.guest ? "guest" : "offline";
@@ -4083,6 +4084,12 @@ class Component extends DCLogic {
     const cloud = window.DinoCloud;
     if (!cloud || !cloud.configured || this.state.locked || this.state.guest || isOffline() || this._syncing) return;
     if (!this.state.cloudReady) { this.cloudBoot(); return; }
+    if (!this._extraLoaded) {
+      cloud.loadContent()
+        .then((d) => { this._extra = d ? Object.assign({}, d) : {}; this._extraLoaded = true; this.syncNow(); })
+        .catch(() => this.retryLater());
+      return;
+    }
     this._syncing = true;
     this.flushUploads()
       .then(() => {
@@ -4142,14 +4149,18 @@ class Component extends DCLogic {
     if (isOffline()) { this.setState({ cloudState: guest ? "guest" : "offline" }); return; }
     if (guest && hasPending()) { this.setState({ cloudState: "guest" }); return; }
     if (hasPending()) {
-      this.setState({ cloudReady: true }, () => this.syncNow());
+      cloud.loadContent()
+        .then((d) => { this._extra = d ? Object.assign({}, d) : {}; this._extraLoaded = true; })
+        .catch(() => {})
+        .then(() => this.setState({ cloudReady: true }, () => this.syncNow()));
       this.loadInbox();
       this.loadViews(this.state.range);
       return;
     }
     cloud.loadContent().then((d) => {
+      this._extra = d ? Object.assign({}, d) : {}; this._extraLoaded = true;
       const patch = guest ? { cloudState: "guest" } : { cloudReady: true, cloudState: "saved" };
-      if (d) ["artists", "cats", "letters", "heroFile", "heroRot", "heroFlip", "heroExposure", "heroBright", "heroContrast", "heroSat", "heroZoom", "bannerText", "aboutTitle", "dim"].forEach((k) => { if (d[k] != null) patch[k] = d[k]; });
+      if (d) ["artists", "cats", "letters", "heroFile", "heroRot", "heroFlip", "heroExposure", "heroBright", "heroContrast", "heroSat", "heroZoom", "bannerText", "aboutTitle", "dim", "sectionBanners"].forEach((k) => { if (d[k] != null) patch[k] = d[k]; });
       const purge = !d || !d.samplesCleared;
       if (Array.isArray(patch.artists)) patch.artists = dropSamples(patch.artists);
       else if (purge) patch.artists = [];

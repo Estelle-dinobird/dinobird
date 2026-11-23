@@ -52,6 +52,7 @@
           </div>
         </sc-if>
       </div>
+      <a href="#" onClick="{{ goWork }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Work</a>
       <a href="#" onClick="{{ goLetter }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Letter</a>
       <a href="#" onClick="{{ goContact }}" style="height: clamp(40px, 11vw, 46px); display: flex; align-items: center; font-size: clamp(12.5px, 3.4vw, 14px); font-weight: 300; white-space: nowrap; letter-spacing: 0.02em; color: #4a4a4a; text-decoration: none;" style-hover="color: #111111;">Contact</a>
       <div onMouseLeave="{{ searchBlur }}" style="margin-left: auto; position: relative; display: flex; align-items: center; height: clamp(40px, 11vw, 46px);">
@@ -594,6 +595,55 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isWork }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 0 clamp(18px, 3vw, 40px);">
+          <header style="display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px; padding: clamp(34px, 6vw, 80px) 0 clamp(18px, 2.4vw, 28px); border-bottom: 1px solid #111111;">
+            <div style="display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+              <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #6b6b6b;">DINOBIRD ISSUE 2026 — PORTFOLIO</span>
+              <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(72px, 15vw, 250px); line-height: 0.8; letter-spacing: -0.055em; color: #111111;">WORK</h1>
+            </div>
+            <p style="margin: 0 0 6px; max-width: 360px; font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-style: italic; font-size: clamp(17px, 1.7vw, 24px); line-height: 1.3; color: #111111; text-align: right; text-wrap: pretty;">Stages, films and campaigns we have moved.</p>
+          </header>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 16px 0 6px;">
+            <sc-for list="{{ workTabs }}" as="t" hint-placeholder-count="4">
+              <a href="#" onClick="{{ t.go }}" style="{{ t.style }}">{{ t.label }}</a>
+            </sc-for>
+          </div>
+          <sc-if value="{{ workEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(14px, 2vw, 26px); padding: 22px 0 clamp(60px, 8vw, 110px);">
+              <sc-for list="{{ workPlaceholders }}" as="w" hint-placeholder-count="3">
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div style="aspect-ratio: 4 / 5; background: #f1f1f1; display: flex; align-items: center; justify-content: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.24em; color: #6b6b6b;">{{ w.no }} — COMING SOON</div>
+                  <div style="height: 1px; background: #dcdcdc;"></div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ workHas }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ workGrid }}">
+              <sc-for list="{{ workItems }}" as="w" hint-placeholder-count="5">
+                <article style="{{ w.box }}">
+                  <a href="{{ w.href }}" target="{{ w.target }}" rel="noopener" onClick="{{ w.click }}" style="display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #111111;" style-hover="opacity: 0.82;">
+                    <div style="{{ w.media }}">
+                      <img src="{{ w.img }}" alt="{{ w.title }}" loading="lazy" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 500ms ease;">
+                      <span style="position: absolute; left: 14px; top: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 10.5px; letter-spacing: 0.22em; color: #ffffff; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);">{{ w.no }}</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: baseline;">
+                      <h2 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: {{ w.titleSize }}; line-height: 1.05; letter-spacing: -0.02em;">{{ w.title }}</h2>
+                      <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.16em; color: #6b6b6b; white-space: nowrap;">{{ w.year }}</span>
+                      <p style="margin: 0; grid-column: 1 / -1; font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif; font-style: italic; font-size: 15.5px; line-height: 1.45; color: #333333;">{{ w.meta }}</p>
+                      <sc-if value="{{ w.hasDesc }}" hint-placeholder-val="{{ false }}">
+                        <p style="margin: 0; grid-column: 1 / -1; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 13.5px; line-height: 1.75; color: #4a4a4a; text-wrap: pretty;">{{ w.desc }}</p>
+                      </sc-if>
+                    </div>
+                  </a>
+                </article>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
         <div style="padding: 34px clamp(18px, 3vw, 40px) 0; max-width: 940px;">
           <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 33px); line-height: 1; margin: 0;">Contact</h1>
@@ -983,6 +1033,43 @@ class Component extends DCLogic {
       isArtist: s.page === "artist",
       isLetter: s.page === "letter",
       isContact: s.page === "contact",
+      isWork: s.page === "work",
+      ...(() => {
+        const all = (s.cms && Array.isArray(s.cms.works)) ? s.cms.works.filter((w) => w && w.title && w.live !== false) : [];
+        const cats = ["ALL"].concat(all.map((w) => String(w.category || "").toUpperCase()).filter((c, i, a) => c && a.indexOf(c) === i));
+        const cur = cats.indexOf(s.workCat || "ALL") >= 0 ? (s.workCat || "ALL") : "ALL";
+        const list = cur === "ALL" ? all : all.filter((w) => String(w.category || "").toUpperCase() === cur);
+        const nar = !!s.narrow;
+        const tabFF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12.5px; letter-spacing: 0.12em; padding: 6px 0; text-decoration: none; ";
+        return {
+          workHas: list.length > 0,
+          workEmpty: all.length === 0,
+          workPlaceholders: [{ no: "01" }, { no: "02" }, { no: "03" }],
+          workTabs: all.length ? cats.map((c) => ({ label: c, style: tabFF + (c === cur ? "color: #111111; font-weight: 700; border-bottom: 2px solid #111111;" : "color: #6b6b6b; font-weight: 500; border-bottom: 2px solid transparent;"), go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ workCat: c }); } })) : [],
+          workGrid: nar ? "display: flex; flex-direction: column; gap: 40px; padding: 22px 0 70px;" : "display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(40px, 5vw, 72px) clamp(16px, 2vw, 28px); padding: 26px 0 clamp(70px, 9vw, 120px); align-items: start;",
+          workItems: list.map((w, i) => {
+            const pat = i % 5;
+            const span = nar ? "" : (pat === 0 ? "grid-column: 1 / span 4;" : pat === 1 ? "grid-column: 5 / span 2; margin-top: clamp(60px, 10vw, 160px);" : pat === 2 ? "grid-column: 1 / span 2;" : pat === 3 ? "grid-column: 3 / span 2; margin-top: clamp(40px, 6vw, 100px);" : "grid-column: 5 / span 2;");
+            const ratio = nar ? "4 / 5" : (pat === 0 ? "16 / 10" : "4 / 5");
+            const href = w.link || "#";
+            return {
+              no: String(i + 1).padStart(2, "0"),
+              title: w.title,
+              year: w.year || "",
+              meta: [w.client, w.role, w.category].filter(Boolean).join(" · "),
+              desc: w.desc || "",
+              hasDesc: !!w.desc,
+              img: w.image || "",
+              href,
+              target: w.link ? "_blank" : "_self",
+              click: (e) => { if (!w.link && e && e.preventDefault) e.preventDefault(); },
+              box: span + " min-width: 0;",
+              media: "position: relative; width: 100%; aspect-ratio: " + ratio + "; overflow: hidden; background: #ededed;",
+              titleSize: !nar && pat === 0 ? "clamp(26px, 2.6vw, 40px)" : "clamp(19px, 1.7vw, 24px)"
+            };
+          })
+        };
+      })(),
       showAnnotations: this.props.showAnnotations ?? false,
       videoRef: this.video,
       videoMuted: s.muted,
@@ -1298,6 +1385,7 @@ class Component extends DCLogic {
       goHome: this.nav("home"),
       goAbout: this.nav("about"),
       goLetter: this.nav("letter", { letterOpen: null }),
+      goWork: this.nav("work", { workCat: "ALL" }),
       goContact: this.nav("contact"),
       query: s.query,
       onQuery: (e) => this.setState({ query: e.target.value, searchOpen: true }),

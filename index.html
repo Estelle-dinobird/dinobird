@@ -986,7 +986,7 @@ class Component extends DCLogic {
             o.shade = mode !== "landscape";
             o.coverTitle = "position: absolute; z-index: 3; left: clamp(14px, 3vw, 40px); right: 0; bottom: " + (nar ? "18px" : "clamp(22px, 4vh, 44px)") + "; margin: 0; " + FF + " font-weight: 700; font-size: " + (nar ? "clamp(48px, 15vw, 96px)" : "clamp(64px, 11.5vw, 200px)") + "; line-height: 0.86; letter-spacing: -0.045em; color: #ffffff; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25); white-space: nowrap; pointer-events: none;";
             if (mode === "spread" && !nar) o.coverTitle = o.coverTitle.replace("clamp(64px, 11.5vw, 200px)", "min(9.4vw, calc((100vh - 47px) * 0.8 / 5.4))");
-            if (mode === "landscape") o.coverTitle = o.coverTitle.replace("color: #ffffff; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25);", "color: #111111;");
+            if (mode === "landscape") o.coverTitle = o.coverTitle.replace("color: #ffffff; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25);", "color: #111111;").replace(/bottom: [^;]+;/, "top: " + (nar ? "16px" : "clamp(22px, 5vh, 48px)") + ";");
             if (mode === "spread") {
               o.page = nar ? "display: block;" : "display: grid; grid-template-columns: min(58vw, calc((100vh - 47px) * 0.8)) minmax(0, 1fr); align-items: start;";
               o.media = nar ? "position: relative; width: 100%; height: min(136vw, 760px); overflow: hidden; background: #ededed;" : "position: sticky; top: 47px; height: calc(100vh - 47px); overflow: hidden; background: #ededed;";

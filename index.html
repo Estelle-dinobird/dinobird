@@ -1315,7 +1315,7 @@ class Component extends DCLogic {
                 : "position: absolute; left: calc(36% - 70px); top: 40%; width: clamp(130px, 11vw, 190px); aspect-ratio: 2 / 3; " + frame("-3deg");
               o.insetCap = nar ? "display: none;" : capStyle("#3a1a1c");
             }
-            if (mode === "landscape" && !nar) {
+            if (mode === "landscape" && !nar && false) {
               o.hasInset = true;
               o.insetImg = "media/sections/pure-portrait.jpg";
               o.insetText = "FIG. 03 — PORTRAIT";

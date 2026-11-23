@@ -232,13 +232,11 @@
         <div style="{{ banner.page }}">
           <div data-dino-anim="photo" style="{{ banner.media }}">
             <img src="{{ banner.img }}" alt="{{ banner.title }} 컨셉 사진" onError="{{ hideImg }}" onLoad="{{ showImg }}" style="{{ banner.imgStyle }}">
-            <sc-if value="{{ banner.isCover }}" hint-placeholder-val="{{ false }}">
+            <sc-if value="{{ banner.shade }}" hint-placeholder-val="{{ false }}">
               <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.55) 100%);"></div>
             </sc-if>
             <span style="{{ banner.metaOnPhoto }}">DINOBIRD ISSUE 2026 — SECTION {{ banner.no }}</span>
-            <sc-if value="{{ banner.isCover }}" hint-placeholder-val="{{ false }}">
-              <h1 data-dino-anim="title" style="{{ banner.coverTitle }}">{{ banner.title }}</h1>
-            </sc-if>
+            <h1 data-dino-anim="title" style="{{ banner.coverTitle }}">{{ banner.title }}</h1>
             <sc-if value="{{ banner.coverCopy }}" hint-placeholder-val="{{ false }}">
               <div data-dino-anim="copy" style="position: absolute; z-index: 3; right: clamp(24px, 4vw, 64px); bottom: clamp(28px, 5vh, 56px); width: min(30vw, 360px); display: flex; flex-direction: column; gap: 10px; color: #ffffff; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);">
                 <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: clamp(15px, 1.35vw, 18px); line-height: 1.45; margin: 0; text-wrap: pretty;">{{ banner.en }}</p>
@@ -984,8 +982,11 @@ class Component extends DCLogic {
             const fillImg = "position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; opacity: 0; transition: opacity 500ms ease;";
             const o = { mode, isCover: mode === "cover", coverCopy: mode === "cover" && !nar, metaOnPhoto: meta, imgStyle: fillImg, grid: gridBase, card: cardBase };
             o.showHead = !(mode === "cover" && !nar);
-            o.headTitle = mode !== "cover";
+            o.headTitle = false;
+            o.shade = mode !== "landscape";
             o.coverTitle = "position: absolute; z-index: 3; left: clamp(14px, 3vw, 40px); right: 0; bottom: " + (nar ? "18px" : "clamp(22px, 4vh, 44px)") + "; margin: 0; " + FF + " font-weight: 700; font-size: " + (nar ? "clamp(48px, 15vw, 96px)" : "clamp(64px, 11.5vw, 200px)") + "; line-height: 0.86; letter-spacing: -0.045em; color: #ffffff; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25); white-space: nowrap; pointer-events: none;";
+            if (mode === "spread" && !nar) o.coverTitle = o.coverTitle.replace("clamp(64px, 11.5vw, 200px)", "min(9.4vw, calc((100vh - 47px) * 0.8 / 5.4))");
+            if (mode === "landscape") o.coverTitle = o.coverTitle.replace("color: #ffffff; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25);", "color: #111111;");
             if (mode === "spread") {
               o.page = nar ? "display: block;" : "display: grid; grid-template-columns: min(58vw, calc((100vh - 47px) * 0.8)) minmax(0, 1fr); align-items: start;";
               o.media = nar ? "position: relative; width: 100%; height: min(136vw, 760px); overflow: hidden; background: #ededed;" : "position: sticky; top: 47px; height: calc(100vh - 47px); overflow: hidden; background: #ededed;";

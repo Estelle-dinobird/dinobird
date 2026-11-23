@@ -246,6 +246,32 @@
                 <p style="{{ banner.coverKo }}">{{ banner.ko }}</p>
               </div>
             </sc-if>
+            <sc-if value="{{ banner.hasInset }}" hint-placeholder-val="{{ false }}">
+              <figure data-dino-anim="copy" style="{{ banner.insetBox }}">
+                <img src="{{ banner.insetImg }}" alt="{{ banner.title }} 컨셉 사진 디테일" style="display: block; width: 100%; height: 100%; object-fit: cover;">
+                <figcaption style="{{ banner.insetCap }}">{{ banner.insetText }}</figcaption>
+              </figure>
+            </sc-if>
+            <sc-if value="{{ banner.isPoster }}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="{{ banner.posterRows }}">
+                <span style="{{ banner.posterOutline }}">{{ banner.title }}</span>
+                <span style="{{ banner.posterGhost }}">{{ banner.title }}</span>
+                <span style="{{ banner.posterOutline }}">{{ banner.title }}</span>
+              </div>
+              <span style="{{ banner.sticker }}">NEW FACES · CASTING OPEN</span>
+            </sc-if>
+            <sc-if value="{{ banner.isContents }}" hint-placeholder-val="{{ false }}">
+              <nav aria-label="DINOBIRD 섹션 목차" style="{{ banner.contentsBox }}">
+                <p style="{{ banner.contentsHead }}">CONTENTS</p>
+                <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+                  <a href="#" onClick="{{ t.go }}" style="{{ banner.contentsRow }}" style-hover="opacity: 0.6;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.2em;">{{ t.no }}</span>
+                    <span>{{ t.label }}</span>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.16em; opacity: 0.7;">{{ t.n }} ARTISTS</span>
+                  </a>
+                </sc-for>
+              </nav>
+            </sc-if>
           </div>
           <div style="{{ banner.body }}">
             <sc-if value="{{ banner.showHead }}" hint-placeholder-val="{{ false }}">
@@ -986,7 +1012,7 @@ class Component extends DCLogic {
           no: all ? "ALL " + String(CATS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
           ...(() => {
             const nar = !!s.narrow;
-            const mode = s.cat === "DIRECTOR" ? "spread" : s.cat === "PURE" ? "landscape" : s.cat === "HOT COLOR" ? "split" : "cover";
+            const mode = s.cat === "DIRECTOR" ? "spread" : s.cat === "PURE" ? "landscape" : s.cat === "HOT COLOR" ? "split" : s.cat === "STREET" ? "poster" : s.cat === "ERA" ? "contents" : "cover";
             const FF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             const cardBase = "display: flex; flex-direction: column; animation: dinoFade 220ms ease both;";
             const gridBase = "display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 40px clamp(12px, 1.6vw, 22px);";
@@ -1095,14 +1121,88 @@ class Component extends DCLogic {
               o.metaOnPhoto = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(12px, 2vw, 24px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + tint + "; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); pointer-events: none;";
               o.shade = true;
             }
+            const hasPhoto = !!(s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]);
+            const SERIF2 = "font-family: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'AppleMyungjo', serif;";
+            const DIDONE = "font-family: 'Bodoni 72', Didot, 'Bodoni Moda', 'Playfair Display', 'Times New Roman', 'Nanum Myeongjo', serif;";
+            o.hasInset = false; o.isPoster = false; o.isContents = false;
+            o.insetImg = ""; o.insetText = ""; o.insetBox = "display: none;"; o.insetCap = "display: none;";
+            const frame = (rot) => "margin: 0; z-index: 4; border: " + (nar ? "6px" : "9px") + " solid #ffffff; box-shadow: 0 22px 46px rgba(0, 0, 0, 0.22); transform: rotate(" + rot + "); background: #ffffff;";
+            const capStyle = (col) => "position: absolute; left: 0; top: 100%; margin-top: 10px; " + FF + " font-weight: 700; font-size: 10px; letter-spacing: 0.22em; color: " + col + "; white-space: nowrap;";
+            if (mode === "spread" && !nar) {
+              o.coverTitle = "position: absolute; z-index: 3; left: clamp(6px, 1.2vw, 18px); bottom: clamp(18px, 3vh, 36px); margin: 0; writing-mode: vertical-rl; transform: rotate(180deg); " + FF + " font-weight: 800; font-size: min(14vh, 9vw); line-height: 0.8; letter-spacing: -0.04em; color: #ffffff; text-shadow: 0 2px 26px rgba(0, 0, 0, 0.25); white-space: nowrap; pointer-events: none;";
+            }
+            if (mode === "split") {
+              o.hasInset = true;
+              o.insetImg = "media/sections/hot-closeup.jpg";
+              o.insetText = "FIG. 02 — CLOSE-UP";
+              o.insetBox = nar
+                ? "position: absolute; right: 14px; top: calc(125vw - 120px); width: 30vw; aspect-ratio: 2 / 3; " + frame("3deg")
+                : "position: absolute; left: calc(46% - 110px); top: 42%; width: clamp(150px, 13vw, 220px); aspect-ratio: 2 / 3; " + frame("-3deg");
+              o.insetCap = nar ? "display: none;" : capStyle("#3a1a1c");
+            }
+            if (mode === "landscape" && !nar) {
+              o.hasInset = true;
+              o.insetImg = "media/sections/pure-portrait.jpg";
+              o.insetText = "FIG. 03 — PORTRAIT";
+              o.insetBox = "position: absolute; right: clamp(28px, 6vw, 96px); top: clamp(72px, 13vh, 130px); width: clamp(130px, 11vw, 190px); aspect-ratio: 2 / 3; " + frame("2.5deg");
+              o.insetCap = capStyle("#3f6f93");
+            }
+            if (mode === "poster") {
+              const ink = "#1d2b55";
+              o.isPoster = true;
+              o.page = "display: block;";
+              o.shade = false; o.fade = false;
+              o.showHead = false;
+              o.coverCopy = !nar;
+              o.media = "position: relative; width: 100%; height: " + (nar ? "min(128vw, 700px)" : "clamp(560px, calc(100vh - 47px), 920px)") + "; overflow: hidden; background: " + PANEL + ";";
+              o.imgStyle = hasPhoto
+                ? (nar ? "position: absolute; z-index: 2; right: 7%; top: 16%; width: 50vw; aspect-ratio: 4 / 5; object-fit: cover; border: 6px solid #ffffff; transform: rotate(4deg); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25); opacity: 0; transition: opacity 500ms ease;"
+                       : "position: absolute; z-index: 2; right: 9%; top: 11%; width: min(28vw, 420px); aspect-ratio: 4 / 5; object-fit: cover; border: 10px solid #ffffff; transform: rotate(4deg); box-shadow: 0 26px 60px rgba(0, 0, 0, 0.25); opacity: 0; transition: opacity 500ms ease;")
+                : "display: none;";
+              const big = nar ? "clamp(80px, 27vw, 150px)" : "clamp(120px, 19vw, 330px)";
+              const row = FF + " display: block; font-weight: 800; font-size: " + big + "; line-height: 0.84; letter-spacing: -0.05em; white-space: nowrap;";
+              o.posterRows = "position: absolute; z-index: 1; inset: 0; display: flex; flex-direction: column; justify-content: center; padding-left: clamp(10px, 2.4vw, 34px); pointer-events: none;";
+              o.posterOutline = row + " color: transparent; -webkit-text-stroke: " + (nar ? "1.5px" : "2px") + " " + ink + "; opacity: 0.55;";
+              o.posterGhost = row + " visibility: hidden;";
+              o.coverTitle = "position: absolute; z-index: 3; left: clamp(10px, 2.4vw, 34px); top: 50%; transform: translateY(-50%); margin: 0; " + FF + " font-weight: 800; font-size: " + big + "; line-height: 0.84; letter-spacing: -0.05em; color: " + ink + "; white-space: nowrap; pointer-events: none;";
+              o.metaOnPhoto = "position: absolute; z-index: 4; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(14px, 2.4vw, 28px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + ink + ";";
+              o.sticker = "position: absolute; z-index: 5; right: " + (nar ? "16px" : "clamp(28px, 6vw, 90px)") + "; bottom: " + (nar ? "22px" : "clamp(36px, 9vh, 90px)") + "; padding: 10px 14px; background: #111111; color: #ffffff; " + FF + " font-weight: 700; font-size: " + (nar ? "10.5px" : "12px") + "; letter-spacing: 0.16em; transform: rotate(-5deg); box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);";
+              o.coverCopyBox = "position: absolute; z-index: 4; left: clamp(20px, 3vw, 44px); bottom: clamp(32px, 6vh, 64px); width: min(36vw, 440px); display: flex; flex-direction: column; gap: 12px; color: " + ink + ";";
+              o.coverEn = SERIF2 + " font-style: italic; font-size: clamp(20px, 1.9vw, 28px); line-height: 1.22; margin: 0; text-wrap: pretty;";
+              o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.75; margin: 0; opacity: 0.86;";
+              if (nar) { o.showHead = true; o.head = "display: flex; flex-direction: column; gap: 14px; padding-top: 26px; padding-bottom: 30px; " + band + " margin-bottom: 6px;"; }
+            }
+            if (mode === "contents") {
+              const ink = "#1f3d26";
+              o.isContents = true;
+              o.page = "display: block;";
+              o.shade = false; o.fade = false;
+              o.showHead = false;
+              o.coverCopy = true;
+              const areas = hasPhoto
+                ? (nar ? '"meta" "title" "copy" "side" "list"' : '"meta meta" "title title" "copy side" "list side"')
+                : (nar ? '"meta" "title" "copy" "list"' : '"meta meta" "title title" "list copy"');
+              o.media = "position: relative; display: grid; grid-template-columns: " + (nar ? "minmax(0, 1fr)" : "minmax(0, 1.15fr) minmax(0, 0.85fr)") + "; grid-template-areas: " + areas + "; gap: " + (nar ? "22px" : "28px clamp(32px, 5vw, 80px)") + "; align-items: start; padding: " + (nar ? "18px 18px 34px" : "clamp(20px, 3vw, 36px) clamp(24px, 4vw, 64px) clamp(44px, 7vh, 72px)") + "; background: " + PANEL + "; color: " + ink + ";";
+              o.imgStyle = hasPhoto
+                ? "grid-area: side; position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; opacity: 0; transition: opacity 500ms ease;"
+                : "display: none;";
+              o.metaOnPhoto = "grid-area: meta; display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid " + ink + "; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em;";
+              o.coverTitle = "grid-area: title; margin: 0; text-align: center; " + DIDONE + " font-weight: 400; font-size: " + (nar ? "clamp(96px, 34vw, 170px)" : "clamp(150px, 22vw, 380px)") + "; line-height: 0.82; letter-spacing: -0.02em; color: " + ink + "; padding-bottom: " + (nar ? "6px" : "14px") + "; border-bottom: 1px solid " + ink + ";";
+              o.coverCopyBox = "grid-area: copy; display: flex; flex-direction: column; gap: 14px; max-width: 460px;";
+              o.coverEn = SERIF2 + " font-style: italic; font-size: " + (nar ? "22px" : "clamp(22px, 2.1vw, 32px)") + "; line-height: 1.22; margin: 0; text-wrap: pretty;";
+              o.coverKo = FF + " font-size: clamp(13px, 1.1vw, 15px); line-height: 1.75; margin: 0; opacity: 0.86;";
+              o.contentsBox = "grid-area: list; display: flex; flex-direction: column;";
+              o.contentsHead = FF + " font-weight: 700; font-size: 11px; letter-spacing: 0.24em; margin: 0 0 6px;";
+              o.contentsRow = "display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: baseline; gap: 12px; padding: 12px 0; border-bottom: 1px dotted " + ink + "; " + SERIF2 + " font-size: " + (nar ? "20px" : "clamp(20px, 1.8vw, 26px)") + "; color: " + ink + "; text-decoration: none;";
+            }
             return o;
           })(),
           img: ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
         };
       })(),
-      tabs: ["ALL"].concat(CATS).map((c) => {
+      tabs: ["ALL"].concat(CATS).map((c, ti) => {
         const n = c === "ALL" ? ARTISTS.length : ARTISTS.filter((a) => a.cat === c).length;
-        return { text: c + " (" + n + ")", label: c, n: String(n), active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
+        return { no: String(ti).padStart(2, "0"), text: c + " (" + n + ")", label: c, n: String(n), active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
       }),
       sorts: ["NEW", "NAME", "SECTION"].map((k) => ({ label: k, active: s.sort === k, inactive: s.sort !== k, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sort: k, listPage: 0 }); } })),
       countLabel: sorted.length + " ARTISTS",

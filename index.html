@@ -1392,6 +1392,7 @@ class Component extends DCLogic {
             const area = mode === "split"
               ? (nar ? "position: absolute; left: 0; top: 0; width: 100%; height: 125vw;" : "position: absolute; inset: 0; width: 100%; height: 100%;")
               : "position: absolute; inset: 0; width: 100%; height: 100%;";
+            if (o.hasSlider && o.coverCopyBox) o.coverCopyBox = o.coverCopyBox + " transition: opacity 500ms ease; opacity: " + (cur === 0 ? 1 : 0) + ";";
             const backdrop = mode === "landscape" ? "#eef1f4" : mode === "spread" ? "#8a8a8a" : mode === "split" ? "#10284a" : "#1a1a1a";
             let portraitN = 0;
             o.slides = GAL.map((g, gi) => {

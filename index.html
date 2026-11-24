@@ -490,7 +490,7 @@
           </div>
 
           <section style="display: grid; grid-template-columns: {{ rh.heroCols }}; gap: clamp(12px, 2vw, 28px); margin-top: 14px; align-items: stretch;">
-            <div style="position: relative; min-width: 0; min-height: {{ rh.heroH }}; border-radius: 16px; overflow: hidden; background: #f1f0ee;">
+            <div style="position: relative; min-width: 0; aspect-ratio: 1 / 1; align-self: start; border-radius: 16px; overflow: hidden; background: #f1f0ee;">
               <sc-if value="{{ rh.hasHeroImg }}" hint-placeholder-val="{{ false }}"><img src="{{ rh.cur.hsrc }}" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(24px); transform: scale(8); transform-origin: 2% 2%; display: block;"><img src="{{ rh.cur.hsrc }}" alt="{{ detail.name }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ rh.cur.hfit }}; object-position: 50% 50%; display: block;"></sc-if>
               <sc-if value="{{ rh.noHeroImg }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ detail.slotBig }}" style="pointer-events: none;" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot></sc-if>
               <sc-if value="{{ rh.hasThumbs }}" hint-placeholder-val="{{ false }}">

@@ -501,8 +501,8 @@
           </div>
 
           <section style="display: grid; grid-template-columns: {{ rh.heroCols }}; gap: clamp(12px, 2vw, 28px); margin-top: 14px; align-items: stretch;">
-            <div style="position: relative; min-width: 0; min-height: {{ rh.heroH }}; border-radius: 16px; overflow: hidden; background: #f1f0ee;">
-              <sc-if value="{{ rh.hasHeroImg }}" hint-placeholder-val="{{ false }}"><img src="{{ rh.cur.src }}" alt="{{ detail.name }}" style="position: absolute; left: 0; right: 0; top: 0; width: 100%; height: {{ rh.heroImgH }}; object-fit: {{ rh.cur.ff.fit }}; object-position: {{ rh.cur.ff.pos }}; transform: {{ rh.cur.ff.tf }}; transform-origin: {{ rh.cur.ff.pos }}; background-color: {{ rh.cur.ff.bg }}; display: block;"></sc-if>
+            <div style="position: relative; min-width: 0; align-self: start; {{ rh.heroBox }} border-radius: 16px; overflow: hidden; background: #f1f0ee;">
+              <sc-if value="{{ rh.hasHeroImg }}" hint-placeholder-val="{{ false }}"><img src="{{ rh.cur.src }}" alt="{{ detail.name }}" style="{{ rh.heroImgCss }} object-fit: {{ rh.cur.ff.fit }}; object-position: {{ rh.cur.ff.pos }}; transform: {{ rh.cur.ff.tf }}; transform-origin: {{ rh.cur.ff.pos }}; background-color: {{ rh.cur.ff.bg }}; display: block;"></sc-if>
               <sc-if value="{{ rh.noHeroImg }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ detail.slotBig }}" style="pointer-events: none;" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot></sc-if>
               <sc-if value="{{ rh.hasThumbs }}" hint-placeholder-val="{{ false }}">
                 <div style="position: absolute; left: clamp(14px, 2vw, 26px); bottom: clamp(14px, 2vw, 26px); display: flex; flex-direction: {{ rh.thumbDir }}; gap: 10px;">
@@ -1111,7 +1111,8 @@ class Component extends DCLogic {
       heroCols: narrow ? "minmax(0, 1fr)" : "minmax(0, 1.28fr) minmax(0, 1fr)",
       heroH: narrow ? "min(125vw, 640px)" : "clamp(560px, 84vh, 900px)",
       thumbDir: narrow ? "row" : "column",
-      heroImgH: narrow ? "calc(100% - 92px)" : "100%",
+      heroBox: narrow ? "padding-bottom: 92px;" : "aspect-ratio: 1 / 1;",
+      heroImgCss: narrow ? "position: relative; width: 100%; aspect-ratio: 1 / 1; height: auto;" : "position: absolute; inset: 0; width: 100%; height: 100%;",
       heroAR: narrow ? "3 / 4.5" : "3 / 4",
       heroPos: narrow ? "50% 0%" : "50% 50%",
       hasHeroImg: heroImgs.length > 0, noHeroImg: heroImgs.length === 0,

@@ -895,6 +895,22 @@ const LETTERS = [{
   "preview": "안녕하세요, DINOBIRD입니다. 첫 편지를 어떤 이야기로 시작할까 오래 고민하다가, 결국 제 이야기로 문을 열기로 했어요."
 }];
 const PER_PAGE = 999;
+const routeHash = (st) => {
+  const p = st.page || "home";
+  if (p === "home") return "";
+  if (p === "artist") return "#/artist/" + encodeURIComponent(String(st.artist || "").toLowerCase());
+  if (p === "artists") return "#/artists" + (st.cat && st.cat !== "ALL" ? "/" + String(st.cat).toLowerCase().replace(/\s+/g, "-") : "");
+  return "#/" + p;
+};
+const parseRoute = () => {
+  const parts = String(location.hash || "").replace(/^#\/?/, "").split("/").filter(Boolean).map((x) => decodeURIComponent(x));
+  if (!parts.length) return { page: "home" };
+  const p = parts[0];
+  if (p === "artist" && parts[1]) return { page: "artist", artist: parts[1], heroIdx: 0 };
+  if (p === "artists") return { page: "artists", cat: parts[1] ? parts[1].replace(/-/g, " ").toUpperCase() : "ALL", listPage: 0 };
+  if (["about", "work", "letter", "contact"].indexOf(p) >= 0) return { page: p };
+  return { page: "home" };
+};
 const slugify = (s) => "dino-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
 class Component extends DCLogic {
@@ -904,7 +920,14 @@ class Component extends DCLogic {
   nav(page, extra) {
     return (e) => {
       if (e && e.preventDefault) e.preventDefault();
-      this.setState(Object.assign({ page: page, menuOpen: false, lb: null }, extra || {}));
+      const nx = Object.assign({ page: page, menuOpen: false, lb: null }, extra || {});
+      this.setState(nx);
+      try {
+        const st = Object.assign({}, this.state, nx);
+        const h = routeHash(st);
+        if (location.hash !== h && !(h === "" && !location.hash)) history.pushState(null, "", h || (location.pathname + location.search));
+        window.scrollTo(0, 0);
+      } catch (err) {}
       if (window.DinoCloud) window.DinoCloud.track("/" + (page === "home" ? "" : page) + (extra && extra.artist ? "/" + slugify(extra.artist).replace(/^dino-/, "") : extra && extra.cat && extra.cat !== "ALL" ? "/" + String(extra.cat).toLowerCase().replace(/\s+/g, "-") : ""));
     };
   }
@@ -965,6 +988,9 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    try { const r = parseRoute(); if (r.page !== "home") this.setState(r); } catch (err) {}
+    this._onPop = () => { try { this.setState(Object.assign({ menuOpen: false, lb: null }, parseRoute())); } catch (err) {} };
+    window.addEventListener("popstate", this._onPop);
     this._onResize = () => { const nn = window.innerWidth < 760; if (nn !== !!this.state.narrow) this.setState({ narrow: nn }); };
     window.addEventListener("resize", this._onResize);
     this._onResize();
@@ -1129,7 +1155,7 @@ class Component extends DCLogic {
       { id: "full", label: "FULL BODY" }, { id: "upper", label: "UPPER BODY" }, { id: "lower", label: "LOWER BODY" },
       { id: "close", label: "CLOSE-UP" }, { id: "profile", label: "PROFILE" }, { id: "move", label: "MOVEMENT", type: "video" }
     ];
-    const detailArtist = ARTISTS.find((a) => a.name === s.artist) || ARTISTS[0] || { name: "", cat: "", tags: "", stat: "", base: "", credits: "", bio: "" };
+    const detailArtist = ARTISTS.find((a) => a.name === s.artist) || ARTISTS.find((a) => String(a.name).toLowerCase() === String(s.artist || "").toLowerCase()) || ARTISTS[0] || { name: "", cat: "", tags: "", stat: "", base: "", credits: "", bio: "" };
     const detailShots = (detailArtist.shots && detailArtist.shots.length) ? detailArtist.shots : DEFAULT_SHOTS;
     const related = ARTISTS.filter((a) => a.cat === detailArtist.cat && a.name !== detailArtist.name).slice(0, 4);
 

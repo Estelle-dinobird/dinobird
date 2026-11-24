@@ -30,7 +30,11 @@
   @keyframes dinoMarqR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
   @keyframes dinoRing { 0%, 100% { border-color: #f6c5d0; } 20% { border-color: #d4e6f6; } 40% { border-color: #d8eec2; } 60% { border-color: #ddd2f7; } 80% { border-color: #f2f2f2; } }
   @keyframes dinoBreath { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.045); } }
-  @media (prefers-reduced-motion: reduce) { [style*="dinoMarq"], [style*="dinoRing"], [style*="dinoSpin"] { animation: none !important; } }
+  .dino-strip:hover .dino-strip-track { animation-play-state: paused !important; }
+  .dino-strip-item:hover .dino-strip-name, .dino-strip-item:focus-visible .dino-strip-name { opacity: 1 !important; }
+  .dino-strip-item:hover img { transform: scale(1.03); }
+  @media (hover: none) { .dino-strip-name { opacity: 1 !important; } .dino-strip-track { animation-duration: 45s !important; } }
+  @media (prefers-reduced-motion: reduce) { .dino-strip { overflow-x: auto !important; } [style*="dinoMarq"], [style*="dinoRing"], [style*="dinoSpin"] { animation: none !important; } }
 </style>
 </helmet>
 
@@ -163,26 +167,23 @@
           </div>
         </section>
 
-        <section style="padding: 56px clamp(18px, 3vw, 40px) 0;">
-          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #111111;">
-            <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">THIS YEAR ARTIST</h2>
+        <section style="padding: 56px 0 0;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 clamp(18px, 3vw, 40px); padding-bottom: 12px; border-bottom: 1px solid #111111;">
+            <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.12em; margin: 0;">DINO ARTIST <span style="font-weight: 400; color: #6b6b6b;">— {{ stripCount }}</span></h2>
             <a href="#" onClick="{{ goAllArtists }}" style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #6b6b6b; text-decoration: none;" style-hover="color: #111111;">VIEW ALL ›</a>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 34px clamp(12px, 1.6vw, 22px); padding-top: 26px;">
-            <sc-for list="{{ homeNew }}" as="a" hint-placeholder-count="4">
-              <article>
-                <a href="#" onClick="{{ a.open }}" style="text-decoration: none; color: #111111;">
-                  <div style="position: relative; width: 100%; aspect-ratio: 333 / 485; background: #f2f2f2; overflow: hidden;">
-                    <sc-if value="{{ a.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ a.ff.fit }}; object-position: {{ a.ff.pos }}; transform: {{ a.ff.tf }}; transform-origin: {{ a.ff.pos }}; background-color: {{ a.ff.bg }}; display: block;"></sc-if>
-                    <sc-if value="{{ a.noPhoto }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ a.slot }}" shape="rect" src="assets/artist-thumb.png" placeholder="{{ a.name }}" style="pointer-events: none;"></image-slot></sc-if>
-                    <span style="position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 0; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10px; letter-spacing: 0.12em; color: #ffffff; background: rgba(17, 17, 17, 0.82); opacity: 0; transition: opacity 180ms ease;" style-hover="opacity: 1;">VIEW PROFILE</span>
-                  </div>
-                  <h3 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; margin: 12px 0 0;">{{ a.name }}</h3>
+          <div class="dino-strip" style="overflow: hidden; padding-top: 26px;">
+            <div class="dino-strip-track" style="display: flex; gap: clamp(8px, 1vw, 14px); width: max-content; animation: dinoMarqL 70s linear infinite;">
+              <sc-for list="{{ homeStrip }}" as="a" hint-placeholder-count="8">
+                <a href="#" class="dino-strip-item" onClick="{{ a.open }}" aria-label="{{ a.name }}" style="position: relative; display: block; flex: none; height: clamp(300px, 36vw, 520px); aspect-ratio: 3 / 4; overflow: hidden; background: #f2f0ec; text-decoration: none; color: #ffffff;">
+                  <img src="{{ a.photo }}" alt="{{ a.name }}" loading="lazy" draggable="false" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 500ms ease;">
+                  <span class="dino-strip-name" style="position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 16px 16px; display: flex; flex-direction: column; gap: 4px; background: linear-gradient(180deg, rgba(17, 17, 17, 0) 0%, rgba(17, 17, 17, 0.55) 100%); opacity: 0; transition: opacity 250ms ease;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 700; font-size: clamp(18px, 1.8vw, 26px); letter-spacing: 0.02em; line-height: 1;">{{ a.name }}</span>
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.14em;">{{ a.cat }}</span>
+                  </span>
                 </a>
-                <p style="font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #444444;">{{ a.tags }}</p>
-                <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 10.5px; letter-spacing: 0.06em; margin: 3px 0 0; color: #6b6b6b;">{{ a.cat }}</p>
-              </article>
-            </sc-for>
+              </sc-for>
+            </div>
           </div>
         </section>
 
@@ -1468,6 +1469,8 @@ class Component extends DCLogic {
       countLabel: sorted.length + " ARTISTS",
       listed: listed.map((a) => this.card(a)),
       listEmpty: sorted.length === 0,
+      stripCount: String(ARTISTS.length).padStart(2, "0"),
+      homeStrip: ARTISTS.concat(ARTISTS).map((a) => this.card(a)),
       homeNew: ARTISTS.filter((a) => a.cat === "ERA" || a.cat === "HOT COLOR").slice(0, 4).map((a) => this.card(a)),
       tilesLeave: () => { if (!this.touchMode) this.setState({ hoverTile: null }); },
       sectionTiles: CATS.map((c) => { const on = false; const sel = s.hoverTile === c; const dim = !!s.hoverTile && !sel; const go = this.nav("artists", { cat: c, listPage: 0 }); return {

@@ -1064,7 +1064,7 @@ class Component extends DCLogic {
     const CENTER = { fit: "cover", pos: "50% 50%", tf: "none", bg: "transparent" };
     const framed = (src, tag) => OWN.test(String(src || "")) ? (tag === "t34" && /\/card\.jpg$/.test(src) ? src : src.replace(/\/([a-z0-9]+)\.jpg$/, "/" + tag + "-$1.jpg")) : null;
     heroImgs.forEach((h) => { const sq = framed(h.src, "sq"); if (sq) { h.thumb = framed(h.src, "t34"); h.src = sq; h.ff = CENTER; } });
-    const meetList = all.filter((p) => p.isImage).map((p) => { const t = framed(p.image, "t34"); return Object.assign({}, p, { label: lower(p.label), full: p.image }, t ? { image: t, ff: CENTER } : {}); });
+    const meetList = all.filter((p) => p.isImage).map((p) => { const t = framed(p.image, "t34"); return Object.assign({}, p, { label: p.label, full: p.image }, t ? { image: t, ff: CENTER } : {}); });
     if (d.hasPhoto) meetList.push({ isImage: true, hasImg: true, image: d.photo, full: d.photo, ff: CENTER, label: "Main", placeholder: nm });
     const hi = Math.min(s.heroIdx || 0, Math.max(0, heroImgs.length - 1));
     const cur = heroImgs[hi] || { src: "", ff: { fit: "cover", pos: "50% 50%", tf: "none", bg: "transparent" } };
@@ -1096,7 +1096,7 @@ class Component extends DCLogic {
       ctaBg: info2.bg || "#ffffff",
       ctaFg: info2.fg || "#3d3b38",
       hasMeet: all.some((p) => p.isImage),
-      meet: meetList.map((q, i) => Object.assign({}, q, { zoom: q.hasImg ? (() => this.setState({ lb: { list: meetList.filter((x) => x.hasImg).map((x) => x.full), idx: meetList.filter((x) => x.hasImg).indexOf(q) } })) : null, cursor: q.hasImg ? "zoom-in" : "default" })),
+      meet: meetList.map((q, i) => Object.assign({}, q, { label: lower(q.label), zoom: q.hasImg ? (() => this.setState({ lb: { list: meetList.filter((x) => x.hasImg).map((x) => x.full), idx: meetList.filter((x) => x.hasImg).indexOf(q) } })) : null, cursor: q.hasImg ? "zoom-in" : "default" })),
       lbOpen: !!(s.lb && s.lb.list && s.lb.list.length),
       lbSrc: s.lb && s.lb.list ? s.lb.list[s.lb.idx] : "",
       lbCount: s.lb && s.lb.list ? (s.lb.idx + 1) + " / " + s.lb.list.length : "",

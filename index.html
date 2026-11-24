@@ -490,8 +490,8 @@
           </div>
 
           <section style="display: grid; grid-template-columns: {{ rh.heroCols }}; gap: clamp(12px, 2vw, 28px); margin-top: 14px; align-items: stretch;">
-            <div style="position: relative; min-width: 0; align-self: start; border-radius: 16px; overflow: hidden; background: #f1f0ee;">
-              <sc-if value="{{ rh.hasHeroImg }}" hint-placeholder-val="{{ false }}"><img src="{{ rh.cur.src }}" alt="{{ detail.name }}" style="display: block; width: 100%; height: auto;"></sc-if>
+            <div style="position: relative; min-width: 0; min-height: {{ rh.heroH }}; border-radius: 16px; overflow: hidden; background: #f1f0ee;">
+              <sc-if value="{{ rh.hasHeroImg }}" hint-placeholder-val="{{ false }}"><img src="{{ rh.cur.src }}" alt="{{ detail.name }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ rh.cur.ff.fit }}; object-position: {{ rh.cur.ff.pos }}; transform: {{ rh.cur.ff.tf }}; transform-origin: {{ rh.cur.ff.pos }}; background-color: {{ rh.cur.ff.bg }}; display: block;"></sc-if>
               <sc-if value="{{ rh.noHeroImg }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ detail.slotBig }}" style="pointer-events: none;" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot></sc-if>
               <sc-if value="{{ rh.hasThumbs }}" hint-placeholder-val="{{ false }}">
                 <div style="position: absolute; left: clamp(14px, 2vw, 26px); bottom: clamp(14px, 2vw, 26px); display: flex; flex-direction: {{ rh.thumbDir }}; gap: 10px;">
@@ -542,9 +542,9 @@
               <div style="display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; margin: 0 calc(-1 * clamp(18px, 3vw, 40px)); padding-left: clamp(18px, 3vw, 40px); padding-right: clamp(18px, 3vw, 40px); scroll-padding-left: clamp(18px, 3vw, 40px); scroll-padding-right: clamp(18px, 3vw, 40px); scrollbar-width: thin;">
                 <sc-for list="{{ rh.meet }}" as="q" hint-placeholder-count="5">
                   <figure style="margin: 0; flex: 0 0 {{ rh.meetW }}; scroll-snap-align: start;">
-                    <div style="position: relative; width: 100%; background: #f4f4f4; overflow: hidden;">
+                    <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; background: #f4f4f4; overflow: hidden;">
                   <sc-if value="{{ q.hasImg }}" hint-placeholder-val="{{ false }}">
-                    <img src="{{ q.image }}" alt="{{ q.placeholder }}" loading="lazy" style="display: block; width: 100%; height: auto;">
+                    <img src="{{ q.image }}" alt="{{ q.placeholder }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ q.ff.fit }}; object-position: {{ q.ff.pos }}; transform: {{ q.ff.tf }}; transform-origin: {{ q.ff.pos }}; background-color: {{ q.ff.bg }}; display: block;">
                   </sc-if>
                   <sc-if value="{{ q.slotOnly }}" hint-placeholder-val="{{ true }}">
                     <image-slot id="{{ q.slot }}" style="pointer-events: none;" shape="rect" placeholder="{{ q.placeholder }}"></image-slot>
@@ -580,7 +580,7 @@
                   <figure style="margin: 0; width: min(100%, 420px, calc(82vh * 9 / 16));">
                     <div style="position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; background: #111111;">
                   <sc-if value="{{ m.hasImg }}" hint-placeholder-val="{{ false }}">
-                    <img src="{{ m.image }}" alt="{{ m.placeholder }}" loading="lazy" style="display: block; width: 100%; height: auto;">
+                    <img src="{{ m.image }}" alt="{{ m.placeholder }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ m.ff.fit }}; object-position: {{ m.ff.pos }}; transform: {{ m.ff.tf }}; transform-origin: {{ m.ff.pos }}; background-color: {{ m.ff.bg }}; display: block;">
                   </sc-if>
                   <sc-if value="{{ m.slotOnly }}" hint-placeholder-val="{{ true }}">
                     <image-slot id="{{ m.slot }}" style="pointer-events: none;" shape="rect" placeholder="{{ m.placeholder }}"></image-slot>
@@ -1065,7 +1065,7 @@ class Component extends DCLogic {
       subtitle: [nm.replace(/[A-Za-z][A-Za-z .'-]*/g, "").trim()].concat(tags.slice(0, 3)).filter(Boolean).join(" · "),
       catLower: lower(d.cat),
       catLine: lower(info.en || ""),
-      heroCols: narrow ? "minmax(0, 1fr)" : "minmax(0, 0.62fr) minmax(0, 1fr)",
+      heroCols: narrow ? "minmax(0, 1fr)" : "minmax(0, 1.28fr) minmax(0, 1fr)",
       heroH: narrow ? "min(125vw, 640px)" : "clamp(560px, 84vh, 900px)",
       thumbDir: narrow ? "row" : "column",
       heroAR: narrow ? "3 / 4.5" : "3 / 4",

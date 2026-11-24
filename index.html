@@ -497,7 +497,7 @@
                 <div style="position: absolute; left: clamp(14px, 2vw, 26px); bottom: clamp(14px, 2vw, 26px); display: flex; flex-direction: {{ rh.thumbDir }}; gap: 10px;">
                   <sc-for list="{{ rh.thumbs }}" as="t" hint-placeholder-count="4">
                     <button type="button" onClick="{{ t.pick }}" aria-label="{{ t.label }}" style="width: 48px; height: 64px; padding: 0; border: 0; border-radius: 8px; overflow: hidden; cursor: pointer; background: #f3f1ee; outline: 2px solid {{ t.ring }}; outline-offset: 2px; opacity: {{ t.op }};">
-                      <img src="{{ t.src }}" alt="" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+                      <img src="{{ t.src }}" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: {{ t.pos }}; display: block;">
                     </button>
                   </sc-for>
                 </div>
@@ -1073,7 +1073,7 @@ class Component extends DCLogic {
       hasHeroImg: heroImgs.length > 0, noHeroImg: heroImgs.length === 0,
       cur,
       hasThumbs: heroImgs.length > 1,
-      thumbs: heroImgs.slice(0, 6).map((h, i) => ({ src: h.src, label: h.label, ring: i === hi ? "#3d3b38" : "transparent", op: i === hi ? 1 : 0.82, pick: () => this.setState({ heroIdx: i }) })),
+      thumbs: heroImgs.slice(0, 6).map((h, i) => ({ src: h.src, pos: (h.ff && h.ff.pos) || "50% 20%", label: h.label, ring: i === hi ? "#3d3b38" : "transparent", op: i === hi ? 1 : 0.82, pick: () => this.setState({ heroIdx: i }) })),
       nameUpper: nm.toUpperCase(),
       ctaBg: info2.bg || "#ffffff",
       ctaFg: info2.fg || "#3d3b38",

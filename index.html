@@ -491,13 +491,13 @@
 
           <section style="display: grid; grid-template-columns: {{ rh.heroCols }}; gap: clamp(12px, 2vw, 28px); margin-top: 14px; align-items: stretch;">
             <div style="position: relative; min-width: 0; min-height: {{ rh.heroH }}; border-radius: 16px; overflow: hidden; background: #f1f0ee;">
-              <sc-if value="{{ rh.hasHeroImg }}" hint-placeholder-val="{{ false }}"><img src="{{ rh.cur.src }}" alt="{{ detail.name }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ rh.cur.ff.fit }}; object-position: {{ rh.cur.ff.pos }}; transform: {{ rh.cur.ff.tf }}; transform-origin: {{ rh.cur.ff.pos }}; background-color: {{ rh.cur.ff.bg }}; display: block;"></sc-if>
+              <sc-if value="{{ rh.hasHeroImg }}" hint-placeholder-val="{{ false }}"><img src="{{ rh.cur.src }}" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(28px) saturate(0.9); transform: scale(1.2); display: block;"><img src="{{ rh.cur.src }}" alt="{{ detail.name }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: 50% 50%; display: block;"></sc-if>
               <sc-if value="{{ rh.noHeroImg }}" hint-placeholder-val="{{ true }}"><image-slot id="{{ detail.slotBig }}" style="pointer-events: none;" shape="rect" src="assets/hot-main.png" placeholder="{{ detail.name }} 메인 컷"></image-slot></sc-if>
               <sc-if value="{{ rh.hasThumbs }}" hint-placeholder-val="{{ false }}">
                 <div style="position: absolute; left: clamp(14px, 2vw, 26px); bottom: clamp(14px, 2vw, 26px); display: flex; flex-direction: {{ rh.thumbDir }}; gap: 10px;">
                   <sc-for list="{{ rh.thumbs }}" as="t" hint-placeholder-count="4">
-                    <button type="button" onClick="{{ t.pick }}" aria-label="{{ t.label }}" style="width: 52px; height: 52px; padding: 0; border: 0; border-radius: 10px; overflow: hidden; cursor: pointer; background: #ffffff; outline: 2px solid {{ t.ring }}; outline-offset: 2px; opacity: {{ t.op }};">
-                      <img src="{{ t.src }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    <button type="button" onClick="{{ t.pick }}" aria-label="{{ t.label }}" style="width: 48px; height: 64px; padding: 0; border: 0; border-radius: 8px; overflow: hidden; cursor: pointer; background: #f3f1ee; outline: 2px solid {{ t.ring }}; outline-offset: 2px; opacity: {{ t.op }};">
+                      <img src="{{ t.src }}" alt="" style="width: 100%; height: 100%; object-fit: contain; display: block;">
                     </button>
                   </sc-for>
                 </div>

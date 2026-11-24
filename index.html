@@ -482,6 +482,17 @@
       </sc-if>
 
       <sc-if value="{{ isArtist }}" hint-placeholder-val="{{ false }}">
+        <sc-if value="{{ rh.lbOpen }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ rh.lbClose }}" style="position: fixed; inset: 0; z-index: 200; background: rgba(20, 20, 20, 0.92); display: flex; align-items: center; justify-content: center; cursor: zoom-out; animation: dinoFade 160ms ease both;">
+            <img src="{{ rh.lbSrc }}" alt="" style="max-width: 92vw; max-height: 90vh; width: auto; height: auto; display: block; pointer-events: none;">
+            <button type="button" data-lb-btn="1" onClick="{{ rh.lbClose }}" aria-label="닫기" style="position: absolute; top: 16px; right: 18px; width: 44px; height: 44px; border: 0; background: transparent; color: #ffffff; font-size: 30px; line-height: 1; cursor: pointer;">×</button>
+            <sc-if value="{{ rh.lbMulti }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ rh.lbPrev }}" aria-label="이전 사진" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 48px; height: 64px; border: 0; background: transparent; color: #ffffff; font-size: 34px; cursor: pointer;">‹</button>
+              <button type="button" onClick="{{ rh.lbNext }}" aria-label="다음 사진" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 48px; height: 64px; border: 0; background: transparent; color: #ffffff; font-size: 34px; cursor: pointer;">›</button>
+              <span style="position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; letter-spacing: 0.14em; color: rgba(255, 255, 255, 0.75);">{{ rh.lbCount }}</span>
+            </sc-if>
+          </div>
+        </sc-if>
         <div style="padding: 18px clamp(18px, 3vw, 40px) 0;">
           <div style="display: flex; gap: 8px; align-items: baseline; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 11px; letter-spacing: 0.04em; color: #8a8a8a; text-transform: capitalize;">
             <a href="#" onClick="{{ backToList }}" style="color: #8a8a8a; text-decoration: none;" style-hover="color: #111111;">Dino Artist</a>
@@ -542,7 +553,7 @@
               <div style="display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; margin: 0 calc(-1 * clamp(18px, 3vw, 40px)); padding-left: clamp(18px, 3vw, 40px); padding-right: clamp(18px, 3vw, 40px); scroll-padding-left: clamp(18px, 3vw, 40px); scroll-padding-right: clamp(18px, 3vw, 40px); scrollbar-width: thin;">
                 <sc-for list="{{ rh.meet }}" as="q" hint-placeholder-count="5">
                   <figure style="margin: 0; flex: 0 0 {{ rh.meetW }}; scroll-snap-align: start;">
-                    <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; background: #f4f4f4; overflow: hidden;">
+                    <div onClick="{{ q.zoom }}" style="position: relative; width: 100%; aspect-ratio: 3 / 4; background: #f4f4f4; overflow: hidden; cursor: {{ q.cursor }};">
                   <sc-if value="{{ q.hasImg }}" hint-placeholder-val="{{ false }}">
                     <img src="{{ q.image }}" alt="{{ q.placeholder }}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ q.ff.fit }}; object-position: {{ q.ff.pos }}; transform: {{ q.ff.tf }}; transform-origin: {{ q.ff.pos }}; background-color: {{ q.ff.bg }}; display: block;">
                   </sc-if>
@@ -893,7 +904,7 @@ class Component extends DCLogic {
   nav(page, extra) {
     return (e) => {
       if (e && e.preventDefault) e.preventDefault();
-      this.setState(Object.assign({ page: page, menuOpen: false }, extra || {}));
+      this.setState(Object.assign({ page: page, menuOpen: false, lb: null }, extra || {}));
       if (window.DinoCloud) window.DinoCloud.track("/" + (page === "home" ? "" : page) + (extra && extra.artist ? "/" + slugify(extra.artist).replace(/^dino-/, "") : extra && extra.cat && extra.cat !== "ALL" ? "/" + String(extra.cat).toLowerCase().replace(/\s+/g, "-") : ""));
     };
   }
@@ -1053,6 +1064,8 @@ class Component extends DCLogic {
     const CENTER = { fit: "cover", pos: "50% 50%", tf: "none", bg: "transparent" };
     const framed = (src, tag) => OWN.test(String(src || "")) ? (tag === "t34" && /\/card\.jpg$/.test(src) ? src : src.replace(/\/([a-z0-9]+)\.jpg$/, "/" + tag + "-$1.jpg")) : null;
     heroImgs.forEach((h) => { const sq = framed(h.src, "sq"); if (sq) { h.thumb = framed(h.src, "t34"); h.src = sq; h.ff = CENTER; } });
+    const meetList = all.filter((p) => p.isImage).map((p) => { const t = framed(p.image, "t34"); return Object.assign({}, p, { label: lower(p.label), full: p.image }, t ? { image: t, ff: CENTER } : {}); });
+    if (d.hasPhoto) meetList.push({ isImage: true, hasImg: true, image: d.photo, full: d.photo, ff: CENTER, label: "Main", placeholder: nm });
     const hi = Math.min(s.heroIdx || 0, Math.max(0, heroImgs.length - 1));
     const cur = heroImgs[hi] || { src: "", ff: { fit: "cover", pos: "50% 50%", tf: "none", bg: "transparent" } };
     cur.hsrc = cur.src;
@@ -1083,7 +1096,14 @@ class Component extends DCLogic {
       ctaBg: info2.bg || "#ffffff",
       ctaFg: info2.fg || "#3d3b38",
       hasMeet: all.some((p) => p.isImage),
-      meet: all.filter((p) => p.isImage).map((p) => { const t = framed(p.image, "t34"); return Object.assign({}, p, { label: lower(p.label) }, t ? { image: t, ff: CENTER } : {}); }),
+      meet: meetList.map((q, i) => Object.assign({}, q, { zoom: q.hasImg ? (() => this.setState({ lb: { list: meetList.filter((x) => x.hasImg).map((x) => x.full), idx: meetList.filter((x) => x.hasImg).indexOf(q) } })) : null, cursor: q.hasImg ? "zoom-in" : "default" })),
+      lbOpen: !!(s.lb && s.lb.list && s.lb.list.length),
+      lbSrc: s.lb && s.lb.list ? s.lb.list[s.lb.idx] : "",
+      lbCount: s.lb && s.lb.list ? (s.lb.idx + 1) + " / " + s.lb.list.length : "",
+      lbMulti: !!(s.lb && s.lb.list && s.lb.list.length > 1),
+      lbClose: (e) => { if (e && e.target !== e.currentTarget && !(e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.lbBtn)) return; this.setState({ lb: null }); },
+      lbPrev: (e) => { if (e) e.stopPropagation(); this.setState((st) => ({ lb: Object.assign({}, st.lb, { idx: (st.lb.idx - 1 + st.lb.list.length) % st.lb.list.length }) })); },
+      lbNext: (e) => { if (e) e.stopPropagation(); this.setState((st) => ({ lb: Object.assign({}, st.lb, { idx: (st.lb.idx + 1) % st.lb.list.length }) })); },
       hasMovement: all.some((p) => !p.isImage),
       movement: all.filter((p) => !p.isImage).map((p) => Object.assign({}, p, { label: lower(p.label) })),
       movementCount: String(all.filter((p) => !p.isImage).length).padStart(2, "0") + (all.filter((p) => !p.isImage).length > 1 ? " Films" : " Film"),

@@ -1049,6 +1049,10 @@ class Component extends DCLogic {
     const heroImgs = [];
     if (d.hasPhoto) heroImgs.push({ src: d.photo, ff: d.ff, label: "main" });
     all.filter((p) => p.hasImg).forEach((p) => heroImgs.push({ src: p.image, ff: p.ff, label: p.label }));
+    const OWN = /^media\/artists\/[^/]+\/(card|full|front|side|free1|free2)\.jpg$/;
+    const CENTER = { fit: "cover", pos: "50% 50%", tf: "none", bg: "transparent" };
+    const framed = (src, tag) => OWN.test(String(src || "")) ? (tag === "t34" && /\/card\.jpg$/.test(src) ? src : src.replace(/\/([a-z0-9]+)\.jpg$/, "/" + tag + "-$1.jpg")) : null;
+    heroImgs.forEach((h) => { const sq = framed(h.src, "sq"); if (sq) { h.thumb = framed(h.src, "t34"); h.src = sq; h.ff = CENTER; } });
     const hi = Math.min(s.heroIdx || 0, Math.max(0, heroImgs.length - 1));
     const cur = heroImgs[hi] || { src: "", ff: { fit: "cover", pos: "50% 50%", tf: "none", bg: "transparent" } };
     cur.hsrc = cur.src;
@@ -1073,12 +1077,12 @@ class Component extends DCLogic {
       hasHeroImg: heroImgs.length > 0, noHeroImg: heroImgs.length === 0,
       cur,
       hasThumbs: heroImgs.length > 1,
-      thumbs: heroImgs.slice(0, 6).map((h, i) => ({ src: h.src, pos: (h.ff && h.ff.pos) || "50% 20%", label: h.label, ring: i === hi ? "#3d3b38" : "transparent", op: i === hi ? 1 : 0.82, pick: () => this.setState({ heroIdx: i }) })),
+      thumbs: heroImgs.slice(0, 6).map((h, i) => ({ src: h.thumb || h.src, pos: h.thumb ? "50% 50%" : ((h.ff && h.ff.pos) || "50% 20%"), label: h.label, ring: i === hi ? "#3d3b38" : "transparent", op: i === hi ? 1 : 0.82, pick: () => this.setState({ heroIdx: i }) })),
       nameUpper: nm.toUpperCase(),
       ctaBg: info2.bg || "#ffffff",
       ctaFg: info2.fg || "#3d3b38",
       hasMeet: all.some((p) => p.isImage),
-      meet: all.filter((p) => p.isImage).map((p) => Object.assign({}, p, { label: lower(p.label) })),
+      meet: all.filter((p) => p.isImage).map((p) => { const t = framed(p.image, "t34"); return Object.assign({}, p, { label: lower(p.label) }, t ? { image: t, ff: CENTER } : {}); }),
       hasMovement: all.some((p) => !p.isImage),
       movement: all.filter((p) => !p.isImage).map((p) => Object.assign({}, p, { label: lower(p.label) })),
       movementCount: String(all.filter((p) => !p.isImage).length).padStart(2, "0") + (all.filter((p) => !p.isImage).length > 1 ? " Films" : " Film"),

@@ -3602,7 +3602,7 @@ window.DINO_SUPABASE = {
                   <sc-for list="{{ detailFields }}" as="d" hint-placeholder-count="5">
                     <span style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: 0.06em; color: #3d3b38; font-weight: 600; padding: 10px 0; border-top: 1px solid #d9d7d3;">{{ d.label }}</span>
                     <div style="padding: 4px 0; border-top: 1px solid #d9d7d3;">
-                      <input type="text" value="{{ d.value }}" onChange="{{ d.set }}" placeholder="{{ d.hint }}" aria-label="{{ d.label }}" style="width: 100%; box-sizing: border-box; height: 30px; padding: 0 6px; font-size: 12px; color: #111111; background: transparent; border: 1px dashed transparent; border-radius: 0;" style-hover="border-color: #c4c4c4;" style-focus="border-color: #3d3b38; background: #ffffff; outline: none;">
+                      <sc-if value="{{ d.short }}" hint-placeholder-val="{{ true }}"><input type="text" value="{{ d.value }}" onChange="{{ d.set }}" placeholder="{{ d.hint }}" aria-label="{{ d.label }}" style="width: 100%; box-sizing: border-box; height: 30px; padding: 0 6px; font-size: 12px; color: #111111; background: transparent; border: 1px dashed transparent; border-radius: 0;" style-hover="border-color: #c4c4c4;" style-focus="border-color: #3d3b38; background: #ffffff; outline: none;"></sc-if><sc-if value="{{ d.long }}" hint-placeholder-val="{{ false }}"><textarea value="{{ d.value }}" onChange="{{ d.set }}" placeholder="{{ d.hint }}" aria-label="{{ d.label }}" rows="5" style="width: 100%; box-sizing: border-box; padding: 6px; font-size: 12px; line-height: 1.6; color: #111111; background: #ffffff; border: 1px solid #d9d7d3; resize: vertical; font-family: inherit;"></textarea></sc-if>
                     </div>
                   </sc-for>
                 </div>
@@ -4428,7 +4428,7 @@ class Component extends DCLogic {
 
   openEditor(index) {
     const a = index === -1
-      ? { name: "", cat: this.state.cats[0] || "ERA", tags: "", stat: "", base: "Seoul", eye: "", hair: "", credits: "", bio: "", live: true }
+      ? { name: "", cat: this.state.cats[0] || "ERA", tags: "", stat: "", height: "", top: "", bottom: "", shoes: "", base: "Seoul", eye: "", hair: "", credits: "", bio: "", live: true }
       : this.state.artists[index];
     const draft = Object.assign({}, a, { shots: (a.shots && a.shots.length) ? a.shots.slice() : DEFAULT_SHOTS.slice() });
     this.setState({ view: "artist", edit: { index, draft } });
@@ -4809,8 +4809,8 @@ class Component extends DCLogic {
       hasRelated: !!s.edit && s.artists.some((x, j) => j !== s.edit.index && x.live !== false && x.cat === draft.cat),
       catOptions: s.cats.map((name) => ({ name })),
       selectKey: (s.edit ? s.edit.index : "x") + "-" + s.cats.join("|"),
-      detailFields: [["NAME", "realName", "본명 (예: 권다옴)"], ["SIZE", "stat", "50/168"], ["EYES", "eye", "Dark Brown"], ["HAIR", "hair", "Black"], ["BASE", "base", "Seoul"], ["CREDITS", "credits", "주요 작업"]].map(([label, key, hint]) => ({
-        label, hint, value: draft[key] || "", set: this.setDraft(key)
+      detailFields: [["NAME", "realName", "본명 (예: 권다옴)"], ["HEIGHT", "height", "키 (예: 168)"], ["TOP", "top", "상의 (예: S)"], ["BOTTOM", "bottom", "하의 (예: 26)"], ["SHOES", "shoes", "신발 (예: 240)"], ["EYES", "eye", "Dark Brown"], ["HAIR", "hair", "Black"], ["BASE", "base", "Seoul"], ["CREDITS", "credits", "2026 · 뮤직비디오 · 프로젝트명 · 역할 (한 줄에 하나)"]].map(([label, key, hint]) => ({
+        label, hint, value: draft[key] || "", set: this.setDraft(key), long: key === "credits", short: key !== "credits"
       })),
       canDelete: !!s.edit && s.edit.index !== -1,
       onSaveArtist: () => {
@@ -4878,7 +4878,20 @@ class Component extends DCLogic {
           setVideo: (e) => patch({ video: this.val(e) }),
           pickVideo: (e) => {
             const f = e && e.target && e.target.files && e.target.files[0];
-            this.uploadTo(f, "videos", (url) => patch({ video: url }));
+            if (e && e.target) e.target.value = "";
+            if (!f) return;
+            const MB = 1024 * 1024;
+            const send = (file) => this.uploadTo(file, "videos", (url) => patch({ video: url }));
+            if (f.size <= 25 * MB && /mp4|webm/i.test(f.type || f.name)) { send(f); return; }
+            this.setState({ uploading: true });
+            this.flashStay("영상(" + Math.round(f.size / MB) + "MB)을 웹용으로 줄이는 중… 이 창을 켜둔 채로 기다려 주세요");
+            this.compressVideo(f, (pct) => this.flashStay("영상 줄이는 중… " + pct + "% — 이 창을 닫거나 다른 탭으로 옮기지 마세요"))
+              .then((small) => {
+                this.setState({ uploading: false });
+                if (small.size > 50 * MB) { this.flash("줄여도 50MB가 넘습니다 — 영상을 더 짧게 잘라서 올려주세요"); return; }
+                send(small);
+              })
+              .catch((err) => { this.setState({ uploading: false }); if (f.size <= 50 * MB) send(f); else this.flash("영상 줄이기 실패: " + ((err && err.message) || "다시 시도해주세요")); });
           },
           left: () => this.updateShots((list) => { if (i === 0) return list; const c = list.slice(); [c[i - 1], c[i]] = [c[i], c[i - 1]]; return c; }),
           right: () => this.updateShots((list) => { if (i === arr.length - 1) return list; const c = list.slice(); [c[i + 1], c[i]] = [c[i], c[i + 1]]; return c; }),

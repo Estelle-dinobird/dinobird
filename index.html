@@ -528,7 +528,7 @@
                 <button type="button" onClick="{{ rh.toggleProfile }}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; background: none; border: 0; border-top: 1px solid #d9d7d3; cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #3d3b38; text-align: left;"><span>profile</span><span style="font-weight: 300; font-size: 22px; line-height: 1;">{{ rh.profileSign }}</span></button>
                 <sc-if value="{{ rh.profileOpen }}" hint-placeholder-val="{{ false }}">
                   <dl style="display: grid; grid-template-columns: 84px minmax(0, 1fr); margin: 0; padding: 0 0 16px; font-size: 14px;">
-                    <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">NAME</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.realName }}</dd><dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">SIZE</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.stat }}</dd>
+                    <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">NAME</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.realName }}</dd><dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">HEIGHT</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.heightTxt }}</dd><dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">TOP</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.top }}</dd><dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">BOTTOM</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.bottom }}</dd><dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">SHOES</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.shoes }}</dd>
                     <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">EYES</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.eye }}</dd>
                     <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">HAIR</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.hair }}</dd>
                     <dt style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #3d3b38; padding: 7px 0;">BASE</dt><dd style="margin: 0; padding: 7px 0; color: #5a5753;">{{ detail.base }}</dd>
@@ -937,7 +937,7 @@ class Component extends DCLogic {
       name: a.name,
       tags: a.tags,
       stat: a.stat,
-      statCat: a.stat ? a.stat + " · " + a.cat : a.cat,
+      statCat: a.height ? String(a.height).replace(/\s*cm$/i, "") + "cm · " + a.cat : a.cat,
       cat: a.cat,
       badge: badge,
       hasBadge: badge !== "",
@@ -966,7 +966,7 @@ class Component extends DCLogic {
       ARTISTS.length = 0;
       live.forEach((a) => ARTISTS.push({
         name: a.name, cat: a.cat, tags: a.tags, stat: a.stat, base: a.base,
-        credits: a.credits || "", bio: a.bio || "", realName: a.realName || "", eye: a.eye || "—", hair: a.hair || "—", shots: Array.isArray(a.shots) ? a.shots : null, photo: a.photo || "", photoFit: a.photoFit || null, photoCut: !!a.photoCut
+        credits: a.credits || "", bio: a.bio || "", realName: a.realName || "", height: a.height || "", heightTxt: a.height ? String(a.height).replace(/\s*cm$/i, "") + "cm" : "—", top: a.top || "—", bottom: a.bottom || "—", shoes: a.shoes || "—", eye: a.eye || "—", hair: a.hair || "—", shots: Array.isArray(a.shots) ? a.shots : null, photo: a.photo || "", photoFit: a.photoFit || null, photoCut: !!a.photoCut
       }));
     }
     if (Array.isArray(d.letters) && d.letters.length) {
@@ -1605,6 +1605,7 @@ class Component extends DCLogic {
         cat: detailArtist.cat,
         tags: detailArtist.tags,
         stat: detailArtist.stat,
+        heightTxt: detailArtist.heightTxt || "—", top: detailArtist.top || "—", bottom: detailArtist.bottom || "—", shoes: detailArtist.shoes || "—",
         base: detailArtist.base,
         credits: detailArtist.credits,
         bio: detailArtist.bio,

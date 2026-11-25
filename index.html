@@ -1251,7 +1251,7 @@ class Component extends DCLogic {
           en: all ? "Every DINOBIRD artist — together, we create the era." : (info.en || ""),
           ko: all ? "DINOBIRD의 모든 아티스트. 우리가 함께 만드는 시대." : (info.ko || CAT_NOTE[s.cat] || ""),
           bg: all ? "#5c5c5c" : (info.bg ? (s.cat === "DIRECTOR" ? "#2e2e2e" : "#5c5c5c") : "#2a2a2a"),
-          panel: info.bg || "#2a2a2a",
+          panel: all ? "#f4f1ec" : (info.bg || "#2a2a2a"),
           fg: all ? "#ffffff" : (info.fg || "#ffffff"),
           no: all ? "ALL " + String(ARTISTS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
           ...(() => {
@@ -1300,7 +1300,7 @@ class Component extends DCLogic {
               o.headTitleStyle = "margin: 0;";
             }
             // section colour + editorial type (merged from the colour issue layout)
-            const PANEL = info.bg || "#2a2a2a";
+            const PANEL = all ? "#f4f1ec" : (info.bg || "#2a2a2a");
             const FG = all ? "#ffffff" : (info.fg || "#ffffff");
             const SERIF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             const padX = mode === "spread" ? (nar ? "18px" : "clamp(22px, 3vw, 44px)") : (nar ? "18px" : "clamp(18px, 3vw, 40px)");
@@ -1403,7 +1403,7 @@ class Component extends DCLogic {
               o.insetCap = capStyle("#3f6f93");
             }
             if (mode === "poster") {
-              const ink = info.ink || "#1d2b55";
+              const ink = all ? "#9ADBC5" : (info.ink || "#1d2b55");
               o.isPoster = true;
               o.page = "display: block;";
               o.shade = false; o.fade = false;

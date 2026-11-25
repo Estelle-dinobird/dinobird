@@ -1108,7 +1108,7 @@ class Component extends DCLogic {
       subtitle: [nm.replace(/[A-Za-z][A-Za-z .'-]*/g, "").trim()].concat(tags.slice(0, 3)).filter(Boolean).join(" · "),
       catLower: lower(d.cat),
       catLine: lower(info.en || ""),
-      heroCols: narrow ? "minmax(0, 1fr)" : "minmax(0, 0.9fr) minmax(0, 1fr)",
+      heroCols: narrow ? "minmax(0, 1fr)" : "minmax(0, 1.2fr) minmax(0, 1fr)",
       heroH: narrow ? "min(125vw, 640px)" : "clamp(560px, 84vh, 900px)",
       thumbDir: narrow ? "row" : "column",
       heroBox: narrow ? "padding-bottom: 92px;" : "aspect-ratio: 3 / 4;",

@@ -4428,7 +4428,7 @@ class Component extends DCLogic {
 
   openEditor(index) {
     const a = index === -1
-      ? { name: "", cat: this.state.cats[0] || "ERA", tags: "", stat: "", height: "", top: "", bottom: "", shoes: "", base: "Seoul", eye: "", hair: "", credits: "", bio: "", live: true }
+      ? { name: "", cat: this.state.cats[0] || "ERA", tags: "", stat: "", height: "", size: "", base: "Seoul", eye: "", hair: "", credits: "", bio: "", live: true }
       : this.state.artists[index];
     const draft = Object.assign({}, a, { shots: (a.shots && a.shots.length) ? a.shots.slice() : DEFAULT_SHOTS.slice() });
     this.setState({ view: "artist", edit: { index, draft } });
@@ -4809,7 +4809,7 @@ class Component extends DCLogic {
       hasRelated: !!s.edit && s.artists.some((x, j) => j !== s.edit.index && x.live !== false && x.cat === draft.cat),
       catOptions: s.cats.map((name) => ({ name })),
       selectKey: (s.edit ? s.edit.index : "x") + "-" + s.cats.join("|"),
-      detailFields: [["NAME", "realName", "본명 (예: 권다옴)"], ["HEIGHT", "height", "키 (예: 168)"], ["TOP", "top", "상의 (예: S)"], ["BOTTOM", "bottom", "하의 (예: 26)"], ["SHOES", "shoes", "신발 (예: 240)"], ["EYES", "eye", "Dark Brown"], ["HAIR", "hair", "Black"], ["BASE", "base", "Seoul"], ["CREDITS", "credits", "2026 · 뮤직비디오 · 프로젝트명 · 역할 (한 줄에 하나)"]].map(([label, key, hint]) => ({
+      detailFields: [["NAME", "realName", "본명 (예: 권다옴)"], ["HEIGHT", "height", "키 (예: 168)"], ["SIZE", "size", "상의 / 하의 / 신발 (예: 55 / 26 / 240)"], ["EYES", "eye", "Dark Brown"], ["HAIR", "hair", "Black"], ["BASE", "base", "Seoul"], ["CREDITS", "credits", "2026 · 뮤직비디오 · 프로젝트명 · 역할 (한 줄에 하나)"]].map(([label, key, hint]) => ({
         label, hint, value: draft[key] || "", set: this.setDraft(key), long: key === "credits", short: key !== "credits"
       })),
       canDelete: !!s.edit && s.edit.index !== -1,

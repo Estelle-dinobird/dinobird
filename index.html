@@ -1244,19 +1244,19 @@ class Component extends DCLogic {
       hideImg: (e) => { if (e && e.currentTarget) e.currentTarget.style.opacity = "0"; },
       showImg: (e) => { if (e && e.currentTarget) e.currentTarget.style.opacity = "1"; },
       banner: (() => {
-        const info = SECTION_INFO[s.cat] || {};
         const all = s.cat === "ALL";
+        const info = SECTION_INFO[all ? "ERA" : s.cat] || {};
         return {
-          title: all ? "DINO ARTIST" : s.cat,
-          en: all ? "Every DINOBIRD artist, one roster." : (info.en || ""),
-          ko: all ? "DINOBIRD 전속 아티스트 전체 로스터." : (info.ko || CAT_NOTE[s.cat] || ""),
-          bg: all ? "#2a2a2a" : (info.bg ? (s.cat === "DIRECTOR" ? "#2e2e2e" : "#5c5c5c") : "#2a2a2a"),
-          panel: all ? "#2a2a2a" : (info.bg || "#2a2a2a"),
+          title: all ? "ERA" : s.cat,
+          en: all ? "Every DINOBIRD artist — together, we create the era." : (info.en || ""),
+          ko: all ? "DINOBIRD의 모든 아티스트. 우리가 함께 만드는 시대." : (info.ko || CAT_NOTE[s.cat] || ""),
+          bg: all ? "#5c5c5c" : (info.bg ? (s.cat === "DIRECTOR" ? "#2e2e2e" : "#5c5c5c") : "#2a2a2a"),
+          panel: info.bg || "#2a2a2a",
           fg: all ? "#ffffff" : (info.fg || "#ffffff"),
-          no: all ? "ALL " + String(CATS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
+          no: all ? "ALL " + String(ARTISTS.length).padStart(2, "0") : String(CATS.indexOf(s.cat) + 1).padStart(2, "0") + " / " + String(CATS.length).padStart(2, "0"),
           ...(() => {
             const nar = !!s.narrow;
-            const mode = s.cat === "DIRECTOR" ? "spread" : s.cat === "PURE" ? "landscape" : s.cat === "HOT COLOR" ? "split" : s.cat === "STREET" ? "poster" : s.cat === "ERA" ? "contents" : "cover";
+            const mode = s.cat === "DIRECTOR" ? "spread" : s.cat === "PURE" ? "landscape" : s.cat === "HOT COLOR" ? "split" : (s.cat === "STREET" || all) ? "poster" : s.cat === "ERA" ? "contents" : "cover";
             const FF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             const cardBase = "display: flex; flex-direction: column; animation: dinoFade 220ms ease both;";
             const gridBase = "display: grid; grid-template-columns: repeat(auto-fill, minmax(min(46%, 178px), 1fr)); gap: 40px clamp(12px, 1.6vw, 22px);";
@@ -1300,7 +1300,7 @@ class Component extends DCLogic {
               o.headTitleStyle = "margin: 0;";
             }
             // section colour + editorial type (merged from the colour issue layout)
-            const PANEL = all ? "#2a2a2a" : (info.bg || "#2a2a2a");
+            const PANEL = info.bg || "#2a2a2a";
             const FG = all ? "#ffffff" : (info.fg || "#ffffff");
             const SERIF = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             const padX = mode === "spread" ? (nar ? "18px" : "clamp(22px, 3vw, 44px)") : (nar ? "18px" : "clamp(18px, 3vw, 40px)");
@@ -1376,7 +1376,7 @@ class Component extends DCLogic {
               o.metaOnPhoto = "position: absolute; z-index: 3; left: clamp(16px, 3vw, 40px); right: clamp(16px, 3vw, 40px); top: clamp(12px, 2vw, 24px); display: flex; justify-content: space-between; " + FF + " font-weight: 700; font-size: " + (nar ? "10px" : "11px") + "; letter-spacing: 0.24em; color: " + tint + "; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); pointer-events: none;";
               o.shade = true;
             }
-            const hasPhoto = !!(s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]);
+            const hasPhoto = all || !!(s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]);
             const SERIF2 = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             const DIDONE = "font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;";
             o.hasInset = false; o.isPoster = false; o.isContents = false;
@@ -1524,10 +1524,10 @@ class Component extends DCLogic {
                 : "margin: 0; flex: " + g[1] + " 1 0; min-width: 0; aspect-ratio: " + g[1] + "; overflow: hidden; background: #e9e9e9;",
               img: "display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease;" + mono
             }));
-            if (all) { o.showHead = false; o.hasMedia = false; o.page = "display: block;"; }
+            if (all) { o.hasMedia = true; }
             return o;
           })(),
-          img: ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
+          img: all ? ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners.ERA) || "media/sections/era-1.jpg") : ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
         };
       })(),
       tabs: CATS.filter((c) => c !== "ERA").concat(["ALL"]).map((c, ti) => {

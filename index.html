@@ -515,7 +515,8 @@
 
             <aside style="min-width: 0; border-radius: 16px; background: #f1f0ee; padding: clamp(24px, 3vw, 44px); display: flex; flex-direction: column; color: #3d3b38;">
               <h1 style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; font-size: clamp(46px, 5.6vw, 92px); line-height: 0.92; letter-spacing: -0.045em; margin: 0; color: #3d3b38; overflow-wrap: anywhere;">{{ rh.nameTitle }}</h1>
-              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(14px, 1.3vw, 17px); font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.4; margin: clamp(22px, 2.6vw, 34px) 0 0; color: #3d3b38;">{{ rh.subtitle }}</p>
+              <sc-if value="{{ rh.hasKoName }}" hint-placeholder-val="{{ true }}"><p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(14px, 1.2vw, 16px); font-weight: 500; letter-spacing: 0.02em; margin: 10px 0 0; color: #6b6863;">{{ detail.realName }}</p></sc-if>
+              <p style="font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: clamp(14px, 1.3vw, 17px); font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.4; margin: {{ rh.subMargin }}; color: #3d3b38;">{{ rh.subtitle }}</p>
               <p style="font-size: clamp(14px, 1.2vw, 16px); line-height: 1.75; margin: 22px 0 0; color: #5a5753; text-wrap: pretty; white-space: pre-line;">{{ detail.bio }}</p>
 
               <div style="margin-top: 30px; padding-top: 26px; border-top: 1px solid #d9d7d3;">
@@ -1134,6 +1135,7 @@ class Component extends DCLogic {
       movementCount: String(all.filter((p) => !p.isImage).length).padStart(2, "0") + (all.filter((p) => !p.isImage).length > 1 ? " Films" : " Film"),
       meetW: narrow ? "72%" : "clamp(240px, 24vw, 340px)",
       swatches: CATS.map((c) => ({ label: c, bg: (SECTION_INFO[c] || {}).bg || "#f2f2f2", ring: c === d.cat ? "#111111" : "transparent", go: this.nav("artists", { cat: c, listPage: 0 }) })),
+      hasKoName: !!(d.realName && d.realName !== "—"), subMargin: (d.realName && d.realName !== "—") ? "clamp(16px, 2vw, 24px) 0 0" : "clamp(22px, 2.6vw, 34px) 0 0",
       profileOpen: acc.profile !== false, creditsOpen: !!acc.credits,
       profileSign: acc.profile !== false ? "–" : "+", creditsSign: acc.credits ? "–" : "+",
       toggleProfile: tog("profile"), toggleCredits: tog("credits"),

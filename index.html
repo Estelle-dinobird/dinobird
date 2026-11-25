@@ -21,8 +21,6 @@
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="_ds/broadsheet-8310ee95-1d29-4861-8f00-9b7d07f3888f/styles.css">
-<script src="_ds/broadsheet-8310ee95-1d29-4861-8f00-9b7d07f3888f/_ds_bundle.js"></script>
 <script src="image-slot.js"></script>
 <script src="supabase-config.js"></script>
 <script src="dino-cloud.js"></script>
@@ -944,7 +942,7 @@ class Component extends DCLogic {
       badge: badge,
       hasBadge: badge !== "",
       slot: slugify(a.name),
-      photo: a.photo || "",
+      photo: /^media\/artists\/[^/]+\/card\.jpg$/.test(a.photo || "") ? a.photo.replace("/card.jpg", "/card-s.jpg") : (a.photo || ""),
       ff: withCut(fitOf(a.photoFit), a.photoCut, a.cat),
       hasPhoto: !!a.photo,
       noPhoto: !a.photo,
@@ -1118,7 +1116,7 @@ class Component extends DCLogic {
       hasHeroImg: heroImgs.length > 0, noHeroImg: heroImgs.length === 0,
       cur,
       hasThumbs: heroImgs.length > 1,
-      thumbs: heroImgs.slice(0, 6).map((h, i) => ({ src: h.thumb || h.src, pos: h.thumb ? "50% 50%" : ((h.ff && h.ff.pos) || "50% 20%"), label: h.label, ring: i === hi ? "#3d3b38" : "transparent", op: i === hi ? 1 : 0.82, pick: () => this.setState({ heroIdx: i }) })),
+      thumbs: heroImgs.slice(0, 6).map((h, i) => ({ src: h.thumb ? h.thumb.replace(/\/(t34-[a-z0-9]+|card)\.jpg$/, "/tn-$1.jpg") : h.src, pos: h.thumb ? "50% 50%" : ((h.ff && h.ff.pos) || "50% 20%"), label: h.label, ring: i === hi ? "#3d3b38" : "transparent", op: i === hi ? 1 : 0.82, pick: () => this.setState({ heroIdx: i }) })),
       nameUpper: nm.toUpperCase(),
       ctaBg: info2.bg || "#ffffff",
       ctaFg: info2.fg || "#3d3b38",

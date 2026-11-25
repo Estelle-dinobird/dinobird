@@ -913,7 +913,7 @@ const slugify = (s) => "dino-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
 class Component extends DCLogic {
   video = React.createRef();
-  state = { query: "", searchOpen: false, muted: true, page: "home", cat: "ALL", sort: "NEW", listPage: 0, artist: null, menuOpen: false, email: "", letterMsg: "", form: { name: "", email: "", brief: "" }, sent: false, sentName: "" };
+  state = { query: "", searchOpen: false, muted: true, page: "home", cat: "ALL", sort: "NAME", listPage: 0, artist: null, menuOpen: false, email: "", letterMsg: "", form: { name: "", email: "", brief: "" }, sent: false, sentName: "" };
 
   nav(page, extra) {
     return (e) => {
@@ -1146,7 +1146,7 @@ class Component extends DCLogic {
     const q = String(s.query || "").trim().toLowerCase();
     const searchHits = q ? ARTISTS.filter((a) => [a.name, a.cat, a.tags, a.base].join(" ").toLowerCase().indexOf(q) >= 0).slice(0, 8) : [];
     const inCat = s.cat === "ALL" ? ARTISTS.slice() : ARTISTS.filter((a) => a.cat === s.cat);
-    const sorted = s.sort === "NAME" ? inCat.slice().sort((x, y) => x.name.localeCompare(y.name)) : s.sort === "SECTION" ? inCat.slice().sort((x, y) => CATS.indexOf(x.cat) - CATS.indexOf(y.cat)) : inCat;
+    const sorted = s.sort === "NAME" ? inCat.slice().sort((x, y) => x.name.localeCompare(y.name)) : s.sort === "SECTION" ? inCat.slice().sort((x, y) => (CATS.indexOf(x.cat) - CATS.indexOf(y.cat)) || x.name.localeCompare(y.name)) : inCat;
     const pageCount = Math.max(1, Math.ceil(sorted.length / PER_PAGE));
     const cur = Math.min(s.listPage, pageCount - 1);
     const listed = sorted.slice(cur * PER_PAGE, cur * PER_PAGE + PER_PAGE);
@@ -1531,7 +1531,7 @@ class Component extends DCLogic {
         const n = c === "ALL" ? ARTISTS.length : ARTISTS.filter((a) => a.cat === c).length;
         return { no: String(ti).padStart(2, "0"), text: c + " (" + n + ")", label: c, n: String(n), active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
       }),
-      sorts: ["NEW", "NAME", "SECTION"].map((k) => ({ label: k, active: s.sort === k, inactive: s.sort !== k, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sort: k, listPage: 0 }); } })),
+      sorts: ["NAME", "NEW", "SECTION"].map((k) => ({ label: k, active: s.sort === k, inactive: s.sort !== k, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sort: k, listPage: 0 }); } })),
       countLabel: sorted.length + " ARTISTS",
       listed: listed.map((a) => this.card(a)),
       listEmpty: sorted.length === 0,

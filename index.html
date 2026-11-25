@@ -906,7 +906,7 @@ const parseRoute = () => {
   if (!parts.length) return { page: "home" };
   const p = parts[0];
   if (p === "artist" && parts[1]) return { page: "artist", artist: parts[1], heroIdx: 0 };
-  if (p === "artists") return { page: "artists", cat: parts[1] ? parts[1].replace(/-/g, " ").toUpperCase() : "ALL", listPage: 0 };
+  if (p === "artists") return { page: "artists", cat: parts[1] && parts[1].toLowerCase() !== "era" ? parts[1].replace(/-/g, " ").toUpperCase() : "ALL", listPage: 0 };
   if (["about", "work", "letter", "contact"].indexOf(p) >= 0) return { page: p };
   return { page: "home" };
 };
@@ -1237,7 +1237,7 @@ class Component extends DCLogic {
       },
       menuOpen: s.menuOpen,
 
-      menuCats: CATS.map((c) => ({ label: c, go: this.nav("artists", { cat: c, listPage: 0 }) })),
+      menuCats: ["ERA"].concat(CATS.filter((c) => c !== "ERA")).map((c) => ({ label: c, go: this.nav("artists", { cat: c === "ERA" ? "ALL" : c, listPage: 0 }) })),
       catTitle: s.cat === "ALL" ? "Dino Artist" : s.cat === "HOT COLOR" ? "Hot Color" : s.cat.charAt(0) + s.cat.slice(1).toLowerCase(),
       catNote: CAT_NOTE[s.cat],
       hideImg: (e) => { if (e && e.currentTarget) e.currentTarget.style.opacity = "0"; },
@@ -1529,9 +1529,9 @@ class Component extends DCLogic {
           img: ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
         };
       })(),
-      tabs: ["ALL"].concat(CATS).map((c, ti) => {
+      tabs: ["ALL"].concat(CATS.filter((c) => c !== "ERA")).map((c, ti) => {
         const n = c === "ALL" ? ARTISTS.length : ARTISTS.filter((a) => a.cat === c).length;
-        return { no: String(ti).padStart(2, "0"), text: c + " (" + n + ")", label: c, n: String(n), active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
+        return { no: String(ti).padStart(2, "0"), text: (c === "ALL" ? "ERA" : c) + " (" + n + ")", label: c === "ALL" ? "ERA" : c, n: String(n), active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
       }),
       sorts: ["NAME", "NEW", "SECTION"].map((k) => ({ label: k, active: s.sort === k, inactive: s.sort !== k, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sort: k, listPage: 0 }); } })),
       countLabel: sorted.length + " ARTISTS",
@@ -1541,7 +1541,7 @@ class Component extends DCLogic {
       homeStrip: ARTISTS.concat(ARTISTS).map((a) => this.card(a)),
       homeNew: ARTISTS.filter((a) => a.cat === "ERA" || a.cat === "HOT COLOR").slice(0, 4).map((a) => this.card(a)),
       tilesLeave: () => { if (!this.touchMode) this.setState({ hoverTile: null }); },
-      sectionTiles: CATS.map((c) => { const on = false; const sel = s.hoverTile === c; const dim = !!s.hoverTile && !sel; const go = this.nav("artists", { cat: c, listPage: 0 }); return {
+      sectionTiles: CATS.map((c) => { const on = false; const sel = s.hoverTile === c; const dim = !!s.hoverTile && !sel; const go = this.nav("artists", { cat: c === "ERA" ? "ALL" : c, listPage: 0 }); return {
         outline: sel ? "#111111" : "transparent", offset: sel ? "9px" : "3px", lift: sel ? "translateY(-4px)" : "none", shadow: sel ? "0 14px 28px -18px rgba(0, 0, 0, 0.45)" : "none", opacity: dim ? 0.32 : 1,
         enter: () => { if (!this.touchMode) this.setState({ hoverTile: c }); },
         touch: () => { this.touchMode = true; },

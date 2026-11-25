@@ -4807,7 +4807,7 @@ class Component extends DCLogic {
         }));
       })(),
       hasRelated: !!s.edit && s.artists.some((x, j) => j !== s.edit.index && x.live !== false && x.cat === draft.cat),
-      catOptions: s.cats.map((name) => ({ name })),
+      catOptions: s.cats.filter((name) => name !== "ERA" || draft.cat === "ERA").map((name) => ({ name })),
       selectKey: (s.edit ? s.edit.index : "x") + "-" + s.cats.join("|"),
       detailFields: [["NAME", "realName", "본명 (예: 권다옴)"], ["HEIGHT", "height", "키 (예: 168)"], ["SIZE", "size", "상의 / 하의 / 신발 (예: 55 / 26 / 240)"], ["EYES", "eye", "Dark Brown"], ["HAIR", "hair", "Black"], ["BASE", "base", "Seoul"], ["CREDITS", "credits", "2026 · 뮤직비디오 · 프로젝트명 · 역할 (한 줄에 하나)"]].map(([label, key, hint]) => ({
         label, hint, value: draft[key] || "", set: this.setDraft(key), long: key === "credits", short: key !== "credits"

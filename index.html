@@ -1238,7 +1238,7 @@ class Component extends DCLogic {
       },
       menuOpen: s.menuOpen,
 
-      menuCats: ["ERA"].concat(CATS.filter((c) => c !== "ERA")).map((c) => ({ label: c, go: this.nav("artists", { cat: c === "ERA" ? "ALL" : c, listPage: 0 }) })),
+      menuCats: CATS.filter((c) => c !== "ERA").concat(["ERA"]).map((c) => ({ label: c === "ERA" ? "ERA (ALL)" : c, go: this.nav("artists", { cat: c === "ERA" ? "ALL" : c, listPage: 0 }) })),
       catTitle: s.cat === "ALL" ? "Dino Artist" : s.cat === "HOT COLOR" ? "Hot Color" : s.cat.charAt(0) + s.cat.slice(1).toLowerCase(),
       catNote: CAT_NOTE[s.cat],
       hideImg: (e) => { if (e && e.currentTarget) e.currentTarget.style.opacity = "0"; },
@@ -1530,9 +1530,9 @@ class Component extends DCLogic {
           img: ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
         };
       })(),
-      tabs: ["ALL"].concat(CATS.filter((c) => c !== "ERA")).map((c, ti) => {
+      tabs: CATS.filter((c) => c !== "ERA").concat(["ALL"]).map((c, ti) => {
         const n = c === "ALL" ? ARTISTS.length : ARTISTS.filter((a) => a.cat === c).length;
-        return { no: String(ti).padStart(2, "0"), text: (c === "ALL" ? "ERA" : c) + " (" + n + ")", label: c === "ALL" ? "ERA" : c, n: String(n), active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
+        return { no: String(ti).padStart(2, "0"), text: (c === "ALL" ? "ERA (ALL)" : c) + " (" + n + ")", label: c === "ALL" ? "ERA (ALL)" : c, n: String(n), active: s.cat === c, inactive: s.cat !== c, go: this.nav("artists", { cat: c, listPage: 0 }) };
       }),
       sorts: ["NAME", "NEW", "SECTION"].map((k) => ({ label: k, active: s.sort === k, inactive: s.sort !== k, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sort: k, listPage: 0 }); } })),
       countLabel: sorted.length + " ARTISTS",

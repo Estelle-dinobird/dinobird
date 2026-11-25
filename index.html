@@ -1146,7 +1146,8 @@ class Component extends DCLogic {
   baseVals() {
     const s = this.state;
     const q = String(s.query || "").trim().toLowerCase();
-    const searchHits = q ? ARTISTS.filter((a) => [a.name, a.cat, a.tags, a.base].join(" ").toLowerCase().indexOf(q) >= 0).slice(0, 8) : [];
+    const qq = q.replace(/\s+/g, "");
+    const searchHits = q ? ARTISTS.filter((a) => { const hay = [a.name, a.realName, a.cat, a.tags, a.base].join(" ").toLowerCase(); return hay.indexOf(q) >= 0 || hay.replace(/\s+/g, "").indexOf(qq) >= 0; }).slice(0, 8) : [];
     const inCat = s.cat === "ALL" ? ARTISTS.slice() : ARTISTS.filter((a) => a.cat === s.cat);
     const sorted = s.sort === "NAME" ? inCat.slice().sort((x, y) => x.name.localeCompare(y.name)) : s.sort === "SECTION" ? inCat.slice().sort((x, y) => (CATS.indexOf(x.cat) - CATS.indexOf(y.cat)) || x.name.localeCompare(y.name)) : inCat;
     const pageCount = Math.max(1, Math.ceil(sorted.length / PER_PAGE));
@@ -1658,7 +1659,7 @@ class Component extends DCLogic {
         if (e.key === "Escape") { this.setState({ searchOpen: false }); e.target.blur(); }
         if (e.key === "Enter") { const first = searchHits[0]; if (first) { this.nav("artist", { artist: first.name })(); this.setState({ query: "", searchOpen: false }); e.target.blur(); } }
       },
-      results: searchHits.map((a) => ({ name: a.name, cat: a.cat, open: (e) => { this.nav("artist", { artist: a.name })(e); this.setState({ query: "", searchOpen: false }); } })),
+      results: searchHits.map((a) => ({ name: a.realName ? a.name + " · " + a.realName : a.name, cat: a.cat, open: (e) => { this.nav("artist", { artist: a.name })(e); this.setState({ query: "", searchOpen: false }); } })),
       showResults: s.searchOpen && q.length > 0,
       noResults: q.length > 0 && searchHits.length === 0,
       openMenu: () => this.setState({ menuOpen: true }),

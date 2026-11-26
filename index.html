@@ -104,7 +104,7 @@
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
        <div>
         <div style="position: relative; width: 100%; height: calc(100svh - 125px); min-height: 320px; overflow: hidden; background: #111111; container-type: size;">
-          <video ref="{{ videoRef }}" data-dino-hero="1" src="{{ heroSrc }}" onError="{{ onHeroError }}" preload="auto" playsinline="" webkit-playsinline="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" style="{{ heroVideoStyle }}"></video>
+          <video ref="{{ videoRef }}" data-dino-hero="1" src="{{ heroSrc }}" poster="{{ heroPoster }}" onError="{{ onHeroError }}" preload="auto" playsinline="" webkit-playsinline="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" style="{{ heroVideoStyle }}"></video>
           <div style="{{ heroOverlayStyle }}"></div>
           <button type="button" onClick="{{ toggleSound }}" aria-label="{{ soundLabel }}" title="{{ soundLabel }}" style="position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; justify-content: center; color: #ffffff; background: none; border: none; cursor: pointer; padding: 4px; opacity: 0.85;" style-hover="opacity: 1; color: #6b6b6b;">
             <sc-if value="{{ muted }}" hint-placeholder-val="{{ true }}">
@@ -954,7 +954,9 @@ class Component extends DCLogic {
   heroCandidates() {
     const c = this.state && this.state.cms && this.state.cms.heroFile;
     if (!c && !(this.state && this.state.cmsTried)) return [];
-    const list = [c, "media/hero-1080.mp4"].filter(Boolean);
+    const small = (typeof window !== "undefined" && window.innerWidth < 760) ? "media/hero-720.mp4" : "media/hero-1080-v2.mp4";
+    const main = (!c || c === "media/hero-1080.mp4") ? small : c;
+    const list = [main, "media/hero-1080.mp4"].filter(Boolean);
     return list.filter((v, i) => list.indexOf(v) === i);
   }
 
@@ -1163,6 +1165,7 @@ class Component extends DCLogic {
 
     return {
       isHome: s.page === "home",
+      heroPoster: (!(s.cms && s.cms.heroFile) || (s.cms && s.cms.heroFile === "media/hero-1080.mp4")) ? "media/hero-poster.jpg" : undefined,
       heroSrc: this.heroCandidates()[Math.min(s.heroTry || 0, this.heroCandidates().length - 1)] || undefined,
       onHeroError: () => {
         const n = (this.state.heroTry || 0) + 1;

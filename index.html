@@ -1524,7 +1524,7 @@ class Component extends DCLogic {
                 : "margin: 0; flex: " + g[1] + " 1 0; min-width: 0; aspect-ratio: " + g[1] + "; overflow: hidden; background: #e9e9e9;",
               img: "display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease;" + mono
             }));
-            if (all) { o.hasMedia = true; o.coverTitle = "display: none;"; o.posterRows = "display: none;"; if (!nar) o.coverCopyBox = "display: none;"; o.metaOnPhoto = "display: none;"; o.posterGhost = "display: none;"; o.posterOutline = "display: none;"; o.shade = "display: none;"; o.fade = "display: none;"; o.imgStyle = o.imgStyle.replace("object-position: 50% 28%;", "object-position: 50% 50%;"); }
+            if (all) { o.hasMedia = true; o.coverTitle = "display: none;"; o.posterRows = "display: none;"; if (!nar) o.coverCopyBox = "display: none;"; o.metaOnPhoto = "display: none;"; o.posterGhost = "display: none;"; o.posterOutline = "display: none;"; o.shade = false; o.fade = false; o.imgStyle = o.imgStyle.replace("object-position: 50% 28%;", "object-position: 50% 50%;"); }
             return o;
           })(),
           img: all ? ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners.ERA) || "media/sections/era-d2.jpg") : ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")

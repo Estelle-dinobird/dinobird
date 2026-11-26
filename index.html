@@ -1403,7 +1403,7 @@ class Component extends DCLogic {
               o.insetCap = capStyle("#3f6f93");
             }
             if (mode === "poster") {
-              const ink = all ? "#9ADBC5" : (info.ink || "#1d2b55");
+              const ink = all ? "#3d6b14" : (info.ink || "#1d2b55");
               o.isPoster = true;
               o.page = "display: block;";
               o.shade = false; o.fade = false;
@@ -1524,7 +1524,7 @@ class Component extends DCLogic {
                 : "margin: 0; flex: " + g[1] + " 1 0; min-width: 0; aspect-ratio: " + g[1] + "; overflow: hidden; background: #e9e9e9;",
               img: "display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease;" + mono
             }));
-            if (all) { o.hasMedia = true; o.coverTitle = "display: none;"; o.posterRows = "display: none;"; if (!nar) o.coverCopyBox = "display: none;"; o.metaOnPhoto = "display: none;"; o.posterGhost = "display: none;"; o.posterOutline = "display: none;"; o.shade = false; o.fade = false; o.imgStyle = o.imgStyle.replace("object-position: 50% 28%;", "object-position: 50% 50%;"); }
+            if (all) { o.hasMedia = true; o.coverTitle = "display: none;"; o.posterRows = "display: none;"; if (!nar) o.coverCopyBox = o.coverCopyBox.replace(/bottom: [^;]+;/, "top: clamp(24px, 4vh, 44px);"); o.metaOnPhoto = "display: none;"; o.posterGhost = "display: none;"; o.posterOutline = "display: none;"; o.shade = false; o.fade = false; o.imgStyle = o.imgStyle.replace("object-position: 50% 28%;", "object-position: 50% 50%;"); }
             return o;
           })(),
           img: all ? ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners.ERA) || "media/sections/era-d2.jpg") : ((s.cms && s.cms.sectionBanners && s.cms.sectionBanners[s.cat]) || "assets/artist-banner.png")
